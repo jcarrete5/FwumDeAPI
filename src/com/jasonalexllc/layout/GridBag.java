@@ -4,7 +4,7 @@ import java.awt.*;
 import javax.swing.*;
 
 /**
- * Helper methods for GridBagLayout's. Cannot be instantiated
+ * Helper methods for the GridBagLayout manager. Cannot be instantiated
  * @author Jason Carrete
  * @since Aug 7, 2014
  */
