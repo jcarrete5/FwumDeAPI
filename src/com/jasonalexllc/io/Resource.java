@@ -1,4 +1,4 @@
-package com.jasonalexllc.file;
+package com.jasonalexllc.io;
 
 /**
  * Contains helper methods for retrieving resources from jar files
