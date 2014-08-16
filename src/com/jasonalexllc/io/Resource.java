@@ -5,7 +5,7 @@ package com.jasonalexllc.io;
  * @author Jason Carrete
  * @since Aug 7, 2014
  */
-public class Resource
+public final class Resource
 {
 	/**
 	 * Can't be instantiated
