@@ -24,6 +24,16 @@ public class Log
 	static
 	{
 		log("START OF SESSION...");
+		log("START OF SESSION...", fileName);
+	}
+	
+	/**
+	 * Ends the current logging session
+	 */
+	public static void end()
+	{
+		log("END OF SESSION...");
+		log("END OF SESSION...", fileName);
 	}
 	
 	/**
