@@ -46,7 +46,7 @@ public final class GridBag
 	
 	/**
 	 * Adds the specified JComponent, c, to the JPanel, p, using the GridBagLayout manager with the specified constraints.
-	 * @param p JPanel that has something to be added
+	 * @param p Container that has something to be added
 	 * @param c JComponent to be added
 	 * @param x Column for the JComponent
 	 * @param y Row for the JComponent
@@ -61,7 +61,7 @@ public final class GridBag
 	
 	/**
 	 * Adds the specified JComponent, c, to the JPanel, p, using the GridBagLayout manager with the specified constraints.
-	 * @param p JPanel that has something to be added
+	 * @param p Container that has something to be added
 	 * @param c JComponent to be added
 	 * @param x Column for the JComponent
 	 * @param y Row for the JComponent
