@@ -17,7 +17,7 @@ public final class GridBag
 	
 	/**
 	 * Adds the specified JComponent, c, to the JPanel, p, using the GridBagLayout manager with the specified constraints.
-	 * @param p JPanel that has something to be added
+	 * @param p Container that has something to be added
 	 * @param c JComponent to be added
 	 * @param x Column for the JComponent
 	 * @param y Row for the JComponent
@@ -29,7 +29,7 @@ public final class GridBag
 	 * @param fill Determines if the JComponent should expand to fill an area
 	 * @param insets How many pixels the JComponent should be shrunk in on each side
 	 */
-	public static void add(JPanel p, JComponent c, int x, int y, int width, int height, double weightx, double weighty, int align, int fill, Insets insets)
+	public static void add(Container p, JComponent c, int x, int y, int width, int height, double weightx, double weighty, int align, int fill, Insets insets)
 	{
 		GridBagConstraints gc = new GridBagConstraints();
 		gc.anchor = align;
@@ -54,7 +54,7 @@ public final class GridBag
 	 * @param height Amount of y space the JComponent should take up
 	 * @param align The area the JComponent should be anchored to
 	 */
-	public static void add(JPanel p, JComponent c, int x, int y, int width, int height, int align)
+	public static void add(Container p, JComponent c, int x, int y, int width, int height, int align)
 	{
 		add(p, c, x, y, width, height, 1.0, 1.0, align, GridBagConstraints.NONE, new Insets(5, 5, 5, 5));
 	}
@@ -70,7 +70,7 @@ public final class GridBag
 	 * @param align The area the JComponent should be anchored to
 	 * @param fill Determines if the JComponent should expand to fill an area
 	 */
-	public static void add(JPanel p, JComponent c, int x, int y, int width, int height, int align, int fill)
+	public static void add(Container p, JComponent c, int x, int y, int width, int height, int align, int fill)
 	{
 		add(p, c, x, y, width, height, 1.0, 1.0, align, fill, new Insets(5, 5, 5, 5));
 	}}
