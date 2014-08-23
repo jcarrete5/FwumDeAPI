@@ -8,8 +8,10 @@ import javax.swing.*;
  * @author Jason Carrete
  * @since Aug 7, 2014
  */
-public final class GridBag
+public final class GridBag extends GridBagConstraints
 {
+	private static final long serialVersionUID = -1679799506099296873L;
+
 	/**
 	 * Can't be instantiated
 	 */
