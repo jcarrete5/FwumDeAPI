@@ -1,5 +1,9 @@
 package com.jasonalexllc.io;
 
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+
 /**
  * Contains helper methods for retrieving resources from jar files
  * @author Jason Carrete
@@ -12,4 +16,8 @@ public final class Resource
 	 */
 	private Resource() {}
 	
+	public static BufferedImage getSpriteSheet(Class c, String imgPath) throws IOException
+	{
+		return ImageIO.read(c.getResource(imgPath));
+	}
 }
