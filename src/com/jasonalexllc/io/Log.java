@@ -21,7 +21,7 @@ public class Log
 	 */
 	public static String fileName = "log.txt";
 	
-	static
+	public static void start()
 	{
 		log("START OF SESSION...");
 		log("START OF SESSION...", fileName);
