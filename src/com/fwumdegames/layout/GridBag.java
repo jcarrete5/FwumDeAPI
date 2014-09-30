@@ -1,4 +1,4 @@
-package com.jasonalexllc.layout;
+package com.fwumdegames.layout;
 
 import java.awt.*;
 import javax.swing.*;
