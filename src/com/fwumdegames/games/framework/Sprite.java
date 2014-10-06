@@ -33,4 +33,10 @@ public class Sprite extends JComponent
 		super.paintComponent(g);
 		g.drawImage(source,this.getX(), this.getY(), null);
 	}
+	
+	public void dispose()
+	{
+		source.flush();
+		System.gc();
+	}
 }
