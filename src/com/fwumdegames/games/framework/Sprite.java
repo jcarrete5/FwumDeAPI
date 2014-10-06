@@ -35,7 +35,7 @@ public class Sprite extends JComponent
 	public void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);
-		g.drawImage(source,this.getX(), this.getY(), null);
+		g.drawImage(source, this.getX(), this.getY(), null);
 	}
 	
 	public Rectangle getRectangle()
