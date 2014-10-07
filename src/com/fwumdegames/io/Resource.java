@@ -25,11 +25,18 @@ public final class Resource
 	 * @return A BufferedImage that represents a sprite sheet.
 	 * @throws IOException
 	 */
-	public static BufferedImage getSpriteSheet(Class<?> c, String imgPath) throws IOException
+	public static BufferedImage getImageResource(Class<?> c, String imgPath) throws IOException
 	{
 		return ImageIO.read(c.getResource(imgPath));
 	}
 	
+	/**
+	 * 
+	 * @param c
+	 * @param imgPath
+	 * @return
+	 * @deprecated
+	 */
 	public static Image getImage(Class<?> c, String imgPath)
 	{
 		return new ImageIcon(c.getResource(imgPath)).getImage();
