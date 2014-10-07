@@ -9,7 +9,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 /**
- * To represent an INI file
+ * Represents an INI file
  * @author Ryan Goldstein
  */
 public class Ini
@@ -19,10 +19,8 @@ public class Ini
 	 * [Section]
 	 * Key = Value
 	 * Key = Value
-	 * [End]
 	 * [Section]
 	 * Key = Vale
-	 * [End]
 	 * 
 	 * Sections may not be repeated
 	 * Keys may not be repeated within the same section
@@ -56,7 +54,7 @@ public class Ini
 		//Turn the chunks into section
 		for(int i = 0; i < chunks.length; i++)
 		{
-			sections[i] = new Section();
+			sections[i] = new Section();			
 			sections[i].fromChunk(chunks[i].split("\n"));
 		}
 	}

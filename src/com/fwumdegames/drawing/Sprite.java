@@ -15,9 +15,9 @@ import javax.swing.JComponent;
  * Represents an image with an x and y location
  * @author Ryan Goldstein
  */
+@SuppressWarnings("serial")
 public class Sprite extends JComponent
 {
-	private static final long serialVersionUID = -2002162758916094223L;
 	private BufferedImage source;
 	private Rectangle hitbox;
 	private double angle, originX, originY;
