@@ -1,4 +1,4 @@
-package com.fwumdegames.games.framework;
+package com.fwumdegames.drawing;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;

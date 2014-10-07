@@ -1,4 +1,4 @@
-package com.fwumdegames.games.framework;
+package com.fwumdegames.io;
 
 
 import java.io.BufferedReader;
