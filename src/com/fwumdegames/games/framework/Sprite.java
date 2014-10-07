@@ -2,6 +2,8 @@ package com.fwumdegames.games.framework;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -17,7 +19,8 @@ public class Sprite extends JComponent
 {
 	private static final long serialVersionUID = -2002162758916094223L;
 	private BufferedImage source;
-	private Rectangle rect;
+	private Rectangle hitbox;
+	private double angle, originX, originY;
 	
 	public Sprite(String path) throws IOException
 	{
@@ -34,13 +37,16 @@ public class Sprite extends JComponent
 	@Override
 	public void paintComponent(Graphics g)
 	{
+		AffineTransform tx = AffineTransform.getRotateInstance(angle,originX, originY);
+		AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
+		
 		super.paintComponent(g);
-		g.drawImage(source,this.getX(), this.getY(), null);
+		g.drawImage(op.filter(source, null),this.getX(), this.getY(), null);
 	}
 	
 	public Rectangle getRectangle()
 	{
-		return rect;
+		return hitbox;
 	}
 	
 	public void dispose()
@@ -51,6 +57,6 @@ public class Sprite extends JComponent
 	
 	private void setRectangle()
 	{
-		rect = new Rectangle(this.getX(),this.getY(), source.getWidth(), source.getHeight());
+		hitbox = new Rectangle(this.getX(),this.getY(), source.getWidth(), source.getHeight());
 	}
 }
