@@ -12,7 +12,7 @@ import java.io.IOException;
  * Represents an INI file
  * @author Ryan Goldstein
  */
-public class Ini
+public class INI
 {
 	/*
 	 * INI file format-
@@ -32,7 +32,7 @@ public class Ini
 	 * @param file The ini file to read
 	 * @throws IOException
 	 */
-	public Ini(File file) throws IOException
+	public INI(File file) throws IOException
 	{
 		//Get a buffered reader for the ini file
 		if(!file.exists())

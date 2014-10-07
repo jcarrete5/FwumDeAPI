@@ -2,7 +2,9 @@ package com.fwumdegames.io;
 
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
@@ -25,16 +27,23 @@ public final class Resource
 	 * @return A BufferedImage that represents a sprite sheet.
 	 * @throws IOException
 	 */
-	public static BufferedImage getImageResource(Class<?> c, String imgPath) throws IOException
+	public static BufferedImage getImageAsResource(Class<?> c, String imgPath) throws IOException
 	{
 		return ImageIO.read(c.getResource(imgPath));
 	}
 	
 	/**
-	 * 
-	 * @param c
-	 * @param imgPath
-	 * @return
+	 * Returns a File as a resource inside of a jar file.
+	 * @param c The location of the class is used to find the File.
+	 * @param path The name of the File to be found.
+	 * @return A File in the jarfile.
+	 */
+	public static File getFile(Class<?> c, String path) throws URISyntaxException
+	{
+		return new File(c.getResource(path).toURI());
+	}
+	
+	/**
 	 * @deprecated
 	 */
 	public static Image getImage(Class<?> c, String imgPath)
