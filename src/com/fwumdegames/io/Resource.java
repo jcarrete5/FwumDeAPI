@@ -11,7 +11,7 @@ import javax.swing.ImageIcon;
 /**
  * Contains helper methods for retrieving resources from jar files
  * @author Jason Carrete
- * @since Aug 7, 2014
+ * @since Oct 7, 2014
  */
 public final class Resource
 {
