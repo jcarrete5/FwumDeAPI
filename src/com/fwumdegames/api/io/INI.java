@@ -197,10 +197,10 @@ public class INI
 	}
 	
 	public class SectionNotFoundException extends Exception
-	{		private static final long serialVersionUID = 1L;}
+	{ private static final long serialVersionUID = 8704838582850351303L; }
 	
 	public class KeyNotFoundException extends Exception
-	{		private static final long serialVersionUID = 1L;}
+	{ private static final long serialVersionUID = 2398151861187672952L; }
 	
 	private class Section
 	{
