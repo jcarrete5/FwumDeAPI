@@ -1,4 +1,4 @@
-package com.fwumdegames.io;
+package com.fwumdegames.api.io;
 
 
 import java.io.BufferedReader;

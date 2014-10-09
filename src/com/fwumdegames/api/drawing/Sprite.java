@@ -1,4 +1,4 @@
-package com.fwumdegames.drawing;
+package com.fwumdegames.api.drawing;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;

@@ -1,4 +1,4 @@
-package com.fwumdegames.layout;
+package com.fwumdegames.api.layout;
 
 import java.awt.*;
 import javax.swing.*;

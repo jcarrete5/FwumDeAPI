@@ -1,4 +1,4 @@
-package com.fwumdegames.io;
+package com.fwumdegames.api.io.sound;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,14 +10,13 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 /**
  * Creates a Sound object that can play a sound.
- * @author Ryan Goldstein, Jason Carrete
- * @since Oct 8 2014
+ * @author Jason Carrete
+ * @since Oct 9 2014
  */
-public class Sound
+public class Sound extends AbstractSound
 {
 	private AudioInputStream ais;
 	private Clip clip;
-	private Thread activeThread;
 	
 	/**
 	 * Instantiates a new Sound object from the specified file.
@@ -38,13 +37,17 @@ public class Sound
 		this(new File(path));
 	}
 	
-	/**
-	 * Plays the sound once. Can also be used to resume the sound after it has been paused.
-	 */
+	@Override
+	public void open() throws LineUnavailableException, IOException
+	{
+		clip.open(ais);
+	}
+	
+	@Override
 	public void play() throws LineUnavailableException, IOException
 	{
 		if(!clip.isOpen())
-			clip.open(ais);
+			open();
 		
 		if(!clip.isRunning())
 		{
@@ -53,14 +56,11 @@ public class Sound
 		}
 	}
 	
-	/**
-	 * Plays the sound <tt>count</tt> times.
-	 * @param count Number of times the audio should loop.
-	 */
+	@Override
 	public void loop(int count) throws LineUnavailableException, IOException
 	{
 		if(!clip.isOpen())
-			clip.open(ais);
+			open();
 		
 		if(!clip.isRunning())
 		{
@@ -69,19 +69,20 @@ public class Sound
 		}
 	}
 	
-	/**
-	 * Pauses the sound from playing. Has no effect if the sound has already been paused.
-	 */
+	@Override
 	public void pause()
 	{
 		if(clip.isRunning())
 			activeThread.interrupt();
 	}
 	
-	/**
-	 * Stops the <tt>activeThread</tt> and flushes the AudioBuffer of the sound file.<br>
-	 * Renders this object useless.
-	 */
+	@Override
+	public void setMicrosecondPosition(long µs)
+	{
+		clip.setMicrosecondPosition(µs);
+	}
+	
+	@Override
 	public void close() throws IOException
 	{
 		activeThread.interrupt();
@@ -97,28 +98,22 @@ public class Sound
 	 * Runs the activeThread which guarantees that the sound will be playable.<br>
 	 * The thread will loop <tt>TIMES</tt> times.
 	 */
-	private void active(final int TIMES)
+	void active(final int TIMES)
 	{
 		Runnable active = () ->
 		{
-			int count = TIMES;
-			
-			int ms = 10000;
-			if(count != Clip.LOOP_CONTINUOUSLY)
-			{
-				//calculates how many more ms it will take before the sound ends
-				long framesLeft = clip.getFrameLength() - clip.getLongFramePosition();
-				ms = (int)(framesLeft / clip.getFormat().getFrameRate() * 1000);
-			}
+			//calculates how many more ms it will take before the sound ends
+			long ms = (clip.getMicrosecondLength() - clip.getMicrosecondPosition()) / 1000;
+			if(TIMES != AbstractSound.LOOP_CONTINUOUSLY)
+				ms *= TIMES;
 			
 			try
 			{
 				do
 				{
 					Thread.sleep(ms);
-					count--;
 				}
-				while(count > 0 || TIMES == Clip.LOOP_CONTINUOUSLY);
+				while(TIMES == AbstractSound.LOOP_CONTINUOUSLY);
 			}
 			catch(InterruptedException e)
 			{
