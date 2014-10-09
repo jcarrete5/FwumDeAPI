@@ -4,13 +4,15 @@ Util-API
 FwumDeGames official API Library.
 
 Packages include:
-- com.fwumdegames.drawing
+- com.fwumdegames.api.drawing
 	- Sprite.java
-- com.fwumdegames.io
+- com.fwumdegames.api.io
 	- INI.java
-	- MIDI.java
 	- Resource.java
-	- Sound.java
 	- XML.java
-- com.fwumdegames.layout
+	-com.fwumdegames.api.io.sound
+    - AbstractSound.java
+		- Sound.java
+		- MIDI.java
+- com.fwumdegames.api.layout
 	- GridBag.java
