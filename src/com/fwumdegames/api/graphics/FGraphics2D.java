@@ -1,6 +1,7 @@
 package com.fwumdegames.api.graphics;
 
 import java.awt.Graphics2D;
+import java.awt.Point;
 
 /**
  * FwumDeGames version of the Graphics2D object.<br>
@@ -10,5 +11,13 @@ import java.awt.Graphics2D;
  */
 public abstract class FGraphics2D extends Graphics2D
 {
-
+	public void drawLine(double m, Point p1)
+	{
+		
+	}
+	
+	public void drawLine(double m, int yIntercept)
+	{
+		
+	}
 }
