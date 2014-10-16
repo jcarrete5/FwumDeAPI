@@ -27,12 +27,30 @@ public class INI
 	 */
 	Section[] sections;
 	File file;
+	String sepetator;
+	
 	/**
 	 * Creates an INI file reader
 	 * @param file The ini file to read
 	 * @throws IOException
 	 */
 	public INI(File file) throws IOException
+	{
+		parse(readText(file), "\n");
+	}
+	
+	/**
+	 * Creates an INI file reader
+	 * @param file The ini file to read
+	 * @param seperator The seperation between each key/value pair
+	 * @throws IOException
+	 */
+	public INI(File file, String seperator) throws IOException
+	{
+		parse(readText(file), seperator);
+	}
+	
+	private String readText(File file) throws IOException
 	{
 		//Get a buffered reader for the ini file
 		if(!file.exists())
@@ -41,21 +59,26 @@ public class INI
 		BufferedReader reader = new BufferedReader(read);
 		String line,contents = "";
 		this.file = file;
-		
+				
 		//Read all file lines
 		while((line = reader.readLine()) != null)
-			contents += line + "\n";
+				contents += line + "\n";
 		reader.close();
 		
+		return contents;
+	}
+	
+	private void parse(String contents, String seperator)
+	{
 		//Cut the contents into chunk
 		String[] chunks = contents.split("\\[");
 		sections = new Section[chunks.length];
-		
+				
 		//Turn the chunks into section
 		for(int i = 0; i < chunks.length; i++)
 		{
 			sections[i] = new Section();			
-			sections[i].fromChunk(chunks[i].split("\n"));
+			sections[i].fromChunk(chunks[i].split(seperator));
 		}
 	}
 	
