@@ -1,23 +1,18 @@
 package com.fwumdegames.api.math;
 
-import java.io.Serializable;
-
 /**
  * Represents a number as a fraction.
  * @author Jason Carrete
  * @since Oct 15, 2014
  */
-public class Fraction extends Number implements Serializable, Comparable<Fraction>
+public class Fraction extends Number implements Comparable<Fraction>
 {
-	private static final long serialVersionUID = -8442775016067593920L;
+	private static final long serialVersionUID = 8510120980909025007L;
 	
 	private int numer, denom;
 	
 	public Fraction(int numer, int denom)
 	{
-		if(denom == 0)
-			throw new IllegalArgumentException("Denominator cannot be \"0\"");
-		
 		this.numer = numer;
 		this.denom = denom;
 		
@@ -28,7 +23,6 @@ public class Fraction extends Number implements Serializable, Comparable<Fractio
 	{
 		denom = 1;
 		
-		//FIXME probably more efficient way of doing this
 		if(decimal == 0.0)
 			numer = 0;
 		else
@@ -43,10 +37,6 @@ public class Fraction extends Number implements Serializable, Comparable<Fractio
 					decimal *= 10;
 					denom *= 10;
 				}
-				
-				//divide by ten to remove the identifying "0"
-				numer = (int)decimal / 10;
-				denom /= 10;
 			
 				simplify();
 			}
@@ -63,22 +53,9 @@ public class Fraction extends Number implements Serializable, Comparable<Fractio
 	
 	private void simplify()
 	{
-		int gcd = gcd(numer, denom);
+		int gcd = FMath.gcd(numer, denom);
 		numer /= gcd;
 		denom /= gcd;
-	}
-	
-	private int gcd(int a, int b)
-	{
-		//follow Euclidean algorithm
-		while(b != 0)
-		{
-			int t = b;
-			b = a % b;
-			a = t;
-		}
-		
-		return a;
 	}
 	
 	public int getNumerator()
@@ -106,6 +83,15 @@ public class Fraction extends Number implements Serializable, Comparable<Fractio
 		simplify();
 	}
 	
+	/**
+	 * Returns a new Fraction that is the inverse of this one.
+	 * @return The inverse of this fraction.
+	 */
+	public Fraction inverse()
+	{
+		return new Fraction(denom, numer);
+	}
+	
 	@Override
 	public String toString()
 	{
@@ -121,19 +107,19 @@ public class Fraction extends Number implements Serializable, Comparable<Fractio
 	@Override
 	public int intValue()
 	{
-		return (int)(numer / denom);
+		return numer / denom;
 	}
 
 	@Override
 	public long longValue()
 	{
-		return (long)(numer / denom);
+		return (long)numer / denom;
 	}
 
 	@Override
 	public float floatValue()
 	{
-		return (float)(numer / denom);
+		return (float)numer / denom;
 	}
 
 	@Override

@@ -1,35 +1,40 @@
 package com.fwumdegames.api.graphics;
 
+import java.io.Serializable;
+import com.fwumdegames.api.math.Fraction;
+
 /**
- * A vector that stores a change in x and y and a direction.
+ * A vector that stores a change in x and y positions in two dimensions.
  * @author Jason Carrete
  * @since Oct. 15, 2014
  */
-public class Vector2D
+public class Vector2D implements Serializable
 {
-	public enum Direction {UP, RIGHT, DOWN, LEFT, NONE}
-	
+	private static final long serialVersionUID = -8436361899368277887L;
+
+	/**
+	 * Represents the speed(in pixels) a graphical object has when being drawn.
+	 */
 	public double x, y;
-	private Direction dir;
 	
-	public Vector2D(Direction dir, double x_spd, double y_spd)
+	/**
+	 * Instantiates a Vector2D with a change in x and a change in y.
+	 * @param x_spd Change in x.
+	 * @param y_spd Change in y.
+	 */
+	public Vector2D(double x_spd, double y_spd)
 	{
-		if(x_spd < 0 || y_spd < 0)
-			throw new IllegalArgumentException("Speed cannot be a negative value");
-		
 		x = x_spd;
 		y = y_spd;
-		this.dir = dir;
 	}
 	
-	public Vector2D(Direction dir)
+	/**
+	 * Instantiates a Vector2D with a fraction (rise/run).
+	 * @param m A Fraction
+	 */
+	public Vector2D(Fraction m)
 	{
-		this(dir, 0, 0);
-	}
-	
-	public Vector2D()
-	{
-		this(Direction.NONE);
+		this(m.getDenominator(), m.getNumerator());
 	}
 	
 	/**
@@ -37,16 +42,25 @@ public class Vector2D
 	 */
 	public Vector2D(Vector2D v)
 	{
-		this(v.getDir(), v.x, v.y);
+		this(v.x, v.y);
 	}
 	
-	public void setDir(Vector2D.Direction dir)
+	/**
+	 * Calculates and returns the direction the vector is traveling in degrees.
+	 * @return The direction the vector is traveling in degrees.
+	 */
+	public double getDirection()
 	{
-		this.dir = dir;
-	}
-	
-	public Direction getDir()
-	{
-		return dir;
+		double degBoost = 0.0;
+		
+		if(x > 0 && y < 0)
+			degBoost += 90.0;
+		else if(x < 0 && y < 0)
+			degBoost += 180.0;
+		else if(x < 0 && y > 0)
+			degBoost += 270.0;
+		
+		double slopePercent = Math.abs(y / x);
+		return Math.toDegrees(Math.atan(slopePercent)) + degBoost;
 	}
 }
