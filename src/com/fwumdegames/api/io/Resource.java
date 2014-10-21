@@ -1,15 +1,13 @@
 package com.fwumdegames.api.io;
 
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 
 /**
- * Contains helper methods for retrieving resources from jar files
+ * Contains helper methods for retrieving resources from jar files or files from a directory.
  * @author Jason Carrete
  * @since Oct 7, 2014
  */
@@ -32,6 +30,11 @@ public final class Resource
 		return ImageIO.read(c.getResource(imgPath));
 	}
 	
+	public static BufferedImage getImage(String imgPath) throws IOException
+	{
+		return ImageIO.read(new File(imgPath));
+	}
+	
 	/**
 	 * Returns a File as a resource inside of a jar file.
 	 * @param c The location of the class is used to find the File.
@@ -41,13 +44,5 @@ public final class Resource
 	public static File getFile(Class<?> c, String path) throws URISyntaxException
 	{
 		return new File(c.getResource(path).toURI());
-	}
-	
-	/**
-	 * @deprecated
-	 */
-	public static Image getImage(Class<?> c, String imgPath)
-	{
-		return new ImageIcon(c.getResource(imgPath)).getImage();
 	}
 }

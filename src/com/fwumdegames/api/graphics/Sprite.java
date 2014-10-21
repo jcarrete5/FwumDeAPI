@@ -1,63 +1,51 @@
 package com.fwumdegames.api.graphics;
 
-import java.awt.Graphics;
 import java.awt.Rectangle;
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-import javax.swing.JComponent;
+import java.io.Serializable;
 
 /**
- * Represents an image with an x and y location
- * @author Ryan Goldstein
+ * Represents an image with a hit-box and a vector.
+ * @author Jason Carrete
+ * @since Oct 20, 2014
  */
-public class Sprite extends JComponent
+public class Sprite extends BufferedImage implements Serializable
 {
-	private static final long serialVersionUID = 461741156337833990L;
+	private static final long serialVersionUID = -7599243419137335696L;
 	
-	private BufferedImage source;
-	private Rectangle hitbox;
-	private double angle, originX, originY;
-	
-	public Sprite(String path) throws IOException
+	public Rectangle hitbox;
+	public Vector2D v;
+
+	public Sprite(BufferedImage bimg, double x_spd, double y_spd, int x, int y)
 	{
-		source = ImageIO.read(new File(path));
-		setRectangle();
-	}
-	
-	public Sprite(File source) throws IOException
-	{
-		this.source = ImageIO.read(source);
-		setRectangle();
-	}
-	
-	@Override
-	public void paintComponent(Graphics g)
-	{
-		AffineTransform tx = AffineTransform.getRotateInstance(angle,originX, originY);
-		AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
+		super(bimg.getWidth(), bimg.getHeight(), bimg.getType());
+		setData(bimg.getData());
 		
-		super.paintComponent(g);
-		g.drawImage(op.filter(source, null),this.getX(), this.getY(), null);
+		hitbox = new Rectangle(getWidth(), getHeight(), x, y);
+		v = new Vector2D(x_spd, y_spd);
 	}
 	
-	public Rectangle getRectangle()
+	public Sprite(BufferedImage bimg, Vector2D v, int x, int y)
 	{
-		return hitbox;
+		this(bimg, v.x, v.y, x, y);
 	}
 	
-	public void dispose()
+	public Sprite(BufferedImage bimg, Vector2D v)
 	{
-		source.flush();
-		System.gc();
+		this(bimg, v.x, v.y, 0, 0);
 	}
 	
-	private void setRectangle()
+	public Sprite(BufferedImage bimg)
 	{
-		hitbox = new Rectangle(this.getX(),this.getY(), source.getWidth(), source.getHeight());
+		this(bimg, 0.0, 0.0, 0, 0);
+	}
+	
+	/**
+	 * Applies the vector to the position of the sprite.
+	 */
+	public void apply()
+	{
+		hitbox.x += v.x;
+		hitbox.y += v.y;
 	}
 }

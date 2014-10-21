@@ -5,8 +5,10 @@ FwumDeGames official API Library.
 
 Packages include:
 
-- com.fwumdegames.api.drawing
+- com.fwumdegames.api.graphics
+	- FGraphics2D.java
 	- Sprite.java
+	- Vector2D.java
 
 - com.fwumdegames.api.io
 	- INI.java
@@ -19,3 +21,7 @@ Packages include:
 
 - com.fwumdegames.api.layout
 	- GridBag.java
+
+- com.fwumdegames.api.math
+	- FMath.java
+	- Fraction.java
