@@ -21,7 +21,7 @@ public class Sprite extends BufferedImage implements Serializable
 		super(bimg.getWidth(), bimg.getHeight(), bimg.getType());
 		setData(bimg.getData());
 		
-		hitbox = new Rectangle(getWidth(), getHeight(), x, y);
+		hitbox = new Rectangle(x, y, getWidth(), getHeight());
 		v = new Vector2D(x_spd, y_spd);
 	}
 	
