@@ -10,6 +10,8 @@ import javax.swing.JPanel;
  */
 public abstract class FGame extends JPanel
 {
+	private static final long serialVersionUID = 1L;
+	
 	public FGame()
 	{
 		new Thread(new UpdateThread()).start();
