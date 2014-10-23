@@ -60,7 +60,14 @@ public class Vector2D implements Serializable
 		else if(x < 0 && y > 0)
 			degBoost += 270.0;
 		
-		double slopePercent = Math.abs(y / x);
-		return Math.toDegrees(Math.atan(slopePercent)) + degBoost;
+		double degrees;
+		if(x == 0)
+			degrees = 0;
+		else
+		{
+			double slopePercent = Math.abs(y / x);
+			degrees = Math.toDegrees(Math.atan(slopePercent)) + degBoost;
+		}
+		return degrees;
 	}
 }

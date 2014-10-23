@@ -53,8 +53,6 @@ public class INI
 	private String readText(File file) throws IOException
 	{
 		//Get a buffered reader for the ini file
-		if(!file.exists())
-			file.createNewFile();
 		FileReader read = new FileReader(file);
 		BufferedReader reader = new BufferedReader(read);
 		String line,contents = "";
