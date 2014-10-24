@@ -31,6 +31,12 @@ public class FEnvironment extends JPanel implements Serializable, Updatable
 		this(parent, new int[width / tileSize][height / tileSize], tileSize);
 	}
 	
+	/**
+	 * Creates an FEnvironment
+	 * @param parent The FGame it is contained in
+	 * @param walls The tile values
+	 * @param tileSize The pixel size of each tile
+	 */
 	public FEnvironment(FGame parent, int[][] walls, int tileSize)
 	{
 		entities = new ArrayList<FEntity>();
@@ -39,6 +45,7 @@ public class FEnvironment extends JPanel implements Serializable, Updatable
 		this.walls = walls;
 		this.setPreferredSize(new Dimension(walls.length * TILE_SIZE, walls[0].length * TILE_SIZE));
 	}
+
 	
 	@Override
 	/**
