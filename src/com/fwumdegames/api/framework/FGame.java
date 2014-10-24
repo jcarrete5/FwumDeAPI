@@ -41,9 +41,15 @@ public abstract class FGame extends JPanel
 		}
 	}
 	
-	protected void nextScreen()
+	public void nextScreen()
 	{
 		currentScreen++;
+		((CardLayout)this.getLayout()).show(this, screenKeys[currentScreen]); 
+	}
+	
+	public void previousScreen()
+	{
+		currentScreen--;
 		((CardLayout)this.getLayout()).show(this, screenKeys[currentScreen]); 
 	}
 	

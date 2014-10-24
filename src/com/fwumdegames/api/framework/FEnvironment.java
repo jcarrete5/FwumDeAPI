@@ -16,10 +16,12 @@ public class FEnvironment extends JPanel implements Serializable, Updatable
 {
 	private static final long serialVersionUID = 1L;
 	ArrayList<FEntity> entities;
+	private FGame parent;
 	
-	public FEnvironment()
+	public FEnvironment(FGame parent)
 	{
 		entities = new ArrayList<FEntity>();
+		this.parent = parent;
 	}
 	
 	@Override
@@ -42,5 +44,15 @@ public class FEnvironment extends JPanel implements Serializable, Updatable
 		for(FEntity entity : entities)
 			if(entity instanceof Drawable)
 				((Drawable) entity).draw(g);
+	}
+	
+	public void nextScreen()
+	{
+		parent.nextScreen();
+	}
+	
+	public void previousScreen()
+	{
+		parent.previousScreen();
 	}
 }
