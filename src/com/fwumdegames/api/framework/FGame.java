@@ -8,7 +8,7 @@ import javax.swing.JPanel;
  * Basic game framework
  * @author Ryan Goldstein
  */
-public abstract class FGame extends JPanel
+public class FGame extends JPanel
 {
 	private static final long serialVersionUID = 1L;
 	private String[] screenKeys;
