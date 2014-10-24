@@ -68,15 +68,17 @@ public class INI
 	
 	private void parse(String contents, String seperator)
 	{
+		contents = contents.replace("]", "");
 		//Cut the contents into chunk
 		String[] chunks = contents.split("\\[");
-		sections = new Section[chunks.length];
+		sections = new Section[chunks.length - 1];
 				
 		//Turn the chunks into section
-		for(int i = 0; i < chunks.length; i++)
+		for(int i = 1; i < sections.length + 1; i++)
 		{
-			sections[i] = new Section();			
-			sections[i].fromChunk(chunks[i].split(seperator));
+			sections[i - 1] = new Section();			
+			String title = chunks[i].split("\n")[0];
+			sections[i - 1].fromChunk(title, chunks[i].substring(title.length()).split(seperator));
 		}
 	}
 	
@@ -132,12 +134,13 @@ public class INI
 		String[] values = getSection(section).values;
 		String value;
 		int keyValue = -1;
+		assert keys != null;
 		
 		//Get key index
 		boolean found = false;
 		for(int i = 0; i < keys.length && !found; i++)
 		{
-			if(keys[i].equals(key))
+			if(keys[i].replace("\n","").equals(key))
 			{
 				found = true;
 				keyValue = i;
@@ -236,22 +239,21 @@ public class INI
 			this.values = null;
 		}
 		
-		public void fromChunk(String[] chunk)
+		public void fromChunk(String title, String[] keypairs)
 		{
+			this.title = title;
+			this.title = this.title.replace("[","");
+			this.title = this.title.replace("]","");
 			int equalsIndex,numpairs;
-			numpairs = chunk.length - 1;
-			//Initialize section information
-			title = chunk[0];
-			title = title.replace("[","");
-			title = title.replace("]","");
-			keys = new String[numpairs];
-			values = new String[numpairs];
+			numpairs = keypairs.length;
+			keys = new String[numpairs - 1];
+			values = new String[numpairs - 1];
 			
-			for(int i = 1; i < chunk.length; i++)
+			for(int i = 0; i < keypairs.length - 1; i++)
 			{
-				equalsIndex = chunk[i].indexOf("=");
-				keys[i - 1] = chunk[i].substring(0,equalsIndex);
-				values[i - 1] = chunk[i].substring(equalsIndex + 1);
+				equalsIndex = keypairs[i].indexOf("=");
+				keys[i] = keypairs[i].substring(0,equalsIndex).replace("\n", "");
+				values[i] = keypairs[i].substring(equalsIndex + 1);
 			}
 		}
 		
