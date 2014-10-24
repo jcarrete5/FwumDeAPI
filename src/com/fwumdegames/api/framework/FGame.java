@@ -17,7 +17,12 @@ public abstract class FGame extends JPanel
 		new Thread(new UpdateThread()).start();
 	}
 	private float previousTime;
-	public abstract void update(float deltaTime);
+	/**
+	 * Runs the game logic
+	 * @param deltaTime The milliseconds since the last update
+	 */
+	protected abstract void update(float deltaTime);
+	
 	private class UpdateThread implements Runnable
 	{
 		@Override
