@@ -21,6 +21,8 @@ public abstract class FGame extends JPanel
 	 */
 	public FGame(JPanel[] screens)
 	{
+		System.setProperty("sun.java2d.opengl","True");
+		
 		this.setLayout(new CardLayout());
 		this.screens = screens;
 		for(int i = 0; i < screens.length; i++)
