@@ -6,12 +6,14 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
 
+import com.fwumdegames.api.framework.Updatable;
+
 /**
  * Represents an image with a hit-box and a vector.
  * @author Jason Carrete
  * @since Oct 20, 2014
  */
-public class Sprite extends BufferedImage implements Serializable, Drawable
+public class Sprite extends BufferedImage implements Serializable, Drawable, Updatable
 {
 	private static final long serialVersionUID = -7599243419137335696L;
 	
@@ -87,12 +89,17 @@ public class Sprite extends BufferedImage implements Serializable, Drawable
 				g.drawImage(this, (int) hitbox.x, (int) hitbox.y, stretchWidth, stretchHeight, bgcolor, null);
 	}	
 	
+	public void update(float deltaTime)
+	{
+		this.applyVector(deltaTime);
+	}
+	
 	/**
 	 * Applies the vector to the position of the sprite.
 	 */
-	public void apply()
+	public void applyVector(float deltaTime)
 	{
-		hitbox.x += v.x;
-		hitbox.y += v.y;
+		hitbox.x += v.x * deltaTime;
+		hitbox.y += v.y * deltaTime;
 	}
 }

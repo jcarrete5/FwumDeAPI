@@ -1,5 +1,6 @@
 package com.fwumdegames.api.framework;
 
+import java.awt.CardLayout;
 import java.util.Date;
 
 import javax.swing.JPanel;
@@ -11,9 +12,20 @@ import javax.swing.JPanel;
 public abstract class FGame extends JPanel
 {
 	private static final long serialVersionUID = 1L;
+	private String[] screenKeys;
+	private int currentScreen;
+	private JPanel[] screens;
 	
-	public FGame()
+	public FGame(JPanel[] screens)
 	{
+		this.setLayout(new CardLayout());
+		this.screens = screens;
+		for(int i = 0; i < screens.length; i++)
+		{
+			screenKeys[i] = Integer.toString(i);
+			this.add(screens[i], screenKeys[i]);
+		}
+		
 		new Thread(new UpdateThread()).start();
 	}
 	private float previousTime;
@@ -21,7 +33,19 @@ public abstract class FGame extends JPanel
 	 * Runs the game logic
 	 * @param deltaTime The milliseconds since the last update
 	 */
-	protected abstract void update(float deltaTime);
+	protected void update(float deltaTime)
+	{
+		if(screens[currentScreen] instanceof Updatable)
+		{
+			((Updatable)screens[currentScreen]).update(deltaTime);
+		}
+	}
+	
+	protected void nextScreen()
+	{
+		currentScreen++;
+		((CardLayout)this.getLayout()).show(this, screenKeys[currentScreen]); 
+	}
 	
 	private class UpdateThread implements Runnable
 	{
