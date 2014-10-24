@@ -13,7 +13,7 @@ import com.fwumdegames.api.framework.Updatable;
  * @author Jason Carrete
  * @since Oct 20, 2014
  */
-public class Sprite extends BufferedImage implements Serializable, Drawable, Updatable
+public class Sprite extends BufferedImage implements Serializable, Updatable
 {
 	private static final long serialVersionUID = -7599243419137335696L;
 	

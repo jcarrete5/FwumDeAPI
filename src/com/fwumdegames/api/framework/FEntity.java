@@ -1,5 +1,6 @@
 package com.fwumdegames.api.framework;
 
+import java.awt.Graphics;
 import java.io.Serializable;
 
 /**
@@ -24,6 +25,11 @@ public abstract class FEntity implements Serializable, Updatable
 	protected void previousScreen()
 	{
 		parent.previousScreen();
+	}
+	
+	public void draw(Graphics g)
+	{
+		
 	}
 	
 	public abstract void update(float deltaTime);

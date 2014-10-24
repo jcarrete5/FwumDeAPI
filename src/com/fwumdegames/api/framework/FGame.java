@@ -1,7 +1,6 @@
 package com.fwumdegames.api.framework;
 
 import java.awt.CardLayout;
-import java.util.Date;
 
 import javax.swing.JPanel;
 
@@ -15,7 +14,7 @@ public abstract class FGame extends JPanel
 	private String[] screenKeys;
 	private int currentScreen;
 	private JPanel[] screens;
-	protected static final long IDEAL_NANO_FRAME = 1000000;
+
 	/**
 	 * Sets up the game
 	 * @param screens All of the menus and FEnvironments in the game
@@ -76,7 +75,7 @@ public abstract class FGame extends JPanel
 			while(!Thread.interrupted())
 			{
 				//Find the delta time
-				delta = (System.nanoTime() - previousTime) / IDEAL_NANO_FRAME;
+				delta = (System.nanoTime() - previousTime);
 				//Update and redraw the game
 				update(delta);
 				repaint();

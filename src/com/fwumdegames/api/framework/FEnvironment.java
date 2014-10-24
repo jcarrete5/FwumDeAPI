@@ -6,8 +6,6 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
-import com.fwumdegames.api.graphics.Drawable;
-
 /**
  * Stores and manages a set of FEntity objects
  * @author Ryan Goldstein
@@ -42,8 +40,7 @@ public class FEnvironment extends JPanel implements Serializable, Updatable
 	{
 		super.paintComponent(g);
 		for(FEntity entity : entities)
-			if(entity instanceof Drawable)
-				((Drawable) entity).draw(g);
+			entity.draw(g);
 	}
 	
 	public void nextScreen()
