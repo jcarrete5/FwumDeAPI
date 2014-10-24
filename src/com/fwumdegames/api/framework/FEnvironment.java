@@ -16,6 +16,10 @@ public class FEnvironment extends JPanel implements Serializable, Updatable
 	ArrayList<FEntity> entities;
 	private FGame parent;
 	
+	/**
+	 * Creates an FEnvironment
+	 * @param parent The FGame it is contained in
+	 */
 	public FEnvironment(FGame parent)
 	{
 		entities = new ArrayList<FEntity>();
@@ -43,11 +47,17 @@ public class FEnvironment extends JPanel implements Serializable, Updatable
 			entity.draw(g);
 	}
 	
+	/**
+	 * Moves on to the next FGame screen
+	 */
 	public void nextScreen()
 	{
 		parent.nextScreen();
 	}
 	
+	/**
+	 * Goes back to the previous FGame screen
+	 */
 	public void previousScreen()
 	{
 		parent.previousScreen();

@@ -6,5 +6,9 @@ package com.fwumdegames.api.framework;
  */
 public interface Updatable
 {
+	/**
+	 * Updates the object's state
+	 * @param deltaTime The nanoseconds since the last update
+	 */
 	public abstract void update(long deltaTime);
 }
