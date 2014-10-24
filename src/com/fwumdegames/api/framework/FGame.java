@@ -15,7 +15,11 @@ public abstract class FGame extends JPanel
 	private String[] screenKeys;
 	private int currentScreen;
 	private JPanel[] screens;
-	
+	protected static final long IDEAL_NANO_FRAME = 1000000;
+	/**
+	 * Sets up the game
+	 * @param screens All of the menus and FEnvironments in the game
+	 */
 	public FGame(JPanel[] screens)
 	{
 		this.setLayout(new CardLayout());
@@ -28,12 +32,12 @@ public abstract class FGame extends JPanel
 		
 		new Thread(new UpdateThread()).start();
 	}
-	private float previousTime;
+	
 	/**
 	 * Runs the game logic
 	 * @param deltaTime The milliseconds since the last update
 	 */
-	protected void update(float deltaTime)
+	protected void update(long deltaTime)
 	{
 		if(screens[currentScreen] instanceof Updatable)
 		{
@@ -41,32 +45,44 @@ public abstract class FGame extends JPanel
 		}
 	}
 	
+	/**
+	 * Moves on to the next screen
+	 */
 	public void nextScreen()
 	{
 		currentScreen++;
 		((CardLayout)this.getLayout()).show(this, screenKeys[currentScreen]); 
 	}
 	
+	/**
+	 * Moves back to the previous screen
+	 */
 	public void previousScreen()
 	{
 		currentScreen--;
 		((CardLayout)this.getLayout()).show(this, screenKeys[currentScreen]); 
 	}
 	
+	/**
+	 * Updates and repaints the game
+	 * @author Ryan Goldsten
+	 */
 	private class UpdateThread implements Runnable
 	{
 		@Override
 		public void run()
 		{
-			previousTime = (new Date()).getTime();
-			float delta;
+			long delta, previousTime = System.nanoTime();
 			while(!Thread.interrupted())
 			{
-				delta = (new Date()).getTime() - previousTime;
+				//Find the delta time
+				delta = (System.nanoTime() - previousTime) / IDEAL_NANO_FRAME;
+				//Update and redraw the game
 				update(delta);
 				repaint();
 				
-				if(delta < 1)
+				//Make sure there is at a minimum millisecond delay between frames
+				if(delta < 5)
 				{
 					try
 					{

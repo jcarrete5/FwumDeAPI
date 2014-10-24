@@ -6,5 +6,5 @@ package com.fwumdegames.api.framework;
  */
 public interface Updatable
 {
-	public abstract void update(float deltaTime);
+	public abstract void update(long deltaTime);
 }
