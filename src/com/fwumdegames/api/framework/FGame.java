@@ -25,6 +25,7 @@ public class FGame extends JPanel
 		
 		this.setLayout(new CardLayout());
 		this.screens = screens;
+		screenKeys = new String[screens.length];
 		for(int i = 0; i < screens.length; i++)
 		{
 			screenKeys[i] = Integer.toString(i);
