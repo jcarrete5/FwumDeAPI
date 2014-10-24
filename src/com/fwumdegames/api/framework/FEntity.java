@@ -6,5 +6,5 @@ package com.fwumdegames.api.framework;
  */
 public abstract class FEntity
 {
-	public abstract void update(float delta);
+	public abstract void update(float deltaTime);
 }
