@@ -1,8 +1,8 @@
 package com.fwumdegames.api.framework;
 
 import java.awt.Graphics;
+import java.awt.Shape;
 import java.io.Serializable;
-
 import com.fwumdegames.api.collision.Vector2D;
 
 /**

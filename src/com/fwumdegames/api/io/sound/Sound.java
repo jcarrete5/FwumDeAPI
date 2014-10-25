@@ -104,7 +104,7 @@ public class Sound extends AbstractSound
 		{
 			//calculates how many more ms it will take before the sound ends
 			long ms = (clip.getMicrosecondLength() - clip.getMicrosecondPosition()) / 1000;
-			if(TIMES != AbstractSound.LOOP_CONTINUOUSLY)
+			if(TIMES != LOOP_CONTINUOUSLY)
 				ms *= TIMES;
 			
 			try
@@ -113,7 +113,7 @@ public class Sound extends AbstractSound
 				{
 					Thread.sleep(ms);
 				}
-				while(TIMES == AbstractSound.LOOP_CONTINUOUSLY);
+				while(TIMES == LOOP_CONTINUOUSLY);
 			}
 			catch(InterruptedException e)
 			{
