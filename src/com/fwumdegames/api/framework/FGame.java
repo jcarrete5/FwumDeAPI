@@ -40,7 +40,7 @@ public class FGame extends JPanel
 		this.setFocusable(true);
 		this.requestFocus();
 		
-		new Thread(new UpdateThread()).start();
+		new Thread(new UpdateThread(), "Update Thread").start();
 	}
 	
 	/**
@@ -73,7 +73,7 @@ public class FGame extends JPanel
 	
 	/**
 	 * Updates and repaints the game
-	 * @author Ryan Goldsten
+	 * @author Ryan Goldsten, Jason Carrete
 	 */
 	private class UpdateThread implements Runnable
 	{
@@ -99,8 +99,7 @@ public class FGame extends JPanel
 				}
 				catch(InterruptedException e)
 				{
-					e.printStackTrace();
-					System.exit(1);
+					System.out.println("Update Thread interruped");
 				}
 			}
 		}

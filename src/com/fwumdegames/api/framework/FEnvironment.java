@@ -5,7 +5,7 @@ import java.awt.Graphics;
 import java.io.Serializable;
 import java.util.ArrayList;
 import javax.swing.JPanel;
-import com.fwumdegames.api.collision.FRectangle;
+import com.fwumdegames.api.geom.FRectangle;
 
 /**
  * Stores and manages a set of FEntity objects

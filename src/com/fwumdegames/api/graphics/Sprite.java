@@ -7,10 +7,9 @@ import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsEnvironment;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
-
 import com.fwumdegames.api.framework.Updatable;
-import com.fwumdegames.api.collision.FRectangle;
-import com.fwumdegames.api.collision.Vector2D;
+import com.fwumdegames.api.geom.FRectangle;
+import com.fwumdegames.api.geom.Vector2D;
 
 /**
  * Represents an image with a hit-box and a vector.
