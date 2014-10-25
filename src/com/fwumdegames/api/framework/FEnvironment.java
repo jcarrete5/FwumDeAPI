@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
+import com.fwumdegames.api.collision.FRectangle;
+
 /**
  * Stores and manages a set of FEntity objects
  * @author Ryan Goldstein
@@ -93,21 +95,21 @@ public class FEnvironment extends JPanel implements Serializable, Updatable
 	 * @param y The y to check at
 	 * @return The tile value
 	 */
-	public int getTile(int x, int y)
+	public int getTile(double x, double y)
 	{
 		x /= TILE_SIZE;
 		y /= TILE_SIZE;
-		return walls[x][y];
+		return walls[(int)x][(int)y];
 	}
 	
 	/**
 	 * Gets if a place is free
-	 * @param rect The area to check
+	 * @param hitbox The area to check
 	 * @return If there are no tiles there
 	 */
-	public boolean placeFree(Rectangle rect)
+	public boolean placeFree(FRectangle hitbox)
 	{
-		return getTile(rect.x, rect.y) != 0 && getTile(rect.x + rect.width, rect.y) != 0 &&
-				getTile(rect.x, rect.y + rect.width) != 0 && getTile(rect.x + rect.width, rect.y + rect.height) != 0;
+		return getTile(hitbox.x, hitbox.y) != 0 && getTile(hitbox.x + hitbox.width, hitbox.y) != 0 &&
+				getTile(hitbox.x, hitbox.y + hitbox.width) != 0 && getTile(hitbox.x + hitbox.width, hitbox.y + hitbox.height) != 0;
 	}
 }
