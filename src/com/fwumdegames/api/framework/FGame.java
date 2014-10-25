@@ -18,7 +18,8 @@ public class FGame extends JPanel
 	private JPanel[] screens;
 	
 	protected long clockSpd = 10;
-
+	private boolean limitFrames = true;
+ 
 	/**
 	 * Sets up the game
 	 * @param screens All of the menus and FEnvironments in the game
@@ -72,6 +73,18 @@ public class FGame extends JPanel
 	}
 	
 	/**
+	 * If the game is limiting frames, then there will be guaranteed delay between each update.
+	 * <br>If the game isn't limiting frames, then the framerate could be infinitely high.
+	 * <br>Limiting frames reduces strain on CPU and GPU, but often doesn't let high 
+	 * perfomance systems perform at max capacity.
+	 * @param limit If the frames should be limited
+	 */
+	public void limitFrames(boolean limit)
+	{
+		this.limitFrames = limit;
+	}
+	
+	/**
 	 * Updates and repaints the game
 	 * @author Ryan Goldsten
 	 */
@@ -93,15 +106,16 @@ public class FGame extends JPanel
 				update(delta * (float)Math.pow(10, -6));
 				repaint();
 				
-				try
-				{
-					Thread.sleep(millis, nanos);
-				}
-				catch(InterruptedException e)
-				{
-					e.printStackTrace();
-					System.exit(1);
-				}
+				if(limitFrames)
+					try
+					{
+						Thread.sleep(millis, nanos);
+					}
+					catch(InterruptedException e)
+					{
+						e.printStackTrace();
+						System.exit(1);
+					}
 			}
 		}
 	}
