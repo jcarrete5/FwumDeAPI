@@ -45,6 +45,18 @@ public class Vector2D implements Serializable
 		this(v.x, v.y);
 	}
 	
+	public void add(Vector2D toAdd)
+	{
+		this.x += toAdd.x;
+		this.y += toAdd.y;
+	}
+	
+	public void add(Vector2D toAdd, float deltaTime)
+	{
+		this.x += toAdd.x * deltaTime;
+		this.y += toAdd.y * deltaTime;
+	}
+	
 	/**
 	 * Calculates and returns the direction the vector is traveling in degrees.
 	 * @return The direction the vector is traveling in degrees.
