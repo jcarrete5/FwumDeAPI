@@ -8,7 +8,7 @@ import com.fwumdegames.api.math.Fraction;
  * @author Jason Carrete
  * @since Oct. 15, 2014
  */
-public class Vector2D implements Serializable
+public class Vector2D implements Serializable, Cloneable
 {
 	private static final long serialVersionUID = -8436361899368277887L;
 
@@ -100,5 +100,32 @@ public class Vector2D implements Serializable
 		double t = x;
 		x = y;
 		y = t;
+	}
+	
+	@Override
+	public boolean equals(Object o)
+	{
+		if(o instanceof Vector2D)
+		{
+			Vector2D v = (Vector2D)o;
+			return (int)this.x == (int)v.x && (int)this.y == (int)v.y;
+		}
+		
+		return false;
+	}
+	
+	@Override
+	public Object clone()
+	{
+		try
+		{
+			return super.clone();
+		}
+		catch(CloneNotSupportedException e)
+		{
+			//shouldn't be thrown since we are implementing Cloneable
+		}
+		
+		return null;
 	}
 }

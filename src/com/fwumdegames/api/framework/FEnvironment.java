@@ -49,20 +49,20 @@ public class FEnvironment extends JPanel implements Serializable, Updatable
 	}
 
 	
-	@Override
 	/**
 	 * Updates all entities in the environment
 	 */
+	@Override
 	public void update(float deltaTime)
 	{
 		for(FEntity entity : entities)
 			entity.update(deltaTime);
 	}
 	
-	@Override
 	/**
 	 * Draws all entities in the environment
 	 */
+	@Override
 	public void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);

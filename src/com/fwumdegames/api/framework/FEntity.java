@@ -1,6 +1,7 @@
 package com.fwumdegames.api.framework;
 
 import java.awt.Graphics;
+import java.awt.geom.Point2D;
 import java.io.Serializable;
 import com.fwumdegames.api.geom.Vector2D;
 
@@ -12,7 +13,8 @@ public abstract class FEntity implements Serializable, Updatable
 {
 	private static final long serialVersionUID = 1L;
 	protected FEnvironment parent;
-	protected Vector2D position, velocity;
+	protected Vector2D velocity;
+	protected Point2D.Double pos;
 	
 	/**
 	 * Creates a new entity
@@ -42,12 +44,9 @@ public abstract class FEntity implements Serializable, Updatable
 	@Override
 	public void update(float delta)
 	{
-		position.x += velocity.x * delta;
-		position.y += velocity.y * delta;
+		pos.x += velocity.x * delta;
+		pos.y += velocity.y * delta;
 	}
 	
-	public void draw(Graphics g)
-	{
-		
-	}
+	public abstract void draw(Graphics g);
 }
