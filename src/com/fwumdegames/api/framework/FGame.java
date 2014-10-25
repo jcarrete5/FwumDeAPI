@@ -90,7 +90,7 @@ public class FGame extends JPanel
 				int nanos = (int)delta % 1000000;
 				
 				//Update and redraw the game
-				update(delta);
+				update(delta * (float)Math.pow(10, -6));
 				repaint();
 				
 				try
