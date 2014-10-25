@@ -83,6 +83,15 @@ public class Vector2D implements Serializable
 		return degrees;
 	}
 	
+
+	public double distance(Vector2D other)
+	{
+		double width, height;
+		width = this.x - other.x;
+		height = this.y - other.y;
+		return Math.sqrt(width * width + height * height);
+	}
+
 	/**
 	 * Sets the x_spd to the y_spd and vice versa.
 	 */
