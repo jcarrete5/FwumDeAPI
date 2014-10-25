@@ -70,4 +70,14 @@ public class Vector2D implements Serializable
 		}
 		return degrees;
 	}
+	
+	/**
+	 * Sets the x_spd to the y_spd and vice versa.
+	 */
+	public void inverse()
+	{
+		double t = x;
+		x = y;
+		y = t;
+	}
 }
