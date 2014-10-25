@@ -1,4 +1,4 @@
-package com.fwumdegames.api.graphics;
+package com.fwumdegames.api.collision;
 
 import java.io.Serializable;
 import com.fwumdegames.api.math.Fraction;

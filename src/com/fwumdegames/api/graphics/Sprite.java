@@ -5,11 +5,12 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsEnvironment;
-import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
 
 import com.fwumdegames.api.framework.Updatable;
+import com.fwumdegames.api.collision.FRectangle;
+import com.fwumdegames.api.collision.Vector2D;
 
 /**
  * Represents an image with a hit-box and a vector.
@@ -20,7 +21,7 @@ public class Sprite extends BufferedImage implements Serializable, Updatable
 {
 	private static final long serialVersionUID = -7599243419137335696L;
 	
-	public Rectangle hitbox;
+	public FRectangle hitbox;
 	public Vector2D v;
 	private Color bgcolor;
 	private int stretchWidth, stretchHeight;
@@ -30,7 +31,7 @@ public class Sprite extends BufferedImage implements Serializable, Updatable
 		super(bimg.getWidth(), bimg.getHeight(), bimg.getType());
 		setData(bimg.getData());
 		
-		hitbox = new Rectangle(x, y, getWidth(), getHeight());
+		hitbox = new FRectangle(x, y, getWidth(), getHeight());
 		v = new Vector2D(x_spd, y_spd);
 	}
 	
