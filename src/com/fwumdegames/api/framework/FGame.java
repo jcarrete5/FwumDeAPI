@@ -4,6 +4,8 @@ import java.awt.CardLayout;
 
 import javax.swing.JPanel;
 
+import com.fwumdegames.api.io.Keyboard;
+
 /**
  * Basic game framework
  * @author Ryan Goldstein
@@ -31,6 +33,10 @@ public class FGame extends JPanel
 			screenKeys[i] = Integer.toString(i);
 			this.add(screens[i], screenKeys[i]);
 		}
+		
+		this.addKeyListener(new Keyboard());
+		this.setFocusable(true);
+		this.requestFocus();
 		
 		new Thread(new UpdateThread()).start();
 	}

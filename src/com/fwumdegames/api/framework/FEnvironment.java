@@ -2,6 +2,7 @@ package com.fwumdegames.api.framework;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -17,7 +18,7 @@ public class FEnvironment extends JPanel implements Serializable, Updatable
 	ArrayList<FEntity> entities;
 	private FGame parent;
 	private int[][] walls;
-	private final int TILE_SIZE;
+	public final int TILE_SIZE, WIDTH, HEIGHT;
 	
 	/**
 	 * Creates an FEnvironment
@@ -43,7 +44,9 @@ public class FEnvironment extends JPanel implements Serializable, Updatable
 		this.parent = parent;
 		this.TILE_SIZE = tileSize;
 		this.walls = walls;
-		this.setPreferredSize(new Dimension(walls.length * TILE_SIZE, walls[0].length * TILE_SIZE));
+		this.WIDTH = walls.length * TILE_SIZE;
+		this.HEIGHT = walls[0].length * TILE_SIZE;
+		this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 	}
 
 	
@@ -95,5 +98,16 @@ public class FEnvironment extends JPanel implements Serializable, Updatable
 		x /= TILE_SIZE;
 		y /= TILE_SIZE;
 		return walls[x][y];
+	}
+	
+	/**
+	 * Gets if a place is free
+	 * @param rect The area to check
+	 * @return If there are no tiles there
+	 */
+	public boolean placeFree(Rectangle rect)
+	{
+		return getTile(rect.x, rect.y) != 0 && getTile(rect.x + rect.width, rect.y) != 0 &&
+				getTile(rect.x, rect.y + rect.width) != 0 && getTile(rect.x + rect.width, rect.y + rect.height) != 0;
 	}
 }

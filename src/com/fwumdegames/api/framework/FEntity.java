@@ -3,6 +3,8 @@ package com.fwumdegames.api.framework;
 import java.awt.Graphics;
 import java.io.Serializable;
 
+import com.fwumdegames.api.graphics.Vector2D;
+
 /**
  * Represents an entity within the game
  * @author Ryan Goldstein
@@ -10,7 +12,8 @@ import java.io.Serializable;
 public abstract class FEntity implements Serializable, Updatable
 {
 	private static final long serialVersionUID = 1L;
-	private FEnvironment parent;
+	protected FEnvironment parent;
+	protected Vector2D position, velocity;
 	
 	/**
 	 * Creates a new entity
@@ -37,10 +40,15 @@ public abstract class FEntity implements Serializable, Updatable
 		parent.previousScreen();
 	}
 	
+	@Override
+	public void update(long delta)
+	{
+		position.x += velocity.x * delta;
+		position.y += velocity.y * delta;
+	}
+	
 	public void draw(Graphics g)
 	{
 		
 	}
-	
-	public abstract void update(float deltaTime);
 }
