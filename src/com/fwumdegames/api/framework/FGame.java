@@ -16,6 +16,8 @@ public class FGame extends JPanel
 	private String[] screenKeys;
 	private int currentScreen;
 	private JPanel[] screens;
+	
+	protected long clockSpd = 10;
 
 	/**
 	 * Sets up the game
@@ -58,8 +60,7 @@ public class FGame extends JPanel
 	 */
 	public void nextScreen()
 	{
-		currentScreen++;
-		((CardLayout)this.getLayout()).show(this, screenKeys[currentScreen]); 
+		((CardLayout)this.getLayout()).show(this, screenKeys[++currentScreen]); //Maybe not work
 	}
 	
 	/**
@@ -67,8 +68,7 @@ public class FGame extends JPanel
 	 */
 	public void previousScreen()
 	{
-		currentScreen--;
-		((CardLayout)this.getLayout()).show(this, screenKeys[currentScreen]); 
+		((CardLayout)this.getLayout()).show(this, screenKeys[--currentScreen]); //maybe not work
 	}
 	
 	/**
@@ -80,27 +80,27 @@ public class FGame extends JPanel
 		@Override
 		public void run()
 		{
-			float delta, previousTime = System.nanoTime();
+			long delta, previousTime = System.nanoTime();
 			while(!Thread.interrupted())
 			{
 				//Find the delta time
-				delta = (System.nanoTime() - previousTime) / 10000000f;
+				delta = (System.nanoTime() - previousTime);
+				previousTime = System.nanoTime();
+				long millis = (long)(10 - delta / 1000000f);
+				int nanos = (int)delta % 1000000;
+				
 				//Update and redraw the game
 				update(delta);
 				repaint();
 				
-				//Make sure there is at a minimum millisecond delay between frames
-				if(delta < 5)
+				try
 				{
-					try
-					{
-						Thread.sleep(1);
-					}
-					catch(InterruptedException e)
-					{
-						e.printStackTrace();
-						System.exit(1);
-					}
+					Thread.sleep(millis, nanos);
+				}
+				catch(InterruptedException e)
+				{
+					e.printStackTrace();
+					System.exit(1);
 				}
 			}
 		}

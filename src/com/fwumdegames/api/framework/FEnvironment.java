@@ -4,9 +4,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.io.Serializable;
 import java.util.ArrayList;
-
 import javax.swing.JPanel;
-
 import com.fwumdegames.api.collision.FRectangle;
 
 /**
