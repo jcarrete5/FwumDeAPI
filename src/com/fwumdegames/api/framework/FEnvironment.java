@@ -54,7 +54,7 @@ public class FEnvironment extends JPanel implements Serializable, Updatable
 	/**
 	 * Updates all entities in the environment
 	 */
-	public void update(long deltaTime)
+	public void update(float deltaTime)
 	{
 		for(FEntity entity : entities)
 			entity.update(deltaTime);

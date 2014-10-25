@@ -41,7 +41,7 @@ public abstract class FEntity implements Serializable, Updatable
 	}
 	
 	@Override
-	public void update(long delta)
+	public void update(float delta)
 	{
 		position.x += velocity.x * delta;
 		position.y += velocity.y * delta;

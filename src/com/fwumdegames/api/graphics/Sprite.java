@@ -92,7 +92,8 @@ public class Sprite extends BufferedImage implements Serializable, Updatable
 				g.drawImage(this, (int) hitbox.x, (int) hitbox.y, stretchWidth, stretchHeight, bgcolor, null);
 	}	
 	
-	public void update(long deltaTime)
+	@Override
+	public void update(float deltaTime)
 	{
 		this.applyVector(deltaTime);
 	}

@@ -43,13 +43,13 @@ public class FGame extends JPanel
 	
 	/**
 	 * Runs the game logic
-	 * @param deltaTime The milliseconds since the last update
+	 * @param delta The milliseconds since the last update
 	 */
-	protected void update(long deltaTime)
+	protected void update(float delta)
 	{
 		if(screens[currentScreen] instanceof Updatable)
 		{
-			((Updatable)screens[currentScreen]).update(deltaTime);
+			((Updatable)screens[currentScreen]).update(delta);
 		}
 	}
 	
@@ -80,11 +80,11 @@ public class FGame extends JPanel
 		@Override
 		public void run()
 		{
-			long delta, previousTime = System.nanoTime();
+			float delta, previousTime = System.nanoTime();
 			while(!Thread.interrupted())
 			{
 				//Find the delta time
-				delta = (System.nanoTime() - previousTime);
+				delta = (System.nanoTime() - previousTime) / 10000000f;
 				//Update and redraw the game
 				update(delta);
 				repaint();
