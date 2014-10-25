@@ -84,7 +84,6 @@ public class FRectangle implements Shape
 	}
 
 	@Override
-	@Deprecated
 	public PathIterator getPathIterator(AffineTransform at)
 	{
 		// TODO Auto-generated method stub
@@ -92,7 +91,6 @@ public class FRectangle implements Shape
 	}
 
 	@Override
-	@Deprecated
 	public PathIterator getPathIterator(AffineTransform at, double flatness)
 	{
 		// TODO Auto-generated method stub

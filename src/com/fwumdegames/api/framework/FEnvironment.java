@@ -14,10 +14,11 @@ import com.fwumdegames.api.geom.FRectangle;
 public class FEnvironment extends JPanel implements Serializable, Updatable
 {
 	private static final long serialVersionUID = 1L;
+	public final int TILE_SIZE, WIDTH, HEIGHT;
+	
 	ArrayList<FEntity> entities;
 	private FGame parent;
 	private int[][] walls;
-	public final int TILE_SIZE, WIDTH, HEIGHT;
 	
 	/**
 	 * Creates an FEnvironment
