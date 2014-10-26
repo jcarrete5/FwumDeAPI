@@ -8,6 +8,7 @@ import java.awt.GraphicsEnvironment;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
+
 import com.fwumdegames.api.framework.Updatable;
 import com.fwumdegames.api.geom.Vector2D;
 

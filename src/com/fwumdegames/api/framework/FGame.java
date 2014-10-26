@@ -49,6 +49,15 @@ public class FGame extends JPanel
 		}
 		this.setFocusable(true);
 		this.requestFocus();
+		try
+		{
+			this.addKeyListener(new Keyboard());
+		}
+		catch (KeyboardInstantiatedException e)
+		{
+			e.printStackTrace();
+			System.exit(1);
+		}
 		
 		new Thread(new UpdateThread(), "Update Thread").start();
 	}
