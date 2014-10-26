@@ -1,13 +1,16 @@
 package com.fwumdegames.api.geom;
 
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 
 /**
- * Represents a circle
+ * Represents a perfect circle.
  * @author Ryan Goldstein
  */
-public class FCircle
+public class FCircle extends Ellipse2D.Double
 {
+	private static final long serialVersionUID = 8867108865417055042L;
+	
 	public Point2D.Double center;
 	public double radius;
 	
@@ -34,30 +37,9 @@ public class FCircle
 	}
 	
 	/**
-	 * Checks to see if a point (x, y) is in the calling object
-	 * @param x The x coordinate of the point
-	 * @param y The y coordinate of the point
-	 * @return The point is inside the circle
-	 */
-	public boolean contains(double x, double y)
-	{
-		return center.distance(new Point2D.Double(x, y)) <= radius;
-	}
-	
-	/**
-	 * Checks to see if the parameterized object is in the calling object
-	 * @param point The point to check if contained
-	 * @return The point is inside the circle
-	 */
-	public boolean contains(Point2D.Double point)
-	{
-		return center.distance(point) <= radius;
-	}
-	
-	/**
-	 * Checks to see if any of the paramterized object is inside the calling object
+	 * Checks to see if any of the parameterized object is inside the calling object
 	 * @param other The circle to check if contained
-	 * @return If any of the paramterized circle is contained in the calling circle
+	 * @return If any of the parameterized circle is contained in the calling circle
 	 */
 	public boolean intersects(FCircle other)
 	{
@@ -65,35 +47,9 @@ public class FCircle
 	}
 	
 	/**
-	 * Checks to see if any of the paramterized object is inside the calling object
-	 * @param other The polygon to check if contained
-	 * @return If any of the paramterized polygon's corners are contained in the circle
-	 */
-	public boolean intersects(FPolygon other)
-	{
-		boolean contains = false;
-		for(Point2D.Double vertex : other.getVertices())
-			contains = contains || this.contains(vertex);
-		return contains;
-	}
-	
-	/**
-	 * Checks to see if the paramterized object is completely inside the calling object.
-	 * @param other The polygon to check if contained
-	 * @return The paramterized polygon is conatined within the calling circle
-	 */
-	public boolean contains(FPolygon other)
-	{
-		boolean contains = true;
-		for(Point2D.Double vertex : other.getVertices())
-			contains = contains && this.contains(vertex);
-		return contains;
-	}
-	
-	/**
-	 * Checks to see if the paramterized object is completely inside the calling object.
+	 * Checks to see if the parameterized object is completely inside the calling object.
 	 * @param other The circle to check if contained
-	 * @return The paramterized circle is contained within the calling circle
+	 * @return The parameterized circle is contained within the calling circle
 	 */
 	public boolean contains(FCircle other)
 	{
