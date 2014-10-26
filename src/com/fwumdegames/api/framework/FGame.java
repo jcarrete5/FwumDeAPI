@@ -5,6 +5,7 @@ import java.awt.CardLayout;
 import javax.swing.JPanel;
 
 import com.fwumdegames.api.io.Keyboard;
+import com.fwumdegames.api.io.Keyboard.KeyboardInstantiatedException;
 
 /**
  * Basic game framework
@@ -37,7 +38,15 @@ public class FGame extends JPanel
 			this.add(screens[i], screenKeys[i]);
 		}
 		
-		this.addKeyListener(new Keyboard());
+		try
+		{
+			this.addKeyListener(new Keyboard());
+		}
+		catch (KeyboardInstantiatedException e)
+		{
+			e.printStackTrace();
+			System.exit(1);
+		}
 		this.setFocusable(true);
 		this.requestFocus();
 		
