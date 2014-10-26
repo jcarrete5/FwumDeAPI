@@ -1,4 +1,4 @@
-package com.fwumdegames.api.collision;
+package com.fwumdegames.api.geom;
 
 /**
  * Represents a circle
