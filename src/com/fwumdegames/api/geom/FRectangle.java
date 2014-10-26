@@ -1,7 +1,6 @@
 package com.fwumdegames.api.geom;
 
 import java.awt.geom.Point2D;
-import java.awt.geom.Point2D.Double;
 import java.util.ArrayList;
 
 /**
@@ -32,7 +31,7 @@ public class FRectangle extends FPolygon
 	}
 
 	@Override
-	public boolean contains(Double point)
+	public boolean contains(Point2D.Double point)
 	{
 		return point.x > x && point.x < x + width && point.y > y && point.y > y + height;
 	}

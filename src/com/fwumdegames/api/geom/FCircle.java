@@ -1,12 +1,14 @@
 package com.fwumdegames.api.geom;
 
+import java.awt.geom.Point2D;
+
 /**
  * Represents a circle
  * @author Ryan Goldstein
  */
 public class FCircle
 {
-	public Vector2D center;
+	public Point2D.Double center;
 	public double radius;
 	
 	/**
@@ -17,7 +19,7 @@ public class FCircle
 	 */
 	public FCircle(double x, double y, double radius)
 	{
-		center = new Vector2D(x, y);
+		center = new Point2D.Double(x, y);
 		this.radius = radius;
 	}
 	
@@ -26,7 +28,7 @@ public class FCircle
 	 * @param center The center of the circle
 	 * @param radius The radius of the circle
 	 */
-	public FCircle(Vector2D center, double radius)
+	public FCircle(Point2D.Double center, double radius)
 	{
 		this.center = center;
 		this.radius = radius;
@@ -40,7 +42,7 @@ public class FCircle
 	 */
 	public boolean contains(double x, double y)
 	{
-		return center.distance(new Vector2D(x, y)) <= radius;
+		return center.distance(new Point2D.Double(x, y)) <= radius;
 	}
 	
 	/**
@@ -48,7 +50,7 @@ public class FCircle
 	 * @param point The point to check if contained
 	 * @return The point is inside the circle
 	 */
-	public boolean contains(Vector2D point)
+	public boolean contains(Point2D.Double point)
 	{
 		return center.distance(point) <= radius;
 	}
