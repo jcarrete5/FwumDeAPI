@@ -6,18 +6,26 @@ import java.awt.geom.Point2D;
 /**
  * Represents a perfect circle.
  * @author Ryan Goldstein
+ * @author Jason Carrete
  */
 public class FCircle extends Ellipse2D.Double
 {
-	private static final long serialVersionUID = 8867108865417055042L;
+	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * Center point of the circle.
+	 */
 	public Point2D.Double center;
+	
+	/**
+	 * Radius of the circle.
+	 */
 	public double radius;
 	
 	/**
-	 * Creates an FCircle
-	 * @param center The center of the circle
-	 * @param radius The radius of the circle
+	 * Instantiates an FCircle object with the specified center point and radius.
+	 * @param center The center coordinate of the circle.
+	 * @param radius The radius of the circle.
 	 */
 	public FCircle(Point2D.Double center, double radius)
 	{
@@ -26,10 +34,10 @@ public class FCircle extends Ellipse2D.Double
 	}
 	
 	/**
-	 * Creates an FCircle
-	 * @param x The x of the center
-	 * @param y The y of the center
-	 * @param radius The radius
+	 * Instantiates an FCircle object with the specified x and y coordinates and radius.
+	 * @param x The x position of the center point.
+	 * @param y The y position of the center point.
+	 * @param radius The radius of the circle.
 	 */
 	public FCircle(double x, double y, double radius)
 	{
@@ -37,9 +45,9 @@ public class FCircle extends Ellipse2D.Double
 	}
 	
 	/**
-	 * Checks to see if any of the parameterized object is inside the calling object
-	 * @param other The circle to check if contained
-	 * @return If any of the parameterized circle is contained in the calling circle
+	 * Checks to see if any point of the parameterized FCircle is inside the calling FCircle.
+	 * @param other The FCircle that is potentially intersecting the calling FCircle.
+	 * @return True if the calling FCircle intersects the parameterized FCircle.
 	 */
 	public boolean intersects(FCircle other)
 	{
@@ -47,9 +55,9 @@ public class FCircle extends Ellipse2D.Double
 	}
 	
 	/**
-	 * Checks to see if the parameterized object is completely inside the calling object.
-	 * @param other The circle to check if contained
-	 * @return The parameterized circle is contained within the calling circle
+	 * Checks to see if every point of the parameterized FCircle is completely inside the calling FCircle.
+	 * @param other The FCircle that is potentially containing the calling FCircle.
+	 * @return True if the every point in the parameterized FCircle is inside the calling FCircle.
 	 */
 	public boolean contains(FCircle other)
 	{
