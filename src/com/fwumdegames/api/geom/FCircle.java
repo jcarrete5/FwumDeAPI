@@ -67,24 +67,28 @@ public class FCircle
 	
 	/**
 	 * Checks to see if any of the paramterized object is inside the calling object
-	 * @param other The rectangle to check if contained
-	 * @return If any of the paramterized rectangle's corners are contained in the circle
+	 * @param other The polygon to check if contained
+	 * @return If any of the paramterized polygon's corners are contained in the circle
 	 */
-	public boolean intersects(FRectangle other)
+	public boolean intersects(FPolygon other)
 	{
-		return contains(other.x, other.y) || contains(other.x + other.width, other.y) ||
-				contains(other.x, other.y + other.height) || contains(other.x + other.width, other.y + other.height);
+		boolean contains = false;
+		for(Point2D.Double vertex : other.getVertices())
+			contains = contains || this.contains(vertex);
+		return contains;
 	}
 	
 	/**
 	 * Checks to see if the paramterized object is completely inside the calling object.
-	 * @param other The rectangle to check if contained
-	 * @return The paramterized rectangle is conatined within the calling circle
+	 * @param other The polygon to check if contained
+	 * @return The paramterized polygon is conatined within the calling circle
 	 */
-	public boolean contains(FRectangle other)
+	public boolean contains(FPolygon other)
 	{
-		return contains(other.x, other.y) && contains(other.x + other.width, other.y) &&
-				contains(other.x, other.y + other.height) && contains(other.x + other.width, other.y + other.height);
+		boolean contains = true;
+		for(Point2D.Double vertex : other.getVertices())
+			contains = contains && this.contains(vertex);
+		return contains;
 	}
 	
 	/**
