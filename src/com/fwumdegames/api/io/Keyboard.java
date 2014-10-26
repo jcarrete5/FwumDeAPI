@@ -12,22 +12,23 @@ public class Keyboard extends KeyAdapter
 {
 	private static HashMap<Integer, Boolean> data;
 	private static boolean active;
+	private static Keyboard instance;
+	
 	static
 	{
 		data = new HashMap<Integer, Boolean>();
 		active = false;
+		instance = new Keyboard();
 	}
 	
-	/**
-	 * Creates a new Keyboard object
-	 * @throws KeyboardInstantiatedException Only one keyboard may be instantiated to avoid concurrency errors
-	 */
-	public Keyboard() throws KeyboardInstantiatedException
+	private Keyboard()
 	{
-		if(active)
-			throw new KeyboardInstantiatedException();
-		else
-			active = true;
+		
+	}
+	
+	public static Keyboard getInstance()
+	{
+		return instance;
 	}
 	
 	/**
@@ -75,7 +76,4 @@ public class Keyboard extends KeyAdapter
 	{
 		data.put(evt.getKeyCode(), true);
 	}
-	
-	public class KeyboardInstantiatedException extends Exception
-	{	private static final long serialVersionUID = 1L; }
 }
