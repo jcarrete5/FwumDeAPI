@@ -4,8 +4,8 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.io.Serializable;
 import java.util.ArrayList;
+
 import javax.swing.JPanel;
-import com.fwumdegames.api.geom.FRectangle;
 
 /**
  * Stores and manages a set of FEntity objects
@@ -104,7 +104,7 @@ public class FEnvironment extends JPanel implements Serializable, Updatable
 	 * @param hitbox The area to check
 	 * @return If there are no tiles there
 	 */
-	public boolean placeFree(FRectangle hitbox)
+	public boolean placeFree(Rectangle2D hitbox)
 	{
 		return getTile(hitbox.x, hitbox.y) != 0 && getTile(hitbox.x + hitbox.width, hitbox.y) != 0 &&
 				getTile(hitbox.x, hitbox.y + hitbox.width) != 0 && getTile(hitbox.x + hitbox.width, hitbox.y + hitbox.height) != 0;
