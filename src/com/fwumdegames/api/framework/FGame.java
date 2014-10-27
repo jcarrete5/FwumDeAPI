@@ -76,7 +76,7 @@ public class FGame extends JPanel
 	 * If the game is limiting frames, then there will be guaranteed delay between each update.
 	 * <br>If the game isn't limiting frames, then the framerate could be infinitely high.
 	 * <br>Limiting frames reduces strain on CPU and GPU, but often doesn't let high 
-	 * perfomance systems perform at max capacity.
+	 * performance systems perform at max capacity.
 	 * @param limit If the frames should be limited
 	 */
 	public void limitFrames(boolean limit)
@@ -94,16 +94,17 @@ public class FGame extends JPanel
 		public void run()
 		{
 			long delta, previousTime = System.nanoTime();
+			float conversionFactor = (float)Math.pow(10, 6);
 			while(!Thread.interrupted())
 			{
 				//Find the delta time
 				delta = (System.nanoTime() - previousTime);
 				previousTime = System.nanoTime();
-				long millis = (long)(10 - delta / 1000000f);
-				int nanos = (int)delta % 1000000;
+				long millis = (long)(10 - delta / conversionFactor);
+				int nanos = (int)delta % (int)conversionFactor;
 				
 				//Update and redraw the game
-				update(delta * (float)Math.pow(10, -6));
+				update(delta / conversionFactor);
 				repaint();
 				
 				if(limitFrames)
