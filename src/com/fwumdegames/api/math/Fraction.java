@@ -87,9 +87,12 @@ public class Fraction extends Number implements Comparable<Fraction>
 	 * Returns a new Fraction that is the inverse of this one.
 	 * @return The inverse of this fraction.
 	 */
-	public Fraction inverse()
+	public Fraction reciprocal()
 	{
-		return new Fraction(denom, numer);
+		int t = numer;
+		numer = denom;
+		denom = t;
+		return this;
 	}
 	
 	@Override
