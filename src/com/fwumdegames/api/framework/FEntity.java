@@ -24,6 +24,8 @@ public abstract class FEntity implements Serializable, Updatable
 	public FEntity(FEnvironment parent)
 	{
 		this.parent = parent;
+		pos = new Point2D.Double(0, 0);
+		velocity = new Vector2D(0,0);
 	}
 	
 	/**

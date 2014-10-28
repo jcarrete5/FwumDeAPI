@@ -125,4 +125,13 @@ public class FEnvironment extends JPanel implements Serializable, Updatable
 		return getTile(hitbox.x, hitbox.y) != 0 && getTile(hitbox.x + hitbox.width, hitbox.y) != 0 &&
 				getTile(hitbox.x, hitbox.y + hitbox.width) != 0 && getTile(hitbox.x + hitbox.width, hitbox.y + hitbox.height) != 0;
 	}
+	
+	/**
+	 * Adds a new entity
+	 * @param entity
+	 */
+	public void add(FEntity entity)
+	{
+		entities.add(entity);
+	}
 }
