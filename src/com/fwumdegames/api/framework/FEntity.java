@@ -3,7 +3,8 @@ package com.fwumdegames.api.framework;
 import java.awt.Graphics;
 import java.awt.geom.Point2D;
 import java.io.Serializable;
-import com.fwumdegames.api.geom.Vector2D;
+
+import com.fwumdegames.api.math.geom.Vector2D;
 
 /**
  * Represents an entity within the game

@@ -5,10 +5,18 @@ FwumDeGames official API Library.
 
 Packages include:
 
+- com.fwumdegames.api.framework
+	- FEntity.java
+	- FEnvironment.java
+	- FGame.java
+	- Updateable.java
+
 - com.fwumdegames.api.graphics
-	- FGraphics2D.java
+	- Effects.java
 	- Sprite.java
-	- Vector2D.java
+
+- com.fwumdegames.api.graphics.layout
+	- GridBag.java
 
 - com.fwumdegames.api.io
 	- INI.java
@@ -19,9 +27,10 @@ Packages include:
 		- Sound.java
 		- MIDI.java
 
-- com.fwumdegames.api.layout
-	- GridBag.java
-
 - com.fwumdegames.api.math
 	- FMath.java
 	- Fraction.java
+	- Matrix.java
+	- com.fwumdegames.api.math.geom
+		- FCircle.java
+		- Vector2D.java

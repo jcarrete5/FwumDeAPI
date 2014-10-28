@@ -1,4 +1,4 @@
-package com.fwumdegames.api.geom;
+package com.fwumdegames.api.math.geom;
 
 import java.awt.geom.Point2D;
 import java.io.Serializable;
