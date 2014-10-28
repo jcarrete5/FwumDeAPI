@@ -1,11 +1,15 @@
 package com.fwumdegames.api.math;
 
+import java.io.Serializable;
+
 /**
  * Represents a numerical matrix.
  * @author Jason Carrete
  */
-public class Matrix
+public class Matrix implements Cloneable, Serializable
 {
+	private static final long serialVersionUID = 1L;
+	
 	public double[][] matrix;
 	
 	public Matrix(double[][] array)
@@ -26,72 +30,84 @@ public class Matrix
 				matrix[r][c] = vals[i];
 	}
 	
-	public int getRows()
+	/**
+	 * @return The number of rows in this Matrix.
+	 */
+	public int numRows()
 	{
 		return matrix.length;
 	}
 	
-	public int getCols()
+	/**
+	 * @return The number of columns in this Matrix.
+	 */
+	public int numCols()
 	{
 		return matrix[0].length;
 	}
 	
+	/**
+	 * Calculates and returns the inverse of this Matrix as this Matrix.
+	 * <b>Note:</b> This method mutates this object.
+	 * @return This Matrix after its inverse has been calculated.
+	 */
 	public Matrix inverse()
 	{
-		//TODO
+		//FIXME make this method work.
 		return this;
 	}
 	
 	/**
-	 * Multiplies this matrix by the specified scalar.<br>
+	 * Multiplies this Matrix by the specified scalar.<br>
 	 * <b>Note:</b> This method mutates this object.
-	 * @param scalar The number that multiplies each number in the matrix.
-	 * @return The matrix after being multiplied by the scalar.
+	 * @param scalar The number that multiplies each number in this Matrix.
+	 * @return This Matrix after being multiplied by the scalar.
 	 */
 	public Matrix times(double scalar)
 	{
-		for(int i = 0; i < matrix.length; i++)
-			for(int j = 0; j < matrix[0].length; j++)
+		for(int i = 0; i < numRows(); i++)
+			for(int j = 0; j < numCols(); j++)
 				matrix[i][j] *= scalar;
 		
 		return this;
 	}
 	
 	/**
-	 * Multiplies this matrix by the specified matrix and stores the result in this matrix.
-	 * @param other Matrix to be multiplied by this matrix.
-	 * @return This matrix after being multiplied by the specified matrix.
+	 * Multiplies this Matrix by the specified Matrix.
+	 * @param other Matrix to be multiplied by this Matrix.
+	 * @return A new Matrix that is this Matrix multiplied by the specified Matrix.
 	 */
 	public Matrix times(Matrix other)
 	{
-		if(getCols() != other.getRows())
+		if(numCols() != other.numRows())
 		{
 			throw new IllegalMatrixDimensionException("Cannot mulitply matricies with invalid dimensions: " +
-				getCols() + " ≠ " + getRows());
+				numCols() + " != " + other.numRows());
 		}
 		
-		double[][] m = new double[getRows()][other.getCols()];
+		double[][] m = new double[numRows()][other.numCols()];
 		
-		int k = 0;
-		for(int i = 0; i < getRows(); i++)
-		{
-			for(int j = 0; j < getCols(); j++)
-				m[i][k] += this.matrix[i][j] * other.matrix[j][i];
-			k++;
-		}
+		for(int j = 0; j < numRows(); j++)
+			for(int k = 0; k < other.numCols(); k++)
+				for(int l = 0; l < other.numRows(); l++)
+					m[j][k] += this.matrix[j][l] * other.matrix[l][k];
 		
 		return new Matrix(m);
 	}
 	
 	public Matrix plus(Matrix other)
 	{
+		if(numRows() != other.numRows() || numCols() != other.numCols())
+			throw new IllegalMatrixDimensionException("Cannot add matricies of different dimensions.");
+		
+		double[][] m = new double[numRows()][numCols()];
+		
 		
 		return this;
 	}
 	
 	public Matrix minus(Matrix other)
 	{
-		
 		return this;
 	}
 	
@@ -100,11 +116,11 @@ public class Matrix
 	{
 		String s = "[";
 		
-		for(int r = 0; r < matrix.length; r++)
+		for(int r = 0; r < numRows(); r++)
 		{
-			for(int c = 0; c < matrix[0].length; c++)
+			for(int c = 0; c < numCols(); c++)
 			{
-				s += Double.toString(matrix[r][c]) + " ";
+				s += Double.toString(matrix[r][c]) + "\t";
 			}
 			s = s.substring(0, s.length() - 1) + "]\n[";
 		}
@@ -112,6 +128,26 @@ public class Matrix
 		return s.substring(0, s.length() - 2);
 	}
 	
+	@Override
+	public Object clone()
+	{
+		try
+		{
+			return super.clone();
+		}
+		catch(CloneNotSupportedException e)
+		{
+			//no problem since we are Cloneable
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	/**
+	 * Exception used when a Matrix dimension is illegal.
+	 * @author Jason Carrete
+	 */
 	public class IllegalMatrixDimensionException extends RuntimeException
 	{
 		private static final long serialVersionUID = 1L;
