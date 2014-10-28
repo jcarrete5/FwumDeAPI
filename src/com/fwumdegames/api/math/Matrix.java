@@ -86,7 +86,6 @@ public class Matrix implements Cloneable, Serializable
 		}
 		
 		double[][] m = new double[numRows()][other.numCols()];
-		
 		for(int j = 0; j < numRows(); j++)
 			for(int k = 0; k < other.numCols(); k++)
 				for(int l = 0; l < other.numRows(); l++)
@@ -101,14 +100,24 @@ public class Matrix implements Cloneable, Serializable
 			throw new IllegalMatrixDimensionException("Cannot add matricies of different dimensions.");
 		
 		double[][] m = new double[numRows()][numCols()];
+		for(int i = 0; i < numRows(); i++)
+			for(int j = 0; j < numCols(); j++)
+				m[i][j] = matrix[i][j] + other.matrix[i][j];
 		
-		
-		return this;
+		return new Matrix(m);
 	}
 	
 	public Matrix minus(Matrix other)
 	{
-		return this;
+		if(numRows() != other.numRows() || numCols() != other.numCols())
+			throw new IllegalMatrixDimensionException("Cannot add matricies of different dimensions.");
+		
+		double[][] m = new double[numRows()][numCols()];
+		for(int i = 0; i < numRows(); i++)
+			for(int j = 0; j < numCols(); j++)
+				m[i][j] = matrix[i][j] - other.matrix[i][j];
+		
+		return new Matrix(m);
 	}
 	
 	@Override
