@@ -10,13 +10,26 @@ public class Matrix implements Cloneable, Serializable
 {
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * Internal 2D matrix.
+	 */
 	public double[][] matrix;
 	
+	/**
+	 * Instantiates a new Matrix object based on the specified array.
+	 * @param array Matrix values.
+	 */
 	public Matrix(double[][] array)
 	{
 		matrix = array;
 	}
 	
+	/**
+	 * Instantiates a new Matrix with the specified rows, columns, and values.
+	 * @param rows Number of rows.
+	 * @param cols Number of columns.
+	 * @param vals Values the Matrix should be made from.
+	 */
 	public Matrix(int rows, int cols, double... vals)
 	{
 		if(vals.length != rows * cols)
@@ -28,6 +41,23 @@ public class Matrix implements Cloneable, Serializable
 		for(int r = 0; r < rows; r++)
 			for(int c = 0; c < cols; c++, i++)
 				matrix[r][c] = vals[i];
+	}
+	
+	/**
+	 * Creates an identity Matrix with the specified size.
+	 * @param size The number of rows and columns of the identity Matrix.
+	 * @return An identity Matrix with the specified size.
+	 */
+	public static Matrix getIdentity(int size)
+	{
+		if(size < 1)
+			throw new IllegalMatrixDimensionException("Cannot instantiate a matrix with dimensions less than 1");
+		
+		double[][] m = new double[size][size];
+		for(int i = 0; i < size; i++)
+			m[i][i] = 1.0;
+		
+		return new Matrix(m);
 	}
 	
 	/**
@@ -94,6 +124,11 @@ public class Matrix implements Cloneable, Serializable
 		return new Matrix(m);
 	}
 	
+	/**
+	 * Adds this Matrix to the specified Matrix.
+	 * @param other Matrix to be added to this Matrix.
+	 * @return A new Matrix that is this Matrix plus the specified Matrix.
+	 */
 	public Matrix plus(Matrix other)
 	{
 		if(numRows() != other.numRows() || numCols() != other.numCols())
@@ -107,6 +142,11 @@ public class Matrix implements Cloneable, Serializable
 		return new Matrix(m);
 	}
 	
+	/**
+	 * Subtracts the specified Matrix from this Matrix.
+	 * @param other Matrix to be subtracted from this Matrix.
+	 * @return A new Matrix that is this Matrix minus the specified Matrix.
+	 */
 	public Matrix minus(Matrix other)
 	{
 		if(numRows() != other.numRows() || numCols() != other.numCols())
@@ -138,6 +178,29 @@ public class Matrix implements Cloneable, Serializable
 	}
 	
 	@Override
+	public boolean equals(Object o)
+	{
+		if(o instanceof Matrix)
+		{
+			Matrix m = (Matrix)o;
+			if(this.numRows() == m.numRows() && this.numCols() == m.numCols())
+			{
+				for(int i = 0; i < numRows(); i++)
+					for(int j = 0; j < numCols(); j++)
+						if(this.matrix[i][j] != m.matrix[i][j])
+							return false; //return false when if any number doesn't match.
+				
+				//assume for loop was completed successfully
+				return true;
+			}
+			else
+				return false;
+		}
+		
+		return false;
+	}
+	
+	@Override
 	public Object clone()
 	{
 		try
@@ -157,7 +220,7 @@ public class Matrix implements Cloneable, Serializable
 	 * Exception used when a Matrix dimension is illegal.
 	 * @author Jason Carrete
 	 */
-	public class IllegalMatrixDimensionException extends RuntimeException
+	static class IllegalMatrixDimensionException extends IllegalArgumentException
 	{
 		private static final long serialVersionUID = 1L;
 		
