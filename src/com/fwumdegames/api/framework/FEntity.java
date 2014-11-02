@@ -2,6 +2,7 @@ package com.fwumdegames.api.framework;
 
 import java.awt.Graphics;
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 
 import com.fwumdegames.api.math.geom.Vector2D;
@@ -16,6 +17,7 @@ public abstract class FEntity implements Serializable, Updatable
 	protected FEnvironment parent;
 	protected Vector2D velocity;
 	protected Point2D.Double pos;
+	protected Rectangle2D.Double hitbox;
 	
 	/**
 	 * Creates a new entity
@@ -24,6 +26,16 @@ public abstract class FEntity implements Serializable, Updatable
 	public FEntity(FEnvironment parent)
 	{
 		this.parent = parent;
+		pos = new Point2D.Double(0, 0);
+		velocity = new Vector2D(0,0);
+		hitbox = new Rectangle2D.Double(0,0,0,0);
+	}
+	
+	public FEntity(FEnvironment parent, double width, double height)
+	{
+		this(parent);
+		hitbox.width = width;
+		hitbox.height = height;
 	}
 	
 	/**
@@ -47,6 +59,40 @@ public abstract class FEntity implements Serializable, Updatable
 	{
 		pos.x += velocity.x * delta;
 		pos.y += velocity.y * delta;
+		hitbox.x = pos.x;
+		hitbox.y = pos.y;
+	}
+	
+	public void setX(double x)
+	{
+		pos.x = x;
+		hitbox.x = x;
+	}
+	
+	public void setY(double y)
+	{
+		pos.y = y;
+		hitbox.y = y;
+	}
+	
+	public double getX()
+	{
+		return pos.x;
+	}
+	
+	public double getY()
+	{
+		return pos.y;
+	}
+	
+	public Rectangle2D getHitbox()
+	{
+		return hitbox;
+	}
+	
+	public boolean colliding(FEntity other)
+	{
+		return hitbox.intersects(other.hitbox);
 	}
 	
 	public abstract void draw(Graphics g);

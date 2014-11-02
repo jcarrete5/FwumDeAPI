@@ -74,6 +74,6 @@ public class Keyboard extends KeyAdapter
 	 */
 	public void keyReleased(KeyEvent evt)
 	{
-		data.put(evt.getKeyCode(), true);
+		data.put(evt.getKeyCode(), false);
 	}
 }

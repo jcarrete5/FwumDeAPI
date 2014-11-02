@@ -41,8 +41,13 @@ public class FEnvironment extends JPanel implements Serializable, Updatable
 	 */
 	public FEnvironment(FGame parent, int[][] walls, int tileSize)
 	{
+		this(walls, tileSize);
+		this.setParent(parent);
+	}
+	
+	public FEnvironment(int[][] walls, int tileSize)
+	{
 		entities = new ArrayList<FEntity>();
-		this.parent = parent;
 		this.TILE_SIZE = tileSize;
 		this.walls = walls;
 		this.WIDTH = walls.length * TILE_SIZE;
@@ -102,13 +107,31 @@ public class FEnvironment extends JPanel implements Serializable, Updatable
 	}
 	
 	/**
+	 * Sets the FGame parent
+	 * @param game
+	 */
+	public void setParent(FGame game)
+	{
+		this.parent = game;
+	}
+	
+	/**
 	 * Gets if a place is free
 	 * @param hitbox The area to check
 	 * @return If there are no tiles there
 	 */
 	public boolean placeFree(Rectangle2D.Double hitbox)
 	{
-		return getTile(hitbox.x, hitbox.y) != 0 && getTile(hitbox.x + hitbox.width, hitbox.y) != 0 &&
-				getTile(hitbox.x, hitbox.y + hitbox.width) != 0 && getTile(hitbox.x + hitbox.width, hitbox.y + hitbox.height) != 0;
+		return getTile(hitbox.x, hitbox.y) == 0 && getTile(hitbox.x + hitbox.width, hitbox.y) == 0 &&
+				getTile(hitbox.x, hitbox.y + hitbox.width) == 0 && getTile(hitbox.x + hitbox.width, hitbox.y + hitbox.height) == 0;
+	}
+	
+	/**
+	 * Adds a new entity
+	 * @param entity
+	 */
+	public void add(FEntity entity)
+	{
+		entities.add(entity);
 	}
 }

@@ -106,6 +106,35 @@ public class Vector2D extends Point2D implements Serializable
 	}
 	
 	/**
+	 * Ensures the absolute value of x and y are less than or equal to 1
+	 */
+	public void simplify()
+	{
+		if(Math.abs(x) > 1 && Math.abs(y) > 1)
+		{
+			x /= y;
+			y /= y;
+			if(Math.abs(x) > 1)
+			{
+				x /= x;
+				y /= x;
+			}
+		}
+		else
+			if(Math.abs(x) > 1)
+			{
+				x /= x;
+				y /= x;
+			}
+			else
+				if(Math.abs(y) > 1)
+				{
+					x /= y;
+					y /= y;
+				}
+	}
+	
+	/**
 	 * Tests whether both Vector2D's are equal.
 	 * @return True if the difference between the x and y of both Vector2D's is less than 0.000001f;
 	 */
