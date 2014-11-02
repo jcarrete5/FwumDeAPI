@@ -1,6 +1,7 @@
 package com.fwumdegames.api.math;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Represents a numerical matrix.
@@ -15,6 +16,8 @@ public class Matrix implements Cloneable, Serializable
 	 */
 	public double[][] matrix;
 	
+	ArrayList<Integer> augmentPoints = new ArrayList<>();
+	
 	/**
 	 * Instantiates a new Matrix object based on the specified array.
 	 * @param array Matrix values.
@@ -22,6 +25,7 @@ public class Matrix implements Cloneable, Serializable
 	public Matrix(double[][] array)
 	{
 		matrix = array;
+		augmentPoints.add(0);
 	}
 	
 	/**
@@ -41,6 +45,8 @@ public class Matrix implements Cloneable, Serializable
 		for(int r = 0; r < rows; r++)
 			for(int c = 0; c < cols; c++, i++)
 				matrix[r][c] = vals[i];
+		
+		augmentPoints.add(0);
 	}
 	
 	/**
@@ -61,6 +67,35 @@ public class Matrix implements Cloneable, Serializable
 	}
 	
 	/**
+	 * Appends (not adds) the <tt>src</tt> Matrix onto the <tt>dest</tt> Matrix.
+	 * @param src The augment.
+	 * @param dest The base Matrix.
+	 * @return A new Matrix with the <tt>src</tt> appended onto the <tt>dest</tt>.
+	 */
+	public static Matrix augment(Matrix src, Matrix dest)
+	{
+		if(src.numRows() != dest.numRows())
+			throw new IllegalMatrixDimensionException("Cannot augment matricies with differing row numbers.");
+		
+		Matrix m;
+		double[][] d = new double[dest.numRows()][dest.numCols() + src.numCols()];
+		
+		//fill d[][] with dest Matrix first
+		for(int i = 0; i < dest.numRows(); i++)
+			for(int j = 0; j < dest.numCols(); j++)
+				d[i][j] = dest.matrix[i][j];
+		
+		//now add the src Matrix
+		for(int i = 0; i < src.numRows(); i++)
+			for(int j = 0; j < src.numCols(); j++)
+				d[i][dest.numCols() + j] = src.matrix[i][j];
+		
+		m = new Matrix(d);
+		m.augmentPoints.add(dest.numCols());
+		return m;
+	}
+	
+	/**
 	 * @return The number of rows in this Matrix.
 	 */
 	public int numRows()
@@ -77,6 +112,7 @@ public class Matrix implements Cloneable, Serializable
 	}
 	
 	/**
+	 * DOES NOT WORK YET!
 	 * Calculates and returns the inverse of this Matrix as this Matrix.
 	 * <b>Note:</b> This method mutates this object.
 	 * @return This Matrix after its inverse has been calculated.
@@ -116,10 +152,10 @@ public class Matrix implements Cloneable, Serializable
 		}
 		
 		double[][] m = new double[numRows()][other.numCols()];
-		for(int j = 0; j < numRows(); j++)
-			for(int k = 0; k < other.numCols(); k++)
-				for(int l = 0; l < other.numRows(); l++)
-					m[j][k] += this.matrix[j][l] * other.matrix[l][k];
+		for(int i = 0; i < numRows(); i++)
+			for(int j = 0; j < other.numCols(); j++)
+				for(int k = 0; k < other.numRows(); k++)
+					m[i][j] += this.matrix[i][k] * other.matrix[k][j];
 		
 		return new Matrix(m);
 	}
