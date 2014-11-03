@@ -1,5 +1,7 @@
 package com.fwumdegames.api.math;
 
+import java.util.Random;
+
 /**
  * FwumDeGames commonly used math functions that aren't in java.Math.
  * @author Jason Carrete
@@ -7,6 +9,8 @@ package com.fwumdegames.api.math;
  */
 public final class FMath
 {
+	private static final Random RAND = new Random();
+	
 	/**
 	 * Can't be instantiated.
 	 */
@@ -29,5 +33,15 @@ public final class FMath
 		}
 		
 		return a;
+	}
+	
+	/**
+	 * Generates a random number between 0 and the offset (exclusive).
+	 * @param offset One above the maximum value that can be generated.
+	 * @return An integer between 0 and <tt>offset</tt> (exclusive).
+	 */
+	public static int random(int offset)
+	{
+		return RAND.nextInt(offset);
 	}
 }
