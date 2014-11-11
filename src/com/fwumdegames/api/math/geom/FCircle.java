@@ -15,7 +15,7 @@ public class FCircle extends Ellipse2D.Double
 	/**
 	 * Center point of the circle.
 	 */
-	public Point2D.Double center;
+	private Point2D.Double center;
 	
 	/**
 	 * Radius of the circle.
@@ -31,6 +31,11 @@ public class FCircle extends Ellipse2D.Double
 	{
 		this.center = center;
 		this.radius = radius;
+		
+		super.x = center.x;
+		super.y = center.y;
+		super.width = radius * 2;
+		super.height = radius * 2;
 	}
 	
 	/**
