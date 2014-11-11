@@ -2,6 +2,7 @@ package com.fwumdegames.api.math.geom;
 
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
+import java.awt.geom.Point2D.Double;
 
 /**
  * Represents a perfect circle.
@@ -13,25 +14,12 @@ public class FCircle extends Ellipse2D.Double
 	private static final long serialVersionUID = 1L;
 	
 	/**
-	 * Center point of the circle.
-	 */
-	private Point2D.Double center;
-	
-	/**
-	 * Radius of the circle.
-	 */
-	public double radius;
-	
-	/**
 	 * Instantiates an FCircle object with the specified center point and radius.
 	 * @param center The center coordinate of the circle.
 	 * @param radius The radius of the circle.
 	 */
 	public FCircle(Point2D.Double center, double radius)
 	{
-		this.center = center;
-		this.radius = radius;
-		
 		super.x = center.x;
 		super.y = center.y;
 		super.width = radius * 2;
@@ -56,7 +44,9 @@ public class FCircle extends Ellipse2D.Double
 	 */
 	public boolean intersects(FCircle other)
 	{
-		return (this.radius + other.radius) < center.distance(other.center); 
+		Point2D.Double thisCenter = new Point2D.Double(x, y);
+		Point2D.Double otherCenter = new Point2D.Double(other.x, other.y);
+		return (this.width + other.width) < thisCenter.distance(otherCenter); 
 	}
 	
 	/**
