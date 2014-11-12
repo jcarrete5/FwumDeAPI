@@ -45,7 +45,7 @@ public class FCircle extends Ellipse2D.Double
 	{
 		Point2D.Double thisCenter = new Point2D.Double(x, y);
 		Point2D.Double otherCenter = new Point2D.Double(other.x, other.y);
-		return (this.width / 2 + other.width / 2) < thisCenter.distance(otherCenter); 
+		return (this.width / 2 + other.width / 2) > thisCenter.distance(otherCenter); 
 	}
 	
 	/**
