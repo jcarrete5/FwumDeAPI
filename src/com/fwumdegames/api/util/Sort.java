@@ -1,4 +1,4 @@
-package com.fwumdegames.util;
+package com.fwumdegames.api.util;
 
 /**
  * Various sorting algorithms, at your finger tips.
