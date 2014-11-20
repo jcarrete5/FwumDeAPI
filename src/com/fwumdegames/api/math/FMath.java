@@ -44,4 +44,35 @@ public final class FMath
 	{
 		return RAND.nextInt(offset);
 	}
+	
+	/**
+	 * Calculates the Largest Integer Factor (lif) of the specified integer that is less than the specified integer.
+	 * @param n The number that is to be processed.
+	 * @return The largest Integer Factor of the specified integer.
+	 */
+	public static int lif(int n)
+	{
+		int divisor = 2;
+		while(n % divisor != 0)
+			divisor++;
+		
+		return n / divisor;
+	}
+	
+	/**
+	 * Adds up all the digits in the specified number together.
+	 * @param n The number whose digits should be added together.
+	 * @return The sum of all digits in the specified number.
+	 */
+	public static int sumDigits(int n)
+	{
+		int sum = 0;
+		while(n != 0)
+		{
+			sum += n % 10;
+			n /= 10;
+		}
+		
+		return sum;
+	}
 }
