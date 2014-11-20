@@ -5,7 +5,7 @@ package com.fwumdegames.api.util;
  * @author Jason Carrete
  */
 public final class Sort
-{
+{	
 	/**
 	 * Uses the selection sort algorithm to sort an array of longs in ascending order.
 	 * @param a Array to be sorted.
@@ -155,6 +155,19 @@ public final class Sort
 			Comparable<Object> temp = a[pos];
 			a[pos] = a[min];
 			a[min] = temp;
+		}
+	}
+	
+	public static void insertion(long[] a)
+	{
+		for(int i = 0; i < a.length; i++)
+		{
+			long key = a[i];
+			int j;
+			for(j = i - 1; j >= 0 && a[j] > key; j--)
+				a[j + 1] = a[j];
+			
+			a[j + 1] = key;
 		}
 	}
 	
