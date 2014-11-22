@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsEnvironment;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
@@ -25,6 +26,7 @@ public class Sprite extends BufferedImage implements Serializable, Updatable
 	public Vector2D v;
 	private Color bgcolor;
 	private int stretchWidth, stretchHeight;
+	private double rotation;
 
 	public Sprite(BufferedImage bimg, double x_spd, double y_spd, int x, int y)
 	{
@@ -33,6 +35,7 @@ public class Sprite extends BufferedImage implements Serializable, Updatable
 		
 		hitbox = new Rectangle2D.Double(x, y, getWidth(), getHeight());
 		v = new Vector2D(x_spd, y_spd);
+		rotation = 0;
 	}
 	
 	public Sprite(BufferedImage bimg, Vector2D v, int x, int y)
@@ -75,12 +78,24 @@ public class Sprite extends BufferedImage implements Serializable, Updatable
 		this.stretchHeight = height;
 	}
 	
+	public double getRotation()
+	{
+		return rotation;
+	}
+	
+	public void setRotation(double rotation)
+	{
+		this.rotation = rotation;
+	}
+	
 	/**
 	 * Draws the sprite
 	 * @param g
 	 */
 	public void draw(Graphics g)
 	{
+		AffineTransform rotate = AffineTransform.getRotateInstance(Math.toRadians(rotation));
+		((Graphics2D)g).transform(rotate);
 		if(bgcolor == null)
 			if(stretchWidth == 0 && stretchHeight == 0)
 				g.drawImage(this, (int) hitbox.x, (int) hitbox.y, null);
@@ -91,6 +106,8 @@ public class Sprite extends BufferedImage implements Serializable, Updatable
 				g.drawImage(this, (int) hitbox.x, (int) hitbox.y, bgcolor, null);
 			else
 				g.drawImage(this, (int) hitbox.x, (int) hitbox.y, stretchWidth, stretchHeight, bgcolor, null);
+		//Reset rotation
+		((Graphics2D)g).transform(new AffineTransform());
 	}	
 	
 	@Override

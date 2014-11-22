@@ -1,5 +1,7 @@
 package com.fwumdegames.api.math.geom;
 
+import java.awt.geom.Point2D;
+
 
 /**
  * Holds the data for a linear function
@@ -8,6 +10,7 @@ package com.fwumdegames.api.math.geom;
 public class Line extends Function
 {
 	State state;
+	//Holds either the y-intercept or the x-coordinate of the vertical line
 	double b;
 	Vector2D slope;
 	
@@ -15,6 +18,23 @@ public class Line extends Function
 	{
 		this.slope = slope;
 		this.b = b;
+	}
+	
+	public Line(Point2D.Double point, Vector2D slope)
+	{
+		this.slope = slope;
+		b = point.y + point.x * (slope.y / slope.x);
+		if(b == 1 / 0.0)
+			b = point.x;
+	}
+	
+	@Override
+	public boolean contains(Point2D.Double point)
+	{
+		if(b == 1 / 0.0)
+			return point.x == b;
+		else
+			return super.contains(point);
 	}
 	
 	@Override
