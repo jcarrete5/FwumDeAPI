@@ -20,12 +20,13 @@ Packages include:
 
 - com.fwumdegames.api.io
 	- INI.java
+	- Keyboard.java
 	- Resource.java
 	- XML.java
 	- com.fwumdegames.api.io.sound
-    		- AbstractSound.java
-		- Sound.java
+    	- AbstractSound.java
 		- MIDI.java
+		- Sound.java
 
 - com.fwumdegames.api.math
 	- FMath.java
@@ -33,4 +34,6 @@ Packages include:
 	- Matrix.java
 	- com.fwumdegames.api.math.geom
 		- FCircle.java
+		- Function.java
+		- Line.java
 		- Vector2D.java

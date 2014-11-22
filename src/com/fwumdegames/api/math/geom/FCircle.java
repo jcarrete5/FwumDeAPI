@@ -13,14 +13,18 @@ public class FCircle extends Ellipse2D.Double
 	private static final long serialVersionUID = 1L;
 	
 	/**
-	 * Center point of the circle.
+	 * Instantiates an FCircle object with the specified x and y coordinates and radius.
+	 * @param x The x position of the center point.
+	 * @param y The y position of the center point.
+	 * @param radius The radius of the circle.
 	 */
-	public Point2D.Double center;
-	
-	/**
-	 * Radius of the circle.
-	 */
-	public double radius;
+	public FCircle(double x, double y, double radius)
+	{
+		super.x = x;
+		super.y = y;
+		super.width = radius * 2;
+		super.height = radius * 2;
+	}
 	
 	/**
 	 * Instantiates an FCircle object with the specified center point and radius.
@@ -29,19 +33,7 @@ public class FCircle extends Ellipse2D.Double
 	 */
 	public FCircle(Point2D.Double center, double radius)
 	{
-		this.center = center;
-		this.radius = radius;
-	}
-	
-	/**
-	 * Instantiates an FCircle object with the specified x and y coordinates and radius.
-	 * @param x The x position of the center point.
-	 * @param y The y position of the center point.
-	 * @param radius The radius of the circle.
-	 */
-	public FCircle(double x, double y, double radius)
-	{
-		this(new Point2D.Double(x, y), radius);
+		this(center.x, center.y, radius);
 	}
 	
 	/**
@@ -51,7 +43,9 @@ public class FCircle extends Ellipse2D.Double
 	 */
 	public boolean intersects(FCircle other)
 	{
-		return (this.radius + other.radius) < center.distance(other.center); 
+		Point2D.Double thisCenter = new Point2D.Double(x, y);
+		Point2D.Double otherCenter = new Point2D.Double(other.x, other.y);
+		return (this.width / 2 + other.width / 2) > thisCenter.distance(otherCenter); 
 	}
 	
 	/**
@@ -61,6 +55,8 @@ public class FCircle extends Ellipse2D.Double
 	 */
 	public boolean contains(FCircle other)
 	{
-		return (this.center.distance(other.center) + other.radius) < this.radius;
+		Point2D.Double thisCenter = new Point2D.Double(x, y);
+		Point2D.Double otherCenter = new Point2D.Double(other.x, other.y);
+		return (thisCenter.distance(otherCenter) + other.width / 2) < this.width / 2;
 	}
 }

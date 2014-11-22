@@ -67,11 +67,12 @@ public class Vector2D extends Point2D implements Serializable
 	/**
 	 * Swaps the x with the y of this Vector2D.
 	 */
-	public void reciprocal()
+	public Vector2D reciprocal()
 	{
 		double t = x;
 		x = y;
 		y = t;
+		return this;
 	}
 	
 	public void add(Vector2D toAdd)

@@ -16,7 +16,6 @@ import com.fwumdegames.api.math.geom.Vector2D;
 /**
  * Represents an image with a hit-box and a vector.
  * @author Jason Carrete
- * @since Oct 20, 2014
  */
 public class Sprite extends BufferedImage implements Serializable, Updatable
 {
@@ -98,12 +97,12 @@ public class Sprite extends BufferedImage implements Serializable, Updatable
 		((Graphics2D)g).transform(rotate);
 		if(bgcolor == null)
 			if(stretchWidth == 0 && stretchHeight == 0)
-				g.drawImage(this, (int) hitbox.x, (int) hitbox.y, null);
+				g.drawImage(this, (int)hitbox.x, (int)hitbox.y, null);
 			else
-				g.drawImage(this, (int) hitbox.x, (int) hitbox.y, stretchWidth, stretchHeight, null);
+				g.drawImage(this, (int)hitbox.x, (int)hitbox.y, stretchWidth, stretchHeight, null);
 		else
 			if(stretchWidth == 0 && stretchHeight == 0)
-				g.drawImage(this, (int) hitbox.x, (int) hitbox.y, bgcolor, null);
+				g.drawImage(this, (int)hitbox.x, (int)hitbox.y, bgcolor, null);
 			else
 				g.drawImage(this, (int) hitbox.x, (int) hitbox.y, stretchWidth, stretchHeight, bgcolor, null);
 		//Reset rotation
@@ -132,21 +131,18 @@ public class Sprite extends BufferedImage implements Serializable, Updatable
 	 */
 	public static BufferedImage toCompatibleImage(BufferedImage image)
 	{
-		// obtain the current system graphical settings
-		GraphicsConfiguration gfx_config = GraphicsEnvironment.
-			getLocalGraphicsEnvironment().getDefaultScreenDevice().
-			getDefaultConfiguration();
+		//obtain the current system graphical settings
+		GraphicsConfiguration gfx_config = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration();
 
-		//If the image is already optimised, return it
-		if (image.getColorModel().equals(gfx_config.getColorModel()))
+		//If the image is already optimized, return it
+		if(image.getColorModel().equals(gfx_config.getColorModel()))
 			return image;
 
 		// image is not optimized, so create a new image that is
-		BufferedImage new_image = gfx_config.createCompatibleImage(
-				image.getWidth(), image.getHeight(), image.getTransparency());
+		BufferedImage new_image = gfx_config.createCompatibleImage(image.getWidth(), image.getHeight(), image.getTransparency());
 
 		// get the graphics context of the new image to draw the old image on
-		Graphics2D g2d = (Graphics2D) new_image.getGraphics();
+		Graphics2D g2d = (Graphics2D)new_image.getGraphics();
 
 		// actually draw the image and dispose of context no longer needed
 		g2d.drawImage(image, 0, 0, null);

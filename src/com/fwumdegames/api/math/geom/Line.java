@@ -2,9 +2,8 @@ package com.fwumdegames.api.math.geom;
 
 import java.awt.geom.Point2D;
 
-
 /**
- * Holds the data for a linear function
+ * Holds the data for a linear function.
  * @author Ryan Goldstein
  */
 public class Line extends Function
