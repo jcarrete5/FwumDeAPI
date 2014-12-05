@@ -21,13 +21,13 @@ public class Sprite extends BufferedImage implements Serializable, Updatable
 {
 	private static final long serialVersionUID = -7599243419137335696L;
 	
-	public Rectangle2D.Double hitbox;
-	public Vector2D v;
+	public final Rectangle2D.Double hitbox;
+	public final Vector2D v;
 	private Color bgcolor;
 	private int stretchWidth, stretchHeight;
 	private double rotation;
 
-	public Sprite(BufferedImage bimg, double x_spd, double y_spd, int x, int y)
+	public Sprite(final BufferedImage bimg, double x_spd, double y_spd, int x, int y)
 	{
 		super(bimg.getWidth(), bimg.getHeight(), bimg.getType());
 		setData(bimg.getData());
@@ -37,22 +37,26 @@ public class Sprite extends BufferedImage implements Serializable, Updatable
 		rotation = 0;
 	}
 	
-	public Sprite(BufferedImage bimg, Vector2D v, int x, int y)
+	public Sprite(final BufferedImage bimg, final Vector2D v, int x, int y)
 	{
 		this(bimg, v.x, v.y, x, y);
 	}
 	
-	public Sprite(BufferedImage bimg, Vector2D v)
+	public Sprite(final BufferedImage bimg, final Vector2D v)
 	{
 		this(bimg, v.x, v.y, 0, 0);
 	}
 	
-	public Sprite(BufferedImage bimg)
+	public Sprite(final BufferedImage bimg)
 	{
 		this(bimg, 0.0, 0.0, 0, 0);
 	}
 	
-	public void setBackgroundColor(Color background)
+	/**
+	 * Sets the background color
+	 * @param background
+	 */
+	public void setBackgroundColor(final Color background)
 	{
 		this.bgcolor = background;
 	}
@@ -67,32 +71,50 @@ public class Sprite extends BufferedImage implements Serializable, Updatable
 		return stretchHeight;
 	}
 	
-	public void setStretchWidth(int width)
+	/**
+	 * Sets how many pixels the image will take up when drawn
+	 * @param width The pixel width of the drawn image
+	 */
+	public void setStretchWidth(final int width)
 	{
 		this.stretchWidth = width;
 	}
 	
-	public void setStretchHeight(int height)
+	/**
+	 * Sets how many pixels the image will take up when drawn
+	 * @param height The pixel height of the drawn image
+	 */
+	public void setStretchHeight(final int height)
 	{
 		this.stretchHeight = height;
 	}
 	
+	/**
+	 * Gets how rotated the sprite is when drawn
+	 * @return The rotation
+	 */
 	public double getRotation()
 	{
 		return rotation;
 	}
 	
-	public void setRotation(double rotation)
+	/**
+	 * Rotate the sprite when drawn
+	 * @param rotation The degrees to rotate
+	 */
+	public void setRotation(final double rotation)
 	{
 		this.rotation = rotation;
 	}
 	
 	/**
 	 * Draws the sprite
-	 * @param g
+	 * NOTE: Mutates g by adding the sprite
+	 * @param g The graphics object to draw to<br>
 	 */
-	public void draw(Graphics g)
+	public void draw(final Graphics g)
 	{
+		//Create the correct rotation
 		AffineTransform rotate = AffineTransform.getRotateInstance(Math.toRadians(rotation));
 		((Graphics2D)g).transform(rotate);
 		if(bgcolor == null)
@@ -110,7 +132,11 @@ public class Sprite extends BufferedImage implements Serializable, Updatable
 	}	
 	
 	@Override
-	public void update(float deltaTime)
+	/**
+	 * Updates the state of the sprite
+	 * @param deltaTime How many milliseconds have passed since the last update
+	 */
+	public void update(final float deltaTime)
 	{
 		this.applyVector(deltaTime);
 	}
@@ -118,7 +144,7 @@ public class Sprite extends BufferedImage implements Serializable, Updatable
 	/**
 	 * Applies the vector to the position of the sprite.
 	 */
-	public void applyVector(float deltaTime)
+	public void applyVector(final float deltaTime)
 	{
 		hitbox.x += v.x * deltaTime;
 		hitbox.y += v.y * deltaTime;
@@ -129,7 +155,7 @@ public class Sprite extends BufferedImage implements Serializable, Updatable
 	 * @param image The image loaded from memory
 	 * @return The image converted into a compatible type
 	 */
-	public static BufferedImage toCompatibleImage(BufferedImage image)
+	public static BufferedImage toCompatibleImage(final BufferedImage image)
 	{
 		//obtain the current system graphical settings
 		GraphicsConfiguration gfx_config = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration();
