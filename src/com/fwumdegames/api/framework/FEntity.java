@@ -5,7 +5,7 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 
-import com.fwumdegames.api.math.geom.Vector2D;
+import com.fwumdegames.api.math.geom.Velocity2D;
 
 /**
  * Represents an entity within the game
@@ -15,7 +15,7 @@ public abstract class FEntity implements Serializable, Updatable
 {
 	private static final long serialVersionUID = 1L;
 	protected FEnvironment parent;
-	protected Vector2D velocity;
+	protected Velocity2D velocity;
 	protected Point2D.Double pos;
 	protected Rectangle2D.Double hitbox;
 	
@@ -27,7 +27,7 @@ public abstract class FEntity implements Serializable, Updatable
 	{
 		this.parent = parent;
 		pos = new Point2D.Double(0, 0);
-		velocity = new Vector2D(0,0);
+		velocity = new Velocity2D(0,0);
 		hitbox = new Rectangle2D.Double(0,0,0,0);
 	}
 	

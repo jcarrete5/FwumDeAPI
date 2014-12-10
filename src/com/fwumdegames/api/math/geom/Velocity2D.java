@@ -9,7 +9,7 @@ import com.fwumdegames.api.math.Fraction;
  * @author Jason Carrete
  * @author Ryan Goldstein
  */
-public class Vector2D extends Point2D implements Serializable
+public class Velocity2D extends Point2D implements Serializable
 {
 	private static final long serialVersionUID = -8436361899368277887L;
 
@@ -23,7 +23,7 @@ public class Vector2D extends Point2D implements Serializable
 	 * @param x_spd Change in x.
 	 * @param y_spd Change in y.
 	 */
-	public Vector2D(double x_spd, double y_spd)
+	public Velocity2D(double x_spd, double y_spd)
 	{
 		x = x_spd;
 		y = y_spd;
@@ -33,7 +33,7 @@ public class Vector2D extends Point2D implements Serializable
 	 * Instantiates a Vector2D with a fraction (rise/run).
 	 * @param m A Fraction
 	 */
-	public Vector2D(Fraction m)
+	public Velocity2D(Fraction m)
 	{
 		this(m.getDenominator(), m.getNumerator());
 	}
@@ -67,7 +67,7 @@ public class Vector2D extends Point2D implements Serializable
 	/**
 	 * Swaps the x with the y of this Vector2D.
 	 */
-	public Vector2D reciprocal()
+	public Velocity2D reciprocal()
 	{
 		double t = x;
 		x = y;
@@ -75,13 +75,13 @@ public class Vector2D extends Point2D implements Serializable
 		return this;
 	}
 	
-	public void add(Vector2D toAdd)
+	public void add(Velocity2D toAdd)
 	{
 		this.x += toAdd.x;
 		this.y += toAdd.y;
 	}
 	
-	public void add(Vector2D toAdd, float deltaTime)
+	public void add(Velocity2D toAdd, float deltaTime)
 	{
 		this.x += toAdd.x * deltaTime;
 		this.y += toAdd.y * deltaTime;
@@ -142,9 +142,9 @@ public class Vector2D extends Point2D implements Serializable
 	@Override
 	public boolean equals(Object o)
 	{
-		if(o instanceof Vector2D)
+		if(o instanceof Velocity2D)
 		{
-			Vector2D v = (Vector2D)o;
+			Velocity2D v = (Velocity2D)o;
 			float xDiff = (float)Math.abs(this.x - v.x), yDiff = (float)Math.abs(this.y - v.y);
 			return xDiff < 0.000001f && yDiff < 0.000001f;
 		}

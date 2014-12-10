@@ -11,7 +11,7 @@ import java.awt.image.BufferedImage;
 import java.io.Serializable;
 
 import com.fwumdegames.api.framework.Updatable;
-import com.fwumdegames.api.math.geom.Vector2D;
+import com.fwumdegames.api.math.geom.Velocity2D;
 
 /**
  * Represents an image with a hit-box and a vector.
@@ -22,7 +22,7 @@ public class Sprite extends BufferedImage implements Serializable, Updatable
 	private static final long serialVersionUID = -7599243419137335696L;
 	
 	public final Rectangle2D.Double hitbox;
-	public final Vector2D v;
+	public final Velocity2D v;
 	private Color bgcolor;
 	private int stretchWidth, stretchHeight;
 	private double rotation;
@@ -33,16 +33,16 @@ public class Sprite extends BufferedImage implements Serializable, Updatable
 		setData(bimg.getData());
 		
 		hitbox = new Rectangle2D.Double(x, y, getWidth(), getHeight());
-		v = new Vector2D(x_spd, y_spd);
+		v = new Velocity2D(x_spd, y_spd);
 		rotation = 0;
 	}
 	
-	public Sprite(final BufferedImage bimg, final Vector2D v, int x, int y)
+	public Sprite(final BufferedImage bimg, final Velocity2D v, int x, int y)
 	{
 		this(bimg, v.x, v.y, x, y);
 	}
 	
-	public Sprite(final BufferedImage bimg, final Vector2D v)
+	public Sprite(final BufferedImage bimg, final Velocity2D v)
 	{
 		this(bimg, v.x, v.y, 0, 0);
 	}
