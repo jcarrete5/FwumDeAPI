@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * Represents a numerical matrix.
  * @author Jason Carrete
  */
-public class Matrix implements Cloneable, Serializable
+public class Matrix implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -234,22 +234,6 @@ public class Matrix implements Cloneable, Serializable
 		}
 		
 		return false;
-	}
-	
-	@Override
-	public Object clone()
-	{
-		try
-		{
-			return super.clone();
-		}
-		catch(CloneNotSupportedException e)
-		{
-			//no problem since we are Cloneable
-			e.printStackTrace();
-		}
-		
-		return null;
 	}
 	
 	/**

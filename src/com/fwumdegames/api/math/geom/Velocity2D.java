@@ -1,6 +1,5 @@
 package com.fwumdegames.api.math.geom;
 
-import java.awt.geom.Point2D;
 import java.io.Serializable;
 import com.fwumdegames.api.math.Fraction;
 
@@ -9,7 +8,7 @@ import com.fwumdegames.api.math.Fraction;
  * @author Jason Carrete
  * @author Ryan Goldstein
  */
-public class Velocity2D extends Point2D implements Serializable
+public class Velocity2D implements Serializable, Cloneable
 {
 	private static final long serialVersionUID = -8436361899368277887L;
 
@@ -35,7 +34,7 @@ public class Velocity2D extends Point2D implements Serializable
 	 */
 	public Velocity2D(Fraction m)
 	{
-		this(m.getDenominator(), m.getNumerator());
+		this(m.getDenom(), m.getNumer());
 	}
 	
 	/**
@@ -44,6 +43,7 @@ public class Velocity2D extends Point2D implements Serializable
 	 */
 	public double getDirection()
 	{
+		//FIXME does not work properly when x or y is 0
 		double degBoost = 0.0;
 		
 		if(x > 0 && y < 0)
@@ -86,25 +86,6 @@ public class Velocity2D extends Point2D implements Serializable
 		this.x += toAdd.x * deltaTime;
 		this.y += toAdd.y * deltaTime;
 	}
-
-	@Override
-	public double getX()
-	{
-		return x;
-	}
-	
-	@Override
-	public double getY()
-	{
-		return y;
-	}
-
-	@Override
-	public void setLocation(double x, double y)
-	{
-		this.x = x;
-		this.y = y;
-	}
 	
 	/**
 	 * Ensures the absolute value of x and y are less than or equal to 1
@@ -137,7 +118,7 @@ public class Velocity2D extends Point2D implements Serializable
 	
 	/**
 	 * Tests whether both Vector2D's are equal.
-	 * @return True if the difference between the x and y of both Vector2D's is less than 0.000001f;
+	 * @return True if both vectors have equivalent x and y values.
 	 */
 	@Override
 	public boolean equals(Object o)
@@ -145,10 +126,15 @@ public class Velocity2D extends Point2D implements Serializable
 		if(o instanceof Velocity2D)
 		{
 			Velocity2D v = (Velocity2D)o;
-			float xDiff = (float)Math.abs(this.x - v.x), yDiff = (float)Math.abs(this.y - v.y);
-			return xDiff < 0.000001f && yDiff < 0.000001f;
+			return v.x == x && v.y == y;
 		}
 		
 		return false;
+	}
+	
+	@Override
+	public Velocity2D clone()
+	{
+		return new Velocity2D(x, y);
 	}
 }
