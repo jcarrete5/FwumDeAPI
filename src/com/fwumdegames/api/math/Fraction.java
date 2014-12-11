@@ -62,6 +62,9 @@ public class Fraction extends Number implements Comparable<Fraction>, Cloneable
 		}
 	}
 	
+	/**
+	 * Simplifies this Fraction object.
+	 */
 	public void simplify()
 	{
 		int gcd = FMath.gcd(numer, denom);
