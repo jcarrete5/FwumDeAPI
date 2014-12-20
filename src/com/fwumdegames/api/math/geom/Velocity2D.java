@@ -43,25 +43,7 @@ public class Velocity2D implements Serializable, Cloneable
 	 */
 	public double getDirection()
 	{
-		//FIXME does not work properly when x or y is 0
-		double degBoost = 0.0;
-		
-		if(x > 0 && y < 0)
-			degBoost += 90.0;
-		else if(x < 0 && y < 0)
-			degBoost += 180.0;
-		else if(x < 0 && y > 0)
-			degBoost += 270.0;
-		
-		double degrees;
-		if(x == 0)
-			degrees = 0;
-		else
-		{
-			double slopePercent = Math.abs(y / x);
-			degrees = Math.toDegrees(Math.atan(slopePercent)) + degBoost;
-		}
-		return degrees;
+		return (360 + Math.toDegrees(Math.atan2(y, x))) % 360;
 	}
 
 	/**
@@ -102,18 +84,16 @@ public class Velocity2D implements Serializable, Cloneable
 				y /= x;
 			}
 		}
-		else
-			if(Math.abs(x) > 1)
-			{
-				x /= x;
-				y /= x;
-			}
-			else
-				if(Math.abs(y) > 1)
-				{
-					x /= y;
-					y /= y;
-				}
+		else if(Math.abs(x) > 1)
+		{
+			x /= x;
+			y /= x;
+		}
+		else if(Math.abs(y) > 1)
+		{
+			x /= y;
+			y /= y;
+		}
 	}
 	
 	/**
