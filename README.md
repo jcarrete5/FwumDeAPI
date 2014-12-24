@@ -12,7 +12,6 @@ Packages include:
 	- Updateable.java
 
 - com.fwumdegames.api.graphics
-	- Effects.java
 	- Sprite.java
 
 - com.fwumdegames.api.graphics.layout
@@ -37,3 +36,5 @@ Packages include:
 		- Function.java
 		- Line.java
 		- Vector2D.java
+- com.fwumdegames.api.util
+	- Sort.java
