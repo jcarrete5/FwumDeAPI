@@ -3,7 +3,9 @@ package com.fwumdegames.api.io;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
+
 import javax.imageio.ImageIO;
 
 /**
@@ -44,5 +46,16 @@ public final class Resource
 	public static File getFile(Class<?> c, String path) throws URISyntaxException
 	{
 		return new File(c.getResource(path).toURI());
+	}
+	
+	/**
+	 * Returns an InputStream from a file inside a jar file
+	 * @param c The location of the class that is used to find the file
+	 * @param path The path to the file relative to the class
+	 * @return The input stream created from the file
+	 */
+	public static InputStream getStream(Class<?> c, String path) 
+	{
+		return c.getResourceAsStream(path);
 	}
 }
