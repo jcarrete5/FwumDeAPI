@@ -10,14 +10,13 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
 
-import com.fwumdegames.api.framework.Updatable;
 import com.fwumdegames.api.math.geom.Velocity2D;
 
 /**
  * Represents an image with a hit-box and a vector.
  * @author Jason Carrete
  */
-public class Sprite extends BufferedImage implements Serializable, Updatable
+public class Sprite extends BufferedImage implements Serializable
 {
 	private static final long serialVersionUID = -7599243419137335696L;
 	
@@ -131,7 +130,6 @@ public class Sprite extends BufferedImage implements Serializable, Updatable
 		((Graphics2D)g).transform(new AffineTransform());
 	}	
 	
-	@Override
 	/**
 	 * Updates the state of the sprite
 	 * @param deltaTime How many milliseconds have passed since the last update

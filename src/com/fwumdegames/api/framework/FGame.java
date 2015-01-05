@@ -1,6 +1,9 @@
 package com.fwumdegames.api.framework;
 
-import java.awt.CardLayout;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.swing.JPanel;
 
@@ -8,35 +11,29 @@ import com.fwumdegames.api.io.Keyboard;
 
 /**
  * Basic game framework
+ * To use the FwumDeAPI framework:
+ * Create a class that implements GameListener or extends GameAdapter
+ * Create an FGame object
+ * Add an instance of the above class to the FGame object
+ * Use a JApplet or JFrame to display the FGame
  * @author Ryan Goldstein
  */
 public class FGame extends JPanel
 {
 	private static final long serialVersionUID = 1L;
-	private String[] screenKeys;
-	private int currentScreen;
-	private JPanel[] screens;
-	
-	protected long clockSpd = 10;
-	private boolean limitFrames = true;
+	private List<GameListener> listeners;
+	private boolean started;
  
 	/**
 	 * Sets up the game
 	 * @param screens All of the menus and FEnvironments in the game
 	 */
-	public FGame(JPanel[] screens)
+	public FGame()
 	{
-		System.setProperty("sun.java2d.opengl","True");
+		listeners = new LinkedList<GameListener>();
+		started = true;
 		
-		this.setLayout(new CardLayout());
-		this.screens = screens;
-		screenKeys = new String[screens.length];
-		for(int i = 0; i < screens.length; i++)
-		{
-			screenKeys[i] = Integer.toString(i);
-			this.add(screens[i], screenKeys[i]);
-		}
-		
+		System.setProperty("sun.java2d.opengl","True");		
 		this.setFocusable(true);
 		this.requestFocus();
 		this.addKeyListener(Keyboard.getInstance());
@@ -46,42 +43,32 @@ public class FGame extends JPanel
 	
 	/**
 	 * Runs the game logic
-	 * @param delta The milliseconds since the last update
 	 */
-	protected void update(float delta)
+	protected void update()
 	{
-		if(screens[currentScreen] instanceof Updatable)
-		{
-			((Updatable)screens[currentScreen]).update(delta);
-		}
+		for(GameListener l : listeners)
+			l.update();
+	}
+	
+	@Override
+	/**
+	 * Paints the game
+	 */
+	public void paint(Graphics g)
+	{
+		super.paint(g);
+		for(GameListener l : listeners)
+			l.draw((Graphics2D)g);
 	}
 	
 	/**
-	 * Moves on to the next screen
+	 * Adds a game listener to the game
+	 * It will receive calls to its update and paint methods
+	 * @param l
 	 */
-	public void nextScreen()
+	public void addGameListener(GameListener l)
 	{
-		((CardLayout)this.getLayout()).show(this, screenKeys[++currentScreen]); //Maybe not work
-	}
-	
-	/**
-	 * Moves back to the previous screen
-	 */
-	public void previousScreen()
-	{
-		((CardLayout)this.getLayout()).show(this, screenKeys[--currentScreen]); //maybe not work
-	}
-	
-	/**
-	 * If the game is limiting frames, then there will be guaranteed delay between each update.
-	 * <br>If the game isn't limiting frames, then the framerate could be infinitely high.
-	 * <br>Limiting frames reduces strain on CPU and GPU, but often doesn't let high 
-	 * performance systems perform at max capacity.
-	 * @param limit If the frames should be limited
-	 */
-	public void limitFrames(boolean limit)
-	{
-		this.limitFrames = limit;
+		listeners.add(l);
 	}
 	
 	/**
@@ -93,29 +80,17 @@ public class FGame extends JPanel
 		@Override
 		public void run()
 		{
-			long delta, previousTime = System.nanoTime();
-			float conversionFactor = (float)Math.pow(10, 6);
-			while(!Thread.interrupted())
+			while(true)
 			{
-				//Find the delta time
-				delta = (System.nanoTime() - previousTime);
-				previousTime = System.nanoTime();
-				long millis = (long)(10 - delta / conversionFactor);
-				int nanos = (int)delta % (int)conversionFactor;
-				
-				//Update and redraw the game
-				update(delta / conversionFactor);
+				if(started)
+				{
+					for(GameListener l : listeners)
+						l.start();
+					started = false;
+				}
+				update();
 				repaint();
-				
-				if(limitFrames)
-					try
-					{
-						Thread.sleep(millis, nanos);
-					}
-					catch(InterruptedException e)
-					{
-						System.out.println("Update Thread interruped");
-					}
+				try { Thread.sleep(1000 / 60); } catch(Exception e) { e.printStackTrace(); }
 			}
 		}
 	}
