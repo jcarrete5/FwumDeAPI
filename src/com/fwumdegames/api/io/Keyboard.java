@@ -65,6 +65,7 @@ public class Keyboard extends KeyAdapter
 	 */
 	public void keyPressed(KeyEvent evt)
 	{
+		active = true;
 		data.put(evt.getKeyCode(), true);
 	}
 		
@@ -74,6 +75,7 @@ public class Keyboard extends KeyAdapter
 	 */
 	public void keyReleased(KeyEvent evt)
 	{
+		active = true;
 		data.put(evt.getKeyCode(), false);
 	}
 }
