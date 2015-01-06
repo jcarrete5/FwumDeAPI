@@ -17,6 +17,16 @@ public final class FMath
 	private FMath() {}
 	
 	/**
+	 * Gets the sign (1 or -1) of an integer
+	 * @param x The integer value
+	 * @return 1 or -1
+	 */
+	public static int getSign(int x)
+	{
+		return Math.abs(x) / x;
+	}
+	
+	/**
 	 * A call to this method will calculate the greatest common divisor (gcd) of two numbers.
 	 * @param a Integer 1.
 	 * @param b Integer 2.
