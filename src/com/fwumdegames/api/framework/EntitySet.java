@@ -43,7 +43,11 @@ public class EntitySet<T extends Entity> implements Iterable<T>
 	
 	public boolean free(double x, double y, double width, double height)
 	{
-		return free(x, y) && free(x + width, y) && free(x, y + height) && free(x + width, y + height);
+		boolean free = true;
+		for(T obj : entities)
+			if(obj.intersects(x, y, width, height))
+				free = false;
+		return free;
 	}
 
 	@Override
