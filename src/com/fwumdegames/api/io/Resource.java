@@ -10,6 +10,10 @@ import java.io.InputStream;
 import java.net.URISyntaxException;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
+import com.fwumdegames.api.io.sound.Sound;
 
 /**
  * Contains helper methods for retrieving resources from jar files or files from a directory.
@@ -60,6 +64,17 @@ public final class Resource
 	public static InputStream getStream(Class<?> c, String path) 
 	{
 		return c.getResourceAsStream(path);
+	}
+	
+	/**
+	 * Returns a sound file inside a jar file
+	 * @param c The class that is used to find the Sound
+	 * @param path The path relative to the class to the file
+	 * @return The sound object represented by the file
+	 */
+	public static Sound getSound(Class<?> c, String path) throws IOException, LineUnavailableException, UnsupportedAudioFileException, URISyntaxException
+	{
+		return new Sound(getFile(c, path));
 	}
 	
 	/**
