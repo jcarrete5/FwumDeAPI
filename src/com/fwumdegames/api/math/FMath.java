@@ -21,9 +21,9 @@ public final class FMath
 	 * @param x The integer value
 	 * @return 1 or -1
 	 */
-	public static int getSign(int x)
+	public static int getSign(double x)
 	{
-		return Math.abs(x) / x;
+		return (int)(Math.abs(x) / x);
 	}
 	
 	/**
