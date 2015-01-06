@@ -12,6 +12,16 @@ public abstract class Entity
 	private Rectangle2D.Double bounds;
 	private Image texture;
 	
+	public Entity()
+	{
+		bounds = new Rectangle2D.Double();
+	}
+	
+	public Entity(double x, double y, double width, double height)
+	{
+		bounds = new Rectangle2D.Double(x, y, width, height);
+	}
+	
 	public void setX(double x)
 	{
 		bounds.x = x;
