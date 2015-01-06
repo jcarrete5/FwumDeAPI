@@ -8,6 +8,7 @@ import java.util.List;
 import javax.swing.JPanel;
 
 import com.fwumdegames.api.io.Keyboard;
+import com.fwumdegames.api.io.Mouse;
 
 /**
  * Basic game framework
@@ -37,8 +38,16 @@ public class FGame extends JPanel
 		this.setFocusable(true);
 		this.requestFocus();
 		this.addKeyListener(Keyboard.getInstance());
+		this.addMouseListener(Mouse.getInstance());
+		this.addMouseMotionListener(Mouse.getInstance());
 		
 		new Thread(new UpdateThread(), "Update Thread").start();
+	}
+	
+	public FGame(GameListener listener)
+	{
+		this();
+		listeners.add(listener);
 	}
 	
 	/**
