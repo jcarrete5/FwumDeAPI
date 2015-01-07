@@ -4,7 +4,7 @@ import java.io.Serializable;
 import com.fwumdegames.api.math.Fraction;
 
 /**
- * Represents a vector that stores a change in x and y positions in two dimensions.
+ * Represents a velocity that stores a change in x and y positions in two dimensions.
  * @author Jason Carrete
  * @author Ryan Goldstein
  */
@@ -48,13 +48,11 @@ public class Velocity2D implements Serializable, Cloneable
 
 	/**
 	 * Swaps the x with the y of this Vector2D.
+	 * @return A new Velocity2D that is this Velocity2D's reciprocal.
 	 */
 	public Velocity2D reciprocal()
 	{
-		double t = x;
-		x = y;
-		y = t;
-		return this;
+		return new Velocity2D(y, x);
 	}
 	
 	public void add(Velocity2D toAdd)
