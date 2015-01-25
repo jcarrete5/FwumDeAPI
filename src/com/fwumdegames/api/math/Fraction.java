@@ -19,6 +19,16 @@ public class Fraction extends Number implements Comparable<Fraction>, Cloneable
 	}
 	
 	/**
+	 * Instantiates a Fraction object. By default, this Fraction is not simplified.
+	 * @param numer Numerator for the fraction.
+	 * @param denom Denominator for the fraction.
+	 */
+	public Fraction(int numer, int denom)
+	{
+		this(numer, denom, false);
+	}
+	
+	/**
 	 * Instantiates a Fraction object.
 	 * @param numer Numerator for the fraction.
 	 * @param denom Denominator for the fraction.
@@ -97,7 +107,6 @@ public class Fraction extends Number implements Comparable<Fraction>, Cloneable
 	public void setNumer(int numer)
 	{
 		this.numer = numer;
-		simplify();
 	}
 	
 	public void setDenom(int denom)
@@ -106,11 +115,10 @@ public class Fraction extends Number implements Comparable<Fraction>, Cloneable
 			throw new IllegalArgumentException("Denominator cannot be \"0\"");
 		
 		this.denom = denom;
-		simplify();
 	}
 	
 	/**
-	 * Returns a new Fraction that is the inverse of this one.
+	 * Returns a new Fraction that is the reciprocal of this one.
 	 * @return The inverse of this fraction.
 	 */
 	public Fraction reciprocal()
@@ -127,7 +135,10 @@ public class Fraction extends Number implements Comparable<Fraction>, Cloneable
 	@Override
 	public int compareTo(Fraction f)
 	{
-		return this.intValue() - f.intValue();
+		int cm = denom * f.denom;
+		Fraction a = new Fraction(numer * (cm / denom), cm);
+		Fraction b = new Fraction(f.numer * (cm / f.denom), cm);
+		return a.numer - b.numer;
 	}
 
 	@Override

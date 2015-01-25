@@ -27,7 +27,6 @@ public class FGame extends JPanel
  
 	/**
 	 * Sets up the game
-	 * @param screens All of the menus and FEnvironments in the game
 	 */
 	public FGame()
 	{
