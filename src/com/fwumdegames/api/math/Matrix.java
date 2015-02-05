@@ -119,7 +119,6 @@ public class Matrix implements Serializable
 	 */
 	public Matrix inverse()
 	{
-		//FIXME make this method work.
 		return this;
 	}
 	
