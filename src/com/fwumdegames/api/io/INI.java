@@ -199,16 +199,16 @@ public class INI
 			sections[newsect].title = section;
 			sections[newsect].setValue(key, newValue);
 		}
-			BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-			String fullFile = "";
-			for(int i = 1; i < sections.length; i++)
-			{
-				fullFile += "[" + sections[i].title + "]\n";
-				for(int n = 0; n < sections[i].keys.length; n++)
-					fullFile += sections[i].keys[n] + "=" + sections[i].values[n] + "\n";
-			}
-			writer.write(fullFile);
-			writer.close();
+		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+		String fullFile = "";
+		for(int i = 0; i < sections.length; i++)
+		{
+			fullFile += "[" + sections[i].title + "]\n";
+			for(int n = 0; n < sections[i].keys.length; n++)
+				fullFile += sections[i].keys[n] + "=" + sections[i].values[n] + "\n";
+		}
+		writer.write(fullFile);
+		writer.close();
 		
 	}
 	
@@ -249,11 +249,14 @@ public class INI
 			keys = new String[numpairs - 1];
 			values = new String[numpairs - 1];
 			
-			for(int i = 0; i < keypairs.length - 1; i++)
+			for(int i = 1; i < keypairs.length; i++)
 			{
 				equalsIndex = keypairs[i].indexOf("=");
-				keys[i] = keypairs[i].substring(0,equalsIndex).replace("\n", "");
-				values[i] = keypairs[i].substring(equalsIndex + 1);
+				if(equalsIndex != -1)
+				{
+					keys[i - 1] = keypairs[i].substring(0,equalsIndex).replace("\n", "");
+					values[i - 1] = keypairs[i].substring(equalsIndex + 1);
+				}
 			}
 		}
 		
