@@ -11,15 +11,15 @@ public class Line extends Function
 	State state;
 	//Holds either the y-intercept or the x-coordinate of the vertical line
 	double b;
-	Velocity2D slope;
+	Vector2 slope;
 	
-	public Line(Velocity2D slope, double b)
+	public Line(Vector2 slope, double b)
 	{
 		this.slope = slope;
 		this.b = b;
 	}
 	
-	public Line(Point2D.Double point, Velocity2D slope)
+	public Line(Point2D.Double point, Vector2 slope)
 	{
 		this.slope = slope;
 		b = point.y + point.x * (slope.y / slope.x);
