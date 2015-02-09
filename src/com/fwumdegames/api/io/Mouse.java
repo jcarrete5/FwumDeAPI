@@ -47,7 +47,7 @@ public class Mouse extends MouseAdapter implements MouseMotionListener
 	 */
 	public static boolean pressed(int button)
 	{
-		return buttons.get(buttons);
+		return buttons.containsKey(button) && buttons.get(buttons);
 	}
 	
 	@Override
