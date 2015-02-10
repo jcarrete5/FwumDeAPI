@@ -68,33 +68,6 @@ public class Vector2 implements Serializable, Cloneable
 	}
 	
 	/**
-	 * Ensures the absolute value of x and y are less than or equal to 1.
-	 */
-	public void simplify()
-	{
-		if(Math.abs(x) > 1 && Math.abs(y) > 1)
-		{
-			x /= y;
-			y /= y;
-			if(Math.abs(x) > 1)
-			{
-				x /= x;
-				y /= x;
-			}
-		}
-		else if(Math.abs(x) > 1)
-		{
-			x /= x;
-			y /= x;
-		}
-		else if(Math.abs(y) > 1)
-		{
-			x /= y;
-			y /= y;
-		}
-	}
-	
-	/**
 	 * Normalizes this Vector2.
 	 * @return A new Vector2 that is the normalized version of this one.
 	 */
