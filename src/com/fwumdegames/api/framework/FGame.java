@@ -62,7 +62,7 @@ public class FGame extends JPanel
 	/**
 	 * Paints the game
 	 */
-	public void paint(Graphics g)
+	public void paintComponent(Graphics g)
 	{
 		super.paint(g);
 		for(GameListener l : listeners)

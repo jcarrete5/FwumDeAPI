@@ -4,7 +4,7 @@ import java.io.Serializable;
 import com.fwumdegames.api.math.Fraction;
 
 /**
- * Represents a velocity that stores a change in x and y positions in two dimensions.
+ * Represents a vector that stores a change in x and y positions in two dimensions.
  * @author Jason Carrete
  * @author Ryan Goldstein
  */
@@ -18,7 +18,7 @@ public class Vector2 implements Serializable, Cloneable
 	public double x, y;
 	
 	/**
-	 * Instantiates a Vector2D with a change in x and a change in y.
+	 * Instantiates a Vector2 with a change in x and a change in y.
 	 * @param x_spd Change in x.
 	 * @param y_spd Change in y.
 	 */
@@ -29,7 +29,7 @@ public class Vector2 implements Serializable, Cloneable
 	}
 	
 	/**
-	 * Instantiates a Vector2D with a fraction (rise/run).
+	 * Instantiates a Vector2 with a fraction (rise/run).
 	 * @param m A Fraction
 	 */
 	public Vector2(Fraction m)
@@ -47,8 +47,8 @@ public class Vector2 implements Serializable, Cloneable
 	}
 
 	/**
-	 * Swaps the x with the y of this Vector2D.
-	 * @return A new Velocity2D that is this Velocity2D's reciprocal.
+	 * Swaps the x with the y of this Vector2.
+	 * @return A new Vector2 that is this Vector2's reciprocal.
 	 */
 	public Vector2 reciprocal()
 	{
@@ -68,7 +68,7 @@ public class Vector2 implements Serializable, Cloneable
 	}
 	
 	/**
-	 * Ensures the absolute value of x and y are less than or equal to 1
+	 * Ensures the absolute value of x and y are less than or equal to 1.
 	 */
 	public void simplify()
 	{
@@ -95,7 +95,17 @@ public class Vector2 implements Serializable, Cloneable
 	}
 	
 	/**
-	 * Tests whether both Vector2D's are equal.
+	 * Normalizes this Vector2.
+	 * @return A new Vector2 that is the normalized version of this one.
+	 */
+	public Vector2 normalize()
+	{
+		double len = Math.sqrt(x*x + y*y);
+		return new Vector2(x / len, y / len);
+	}
+	
+	/**
+	 * Tests whether both Vector2's are equal.
 	 * @return True if both vectors have equivalent x and y values.
 	 */
 	@Override

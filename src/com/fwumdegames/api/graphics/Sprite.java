@@ -22,6 +22,7 @@ public class Sprite extends BufferedImage implements Serializable
 	
 	public final Rectangle2D.Double hitbox;
 	public final Vector2 v;
+	
 	private Color bgcolor;
 	private int stretchWidth, stretchHeight;
 	private double rotation;
@@ -117,15 +118,9 @@ public class Sprite extends BufferedImage implements Serializable
 		AffineTransform rotate = AffineTransform.getRotateInstance(Math.toRadians(rotation));
 		((Graphics2D)g).transform(rotate);
 		if(bgcolor == null)
-			if(stretchWidth == 0 && stretchHeight == 0)
-				g.drawImage(this, (int)hitbox.x, (int)hitbox.y, null);
-			else
-				g.drawImage(this, (int)hitbox.x, (int)hitbox.y, stretchWidth, stretchHeight, null);
+			g.drawImage(this, (int)hitbox.x, (int)hitbox.y, stretchWidth, stretchHeight, null);
 		else
-			if(stretchWidth == 0 && stretchHeight == 0)
-				g.drawImage(this, (int)hitbox.x, (int)hitbox.y, bgcolor, null);
-			else
-				g.drawImage(this, (int) hitbox.x, (int) hitbox.y, stretchWidth, stretchHeight, bgcolor, null);
+			g.drawImage(this, (int) hitbox.x, (int) hitbox.y, stretchWidth, stretchHeight, bgcolor, null);
 		//Reset rotation
 		((Graphics2D)g).transform(new AffineTransform());
 	}	
