@@ -4,10 +4,14 @@ import java.awt.Graphics2D;
 import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsEnvironment;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.sound.sampled.LineUnavailableException;
@@ -92,5 +96,16 @@ public final class Resource
 		g2d.drawImage(image, 0, 0, null);
 		g2d.dispose();
 		return new_image; 
+	}
+	
+	public static List<String> readAllLines(File file) throws IOException
+	{
+		BufferedReader reader = new BufferedReader(new FileReader(file));
+		String line;
+		List<String> lines = new LinkedList<>();
+		while((line = reader.readLine()) != null)
+			lines.add(line);
+		reader.close();
+		return lines;
 	}
 }
