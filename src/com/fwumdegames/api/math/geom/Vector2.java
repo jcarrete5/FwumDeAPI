@@ -10,7 +10,7 @@ import com.fwumdegames.api.math.Fraction;
  */
 public class Vector2 implements Serializable, Cloneable
 {
-	private static final long serialVersionUID = -8436361899368277887L;
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Represents the speed(in pixels) a graphical object has when being drawn.
@@ -97,5 +97,11 @@ public class Vector2 implements Serializable, Cloneable
 	public Vector2 clone()
 	{
 		return new Vector2(x, y);
+	}
+	
+	@Override
+	public String toString()
+	{
+		return "(" + x + ", " + y + ")";
 	}
 }
