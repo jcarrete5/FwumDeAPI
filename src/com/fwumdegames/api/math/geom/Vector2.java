@@ -28,6 +28,12 @@ public class Vector2 implements Serializable, Cloneable
 		y = y_spd;
 	}
 	
+	public Vector2(int direction, double magnitude)
+	{
+		x = Math.cos(Math.toRadians(direction)) * magnitude;
+		y = -Math.sin(Math.toRadians(direction)) * magnitude;
+	}
+	
 	/**
 	 * Instantiates a Vector2 with a fraction (rise/run).
 	 * @param m A Fraction

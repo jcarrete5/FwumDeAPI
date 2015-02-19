@@ -6,6 +6,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.util.HashMap;
 
+import javax.swing.JComponent;
+
 /**
  * Holds the data for the mouse
  * @author Ryan Goldstein
@@ -15,6 +17,7 @@ public class Mouse extends MouseAdapter implements MouseMotionListener
 	private static final HashMap<Integer, Boolean> buttons;
 	private static final Point position;
 	private static final Mouse instance;
+	private static JComponent comp;
 	
 	static
 	{
@@ -25,8 +28,9 @@ public class Mouse extends MouseAdapter implements MouseMotionListener
 	
 	private Mouse() {}
 	
-	public static Mouse getInstance()
+	public static Mouse getInstance(JComponent c)
 	{
+		comp = c;
 		return instance;
 	}
 	
@@ -37,7 +41,8 @@ public class Mouse extends MouseAdapter implements MouseMotionListener
 	 */
 	public static Point getPosition()
 	{
-		return position;
+		System.out.println(comp);
+		return comp.getMousePosition();
 	}
 	
 	/**

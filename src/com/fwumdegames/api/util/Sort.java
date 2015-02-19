@@ -2,10 +2,35 @@ package com.fwumdegames.api.util;
 
 /**
  * Various sorting algorithms, at your finger tips.
- * @author Jason Carrete
+ * @author Jason Carrete, Ryan Goldstein
  */
 public final class Sort
 {	
+	/**
+	 * Sorts both arrays keeping the pairs intact
+	 * Sorts in ascending order
+	 * @param sortBy The array to put in order
+	 * @param parallel Kept in parallel with sortBy
+	 */
+	public static <T extends Comparable<T>> void parallelSort(T[] sortBy, T[] parallel)
+	{
+		if(sortBy.length != parallel.length)
+			throw new IllegalArgumentException("Array lengths must be equal for the arrays to be parallel.");
+		for(int i = 0; i < sortBy.length; i++)
+		{
+			int lowest = i;
+			for(int j = i; j < parallel.length; j++)
+				if(sortBy[lowest].compareTo(sortBy[j]) > 0)
+					lowest = j;
+			T temp = sortBy[lowest];
+			sortBy[lowest] = sortBy[i];
+			sortBy[i] = temp;
+			temp = parallel[lowest];
+			parallel[lowest] = parallel[i];
+			parallel[i] = temp;
+		}
+	}
+	
 	/**
 	 * Uses the selection sort algorithm to sort an array of longs in ascending order.
 	 * @param a Array to be sorted.

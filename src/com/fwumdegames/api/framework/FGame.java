@@ -37,8 +37,8 @@ public class FGame extends JPanel
 		this.setFocusable(true);
 		this.requestFocus();
 		this.addKeyListener(Keyboard.getInstance());
-		this.addMouseListener(Mouse.getInstance());
-		this.addMouseMotionListener(Mouse.getInstance());
+		this.addMouseListener(Mouse.getInstance(this));
+		this.addMouseMotionListener(Mouse.getInstance(this));
 		
 		new Thread(new UpdateThread(), "Update Thread").start();
 	}
