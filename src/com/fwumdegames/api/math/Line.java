@@ -1,6 +1,7 @@
-package com.fwumdegames.api.math.geom;
+package com.fwumdegames.api.math;
 
 import java.awt.geom.Point2D;
+import com.fwumdegames.api.math.geom.Vector2;
 
 /**
  * Holds the data for a linear function.

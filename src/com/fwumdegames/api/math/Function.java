@@ -1,4 +1,4 @@
-package com.fwumdegames.api.math.geom;
+package com.fwumdegames.api.math;
 
 import java.awt.geom.Point2D;
 
