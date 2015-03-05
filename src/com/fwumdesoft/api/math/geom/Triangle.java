@@ -11,7 +11,7 @@ public class Triangle
 		points = new Point[3];
 		points[0] = p1;
 		points[1] = p2;
-		points[3] = p3;
+		points[2] = p3;
 	}
 	
 	public Triangle(Point... points)
