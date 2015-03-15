@@ -106,4 +106,15 @@ public final class Resource
 		reader.close();
 		return lines;
 	}
+	
+	public static String readAllText(File file) throws IOException
+	{
+		BufferedReader reader = new BufferedReader(new FileReader(file));
+		String line;
+		String text = "";
+		while((line = reader.readLine()) != null)
+			text += line;
+		reader.close();
+		return text;
+	}
 }
