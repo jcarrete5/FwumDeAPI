@@ -75,9 +75,9 @@ public class MIDI extends AbstractSound
 	}
 	
 	@Override
-	public void setMicrosecondPosition(long µs)
+	public void setMicrosecondPosition(long us)
 	{
-		seq.setMicrosecondPosition(µs);
+		seq.setMicrosecondPosition(us);
 	}
 	
 	@Override

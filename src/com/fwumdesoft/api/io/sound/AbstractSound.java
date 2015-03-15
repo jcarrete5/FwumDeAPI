@@ -40,9 +40,9 @@ public abstract class AbstractSound
 	
 	/**
 	 * Sets the position of where the sound should start from.
-	 * @param µs Time in microseconds.
+	 * @param ï¿½s Time in microseconds.
 	 */
-	public abstract void setMicrosecondPosition(long µs);
+	public abstract void setMicrosecondPosition(long us);
 	
 	/**
 	 * Stops the <tt>activeThread</tt> and flushes the AudioBuffer of the sound file.<br>

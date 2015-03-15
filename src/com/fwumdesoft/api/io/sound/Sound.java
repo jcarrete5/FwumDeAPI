@@ -85,9 +85,9 @@ public class Sound extends AbstractSound
 	}
 	
 	@Override
-	public void setMicrosecondPosition(long µs)
+	public void setMicrosecondPosition(long us)
 	{
-		clip.setMicrosecondPosition(µs);
+		clip.setMicrosecondPosition(us);
 	}
 	
 	@Override
