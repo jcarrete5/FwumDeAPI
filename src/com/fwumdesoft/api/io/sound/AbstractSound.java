@@ -1,16 +1,19 @@
 package com.fwumdesoft.api.io.sound;
 
 import java.io.IOException;
+
 import javax.sound.midi.MidiUnavailableException;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
+
+import com.badlogic.gdx.utils.Disposable;
 
 /**
  * All classes in this package extend AbstractSound.java
  * @author Jason Carrete
  * @since Oct 9, 2014
  */
-public abstract class AbstractSound
+public abstract class AbstractSound implements Disposable
 {
 	public static final int LOOP_CONTINUOUSLY = Clip.LOOP_CONTINUOUSLY;
 	
@@ -38,11 +41,6 @@ public abstract class AbstractSound
 	 */
 	public abstract void pause();
 	
-	/**
-	 * Sets the position of where the sound should start from.
-	 * @param �s Time in microseconds.
-	 */
-	public abstract void setMicrosecondPosition(long us);
 	
 	/**
 	 * Stops the <tt>activeThread</tt> and flushes the AudioBuffer of the sound file.<br>

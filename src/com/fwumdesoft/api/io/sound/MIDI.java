@@ -74,7 +74,6 @@ public class MIDI extends AbstractSound
 			activeThread.interrupt();
 	}
 	
-	@Override
 	public void setMicrosecondPosition(long us)
 	{
 		seq.setMicrosecondPosition(us);
@@ -89,6 +88,17 @@ public class MIDI extends AbstractSound
 		seq = null;
 		in = null;
 		System.gc();
+	}
+	
+	public void dispose()
+	{
+		try
+		{
+			close();
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 	}
 	
 	/**

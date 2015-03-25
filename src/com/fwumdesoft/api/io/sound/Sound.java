@@ -84,7 +84,6 @@ public class Sound extends AbstractSound
 			activeThread.interrupt();
 	}
 	
-	@Override
 	public void setMicrosecondPosition(long us)
 	{
 		clip.setMicrosecondPosition(us);
@@ -131,5 +130,16 @@ public class Sound extends AbstractSound
 		
 		activeThread = new Thread(active);
 		activeThread.start();
+	}
+	
+	public void dispose()
+	{
+		try
+		{
+			close();
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 	}
 }
