@@ -13,21 +13,14 @@ public class FTexture implements Disposable
 	BufferedImage image;
 	Texture texture;
 	private Backend backend;
-	private boolean disposed;
-	private FTexture()
-	{
-		disposed = false;
-	}
 	public FTexture(BufferedImage source)
 	{
-		this();
 		image = source;
 		backend = Backend.Java2d;
 	}
 	
 	public FTexture(Texture tex)
 	{
-		this();
 		texture = tex;
 		backend = Backend.Libgdx;
 	}
@@ -52,7 +45,6 @@ public class FTexture implements Disposable
 	
 	public int getWidth()
 	{
-		checkDisposed();
 		switch(backend)
 		{
 			case Libgdx:
@@ -65,7 +57,6 @@ public class FTexture implements Disposable
 	
 	public int getHeight()
 	{
-		checkDisposed();
 		switch(backend)
 		{
 			case Libgdx:
@@ -83,7 +74,6 @@ public class FTexture implements Disposable
 	
 	public void dispose()
 	{
-		disposed = true;
 		switch(backend)
 		{
 			case Libgdx:
@@ -96,16 +86,5 @@ public class FTexture implements Disposable
 				break;
 		}
 		System.gc();
-	}
-	
-	public boolean isDisposed()
-	{
-		return disposed;
-	}
-	
-	private void checkDisposed()
-	{
-		if(!disposed)
-			throw new RuntimeException("FTexture already disposed");
 	}
 }
