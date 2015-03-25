@@ -80,7 +80,7 @@ public class Display implements Disposable
 		switch(backend)
 		{
 			case Libgdx:
-				batch.draw(texture.texture, x, (int)size.y - y);
+				batch.draw(texture.texture, x, (int)size.y - y - texture.getHeight());
 				break;
 			case Java2d:
 				graphics.drawImage(texture.image, x, y, null);
@@ -93,7 +93,7 @@ public class Display implements Disposable
 		switch(backend)
 		{
 			case Libgdx:
-				renderer.rect(x, (int)size.y - y, width, height);
+				renderer.rect(x, (int)size.y - y - height, width, height);
 				break;
 			case Java2d:
 				if(fill)
@@ -109,7 +109,7 @@ public class Display implements Disposable
 		switch(backend)
 		{
 			case Libgdx:
-				renderer.ellipse(x, (int)size.y - y, width, height);
+				renderer.ellipse(x, (int)size.y - y - height, width, height);
 				break;
 			case Java2d:
 				if(fill)
