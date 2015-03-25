@@ -85,4 +85,33 @@ public final class FMath
 		
 		return sum;
 	}
+	/**
+	 * Returns a bitstring with powers of 2 descending
+	 * @param number An integer to convert
+	 * @return A bitstring
+	 */
+	public static boolean[] toBitstring(int number)
+	{
+		boolean[] bitstring = new boolean[(int)(Math.log10(number) / Math.log10(2))];
+		for(int i = bitstring.length - 1; i >= 0; i--)
+		{
+			int power = (int)Math.pow(2, i);
+			if(bitstring[i] = number >= power)
+			{
+				number -= power;
+			}
+		}
+		return bitstring;
+	}
+	
+	
+	public static int toInt(boolean[] bitstring)
+	{
+		if(bitstring.length > 32)
+			throw new IllegalArgumentException("Bitstring length must be less than 32 bits.");
+		int result = 0;
+		for(int i = 0; i < bitstring.length; i++)
+			result += bitstring[i] ? (int)Math.pow(2, i) : 0;
+		return result;
+	}
 }
