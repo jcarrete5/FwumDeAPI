@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
 
 public class Display implements Disposable
@@ -14,8 +15,9 @@ public class Display implements Disposable
 	private SpriteBatch batch;
 	private ShapeRenderer renderer;
 	private boolean fill;
+	private Vector2 size;
 	
-	public Display(Backend backend)
+	private Display(Backend backend)
 	{
 		this.backend = backend;
 		switch(backend)
@@ -27,6 +29,18 @@ public class Display implements Disposable
 			case Java2d:
 				break;
 		}
+	}
+	
+	public static Display newLibgdxDisplay(int window_width, int window_height)
+	{
+		Display disp = new Display(Backend.Libgdx);
+		disp.size = new Vector2(window_width, window_height);
+		return disp;
+	}
+	
+	public static Display newJava2dDisplay()
+	{
+		return new Display(Backend.Java2d);
 	}
 	
 	public void begin()
@@ -68,7 +82,7 @@ public class Display implements Disposable
 		switch(backend)
 		{
 			case Libgdx:
-				batch.draw(texture.texture, x, y);
+				batch.draw(texture.texture, x, (int)size.y - y);
 				break;
 			case Java2d:
 				graphics.drawImage(texture.image, x, y, null);
@@ -81,7 +95,7 @@ public class Display implements Disposable
 		switch(backend)
 		{
 			case Libgdx:
-				renderer.rect(x, y, width, height);
+				renderer.rect(x, (int)size.y - y, width, height);
 				break;
 			case Java2d:
 				if(fill)
@@ -97,7 +111,7 @@ public class Display implements Disposable
 		switch(backend)
 		{
 			case Libgdx:
-				renderer.ellipse(x, y, width, height);
+				renderer.ellipse(x, (int)size.y - y, width, height);
 				break;
 			case Java2d:
 				if(fill)
