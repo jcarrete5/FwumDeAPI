@@ -75,12 +75,19 @@ public class Display implements Disposable
 	
 	public void draw(FTexture texture, int x, int y)
 	{
+		draw(texture, x, y, 1, 1, false, false, 0);
+	}
+		
+	public void draw(FTexture texture, int x, int y, float scaleX, float scaleY, boolean flipX, boolean flipY, int rotation)
+	{
 		if(!texture.getBackend().equals(backend))
 			throw new IllegalArgumentException("FTexture must have the same backend as the Display that draws it.");
 		switch(backend)
 		{
 			case Libgdx:
-				batch.draw(texture.texture, x, (int)size.y - y - texture.getHeight());
+				batch.draw(texture.texture, x, (int)size.y - y - texture.getHeight(),
+						0, 0, texture.getWidth(), texture.getHeight(), scaleX, scaleY, 
+						rotation, 0, 0, texture.getWidth(), texture.getHeight(), flipX, flipY);
 				break;
 			case Java2d:
 				graphics.drawImage(texture.image, x, y, null);
