@@ -48,7 +48,7 @@ public class Display implements Disposable
 		if(backend.equals(Backend.Libgdx))
 		{
 			batch.begin();
-			renderer.begin();
+			renderer.begin(fill ? ShapeType.Filled : ShapeType.Line);
 		}
 		else
 			throw new RuntimeException("begin() should only be called with the Libgdx backend.");
@@ -77,8 +77,6 @@ public class Display implements Disposable
 	{
 		if(!texture.getBackend().equals(backend))
 			throw new IllegalArgumentException("FTexture must have the same backend as the Display that draws it.");
-		if(texture.isDisposed())
-			throw new IllegalArgumentException("FTexture must not be disposed at draw time.");
 		switch(backend)
 		{
 			case Libgdx:
