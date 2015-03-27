@@ -20,6 +20,7 @@ import com.fwumdesoft.api.io.sound.Sound;
 /**
  * Contains helper methods for retrieving resources from jar files or files from a directory.
  * @author Jason Carrete
+ * @author Ryan Goldstein
  * @since Oct 7, 2014
  */
 public final class Resource

@@ -17,7 +17,7 @@ public abstract class AbstractSound implements Disposable
 {
 	public static final int LOOP_CONTINUOUSLY = Clip.LOOP_CONTINUOUSLY;
 	
-	Thread activeThread;
+	protected Thread activeThread;
 	
 	/**
 	 * Opens the clip to be played and makes it ready to be read.<br>
