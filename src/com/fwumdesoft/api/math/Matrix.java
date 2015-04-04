@@ -3,7 +3,7 @@ package com.fwumdesoft.api.math;
 import java.io.Serializable;
 
 /**
- * Represents a numerical matrix.
+ * Represents a Matrix.
  * @author Jason Carrete
  */
 public class Matrix implements Serializable, Cloneable
@@ -112,40 +112,43 @@ public class Matrix implements Serializable, Cloneable
 	
 	/**
 	 * Inverses a 2x2 matrix only.
-	 * @return This Matrix after it has been inverted.
+	 * @return A new Matrix after inverting this Matrix.
 	 */
 	public Matrix inverse2()
 	{
 		if(numRows() != 2 || numCols() != 2)
 			throw new IllegalMatrixDimensionException("numRows() and numCols() must be 2");
+		
+		Matrix m = clone();
+		
 		//[a b]
 		//[c d]
-		
 		// 1 / (ad - bc)
-		double det = 1 / (get(0, 0) * get(1, 1) - get(0, 1) * get(1, 0));
-		set(set(get(1, 1), 0, 0), 1, 1); //swap 'a' and 'd'
+		double det = 1 / (m.get(0, 0) * m.get(1, 1) - m.get(0, 1) * m.get(1, 0));
+		m.set(m.set(m.get(1, 1), 0, 0), 1, 1); //swap 'a' and 'd'
 		
 		//negate 'b' and 'c'
-		set(-get(0, 1), 0, 1);
-		set(-get(1, 0), 1, 0);
+		m.set(-m.get(0, 1), 0, 1);
+		m.set(-m.get(1, 0), 1, 0);
 		
-		times(det);
-		return this;
+		m.times(det);
+		return m;
 	}
 	
 	/**
-	 * Multiplies this Matrix by the specified scalar.<br>
-	 * <b>Note:</b> This method mutates this object.
+	 * Multiplies this Matrix by the specified scalar.
 	 * @param scalar The number that multiplies each number in this Matrix.
-	 * @return This Matrix after being multiplied by the scalar.
+	 * @return A new Matrix after being multiplied by the scalar.
 	 */
 	public Matrix times(double scalar)
 	{
-		for(int i = 0; i < numRows(); i++)
-			for(int j = 0; j < numCols(); j++)
-				matrix[i][j] *= scalar;
+		Matrix m = clone();
 		
-		return this;
+		for(int i = 0; i < m.numRows(); i++)
+			for(int j = 0; j < m.numCols(); j++)
+				m.matrix[i][j] *= scalar;
+		
+		return m;
 	}
 	
 	/**
