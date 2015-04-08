@@ -1,6 +1,5 @@
 package com.fwumdesoft.api.math.geom;
 
-import java.util.Arrays;
 
 public class TileMap
 {
@@ -13,7 +12,6 @@ public class TileMap
 		TILE = tileSize;
 		WIDTH = TILE * widthInTiles;
 		HEIGHT = TILE * heightInTiles;
-		Arrays.fill(map, false);
 	}
 	
 	public boolean validPoint(int x, int y)
