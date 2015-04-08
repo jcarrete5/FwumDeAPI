@@ -17,6 +17,23 @@ public final class FMath
 	private FMath() {}
 	
 	/**
+	 * Computes the factorial of <tt>a</tt>.
+	 * @return The number after its factorial has been computed.
+	 */
+	public static long fact(long a)
+	{
+		if(a < 0)
+			throw new ArithmeticException("Cannot factorial a number less than 0");
+		if(a == 0)
+			return 1;
+		
+		long b = a;
+		for(long i = a - 1; i > 1; i--)
+			b *= i;
+		return b;
+	}
+	
+	/**
 	 * Gets the sign (1 or -1) of an integer
 	 * @param x The integer value
 	 * @return 1 or -1
