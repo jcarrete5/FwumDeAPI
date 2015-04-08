@@ -1,22 +1,19 @@
 package com.fwumdesoft.api.math;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 /**
- * Represents a numerical matrix.
+ * Represents a Matrix.
  * @author Jason Carrete
  */
-public class Matrix implements Serializable
+public class Matrix implements Serializable, Cloneable
 {
 	private static final long serialVersionUID = 1L;
 	
 	/**
 	 * Internal 2D matrix.
 	 */
-	public double[][] matrix;
-	
-	ArrayList<Integer> augmentPoints = new ArrayList<>();
+	private double[][] matrix;
 	
 	/**
 	 * Instantiates a new Matrix object based on the specified array.
@@ -25,7 +22,17 @@ public class Matrix implements Serializable
 	public Matrix(double[][] array)
 	{
 		matrix = array;
-		augmentPoints.add(0);
+	}
+	
+	/**
+	 * Instantiates a new Matrix and fills it with zeroes.
+	 */
+	public Matrix(int rows, int cols)
+	{
+		matrix = new double[rows][cols];
+		for(int r = 0; r < rows; r++)
+			for(int c = 0; c < cols; c++)
+				matrix[r][c] = 0;
 	}
 	
 	/**
@@ -45,8 +52,6 @@ public class Matrix implements Serializable
 		for(int r = 0; r < rows; r++)
 			for(int c = 0; c < cols; c++, i++)
 				matrix[r][c] = vals[i];
-		
-		augmentPoints.add(0);
 	}
 	
 	/**
@@ -66,33 +71,16 @@ public class Matrix implements Serializable
 		return new Matrix(m);
 	}
 	
-	/**
-	 * Appends (not adds) the <tt>src</tt> Matrix onto the <tt>dest</tt> Matrix.
-	 * @param src The augment.
-	 * @param dest The base Matrix.
-	 * @return A new Matrix with the <tt>src</tt> appended onto the <tt>dest</tt>.
-	 */
-	public static Matrix augment(Matrix src, Matrix dest)
+	public double get(int row, int col)
 	{
-		if(src.numRows() != dest.numRows())
-			throw new IllegalMatrixDimensionException("Cannot augment matricies with differing row numbers.");
-		
-		Matrix m;
-		double[][] d = new double[dest.numRows()][dest.numCols() + src.numCols()];
-		
-		//fill d[][] with dest Matrix first
-		for(int i = 0; i < dest.numRows(); i++)
-			for(int j = 0; j < dest.numCols(); j++)
-				d[i][j] = dest.matrix[i][j];
-		
-		//now add the src Matrix
-		for(int i = 0; i < src.numRows(); i++)
-			for(int j = 0; j < src.numCols(); j++)
-				d[i][dest.numCols() + j] = src.matrix[i][j];
-		
-		m = new Matrix(d);
-		m.augmentPoints.add(dest.numCols());
-		return m;
+		return matrix[row][col];
+	}
+	
+	public double set(double d, int row, int col)
+	{
+		double oldVal = matrix[row][col];
+		matrix[row][col] = d;
+		return oldVal;
 	}
 	
 	/**
@@ -123,18 +111,44 @@ public class Matrix implements Serializable
 	}
 	
 	/**
-	 * Multiplies this Matrix by the specified scalar.<br>
-	 * <b>Note:</b> This method mutates this object.
+	 * Inverses a 2x2 matrix only.
+	 * @return A new Matrix after inverting this Matrix.
+	 */
+	public Matrix inverse2()
+	{
+		if(numRows() != 2 || numCols() != 2)
+			throw new IllegalMatrixDimensionException("numRows() and numCols() must be 2");
+		
+		Matrix m = clone();
+		
+		//[a b]
+		//[c d]
+		// 1 / (ad - bc)
+		double det = 1 / (m.get(0, 0) * m.get(1, 1) - m.get(0, 1) * m.get(1, 0));
+		m.set(m.set(m.get(1, 1), 0, 0), 1, 1); //swap 'a' and 'd'
+		
+		//negate 'b' and 'c'
+		m.set(-m.get(0, 1), 0, 1);
+		m.set(-m.get(1, 0), 1, 0);
+		
+		m = m.times(det);
+		return m;
+	}
+	
+	/**
+	 * Multiplies this Matrix by the specified scalar.
 	 * @param scalar The number that multiplies each number in this Matrix.
-	 * @return This Matrix after being multiplied by the scalar.
+	 * @return A new Matrix after being multiplied by the scalar.
 	 */
 	public Matrix times(double scalar)
 	{
-		for(int i = 0; i < numRows(); i++)
-			for(int j = 0; j < numCols(); j++)
-				matrix[i][j] *= scalar;
+		Matrix m = clone();
 		
-		return this;
+		for(int i = 0; i < m.numRows(); i++)
+			for(int j = 0; j < m.numCols(); j++)
+				m.matrix[i][j] *= scalar;
+		
+		return m;
 	}
 	
 	/**
@@ -233,6 +247,16 @@ public class Matrix implements Serializable
 		}
 		
 		return false;
+	}
+	
+	@Override
+	public Matrix clone()
+	{
+		Matrix m = new Matrix(numRows(), numCols());
+		for(int i = 0; i < numRows(); i++)
+			for(int j = 0; j < numCols(); j++)
+				m.set(get(i, j), i, j);
+		return m;
 	}
 	
 	/**
