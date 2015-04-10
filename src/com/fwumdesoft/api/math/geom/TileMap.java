@@ -46,7 +46,19 @@ public class TileMap
 		return validPoint(x, y) && !map[x / TILE][y / TILE];
 	}
 	
+	public boolean free(float x, float y)
+	{
+		return validPoint((int)x, (int)y) && !map[(int)x / TILE][(int)y / TILE];
+	}
+	
 	public boolean free(int x, int y, int width, int height)
+	{
+		width -= 1;
+		height -= 1;
+		return free(x, y) && free(x + width, y) && free(x, y + height) && free(x + width, y + height);
+	}
+	
+	public boolean free(float x, float y, float width, float height)
 	{
 		width -= 1;
 		height -= 1;
