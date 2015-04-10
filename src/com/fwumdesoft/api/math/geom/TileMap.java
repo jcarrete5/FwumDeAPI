@@ -30,6 +30,7 @@ public class TileMap
 		return value;
 	}
 	
+	@Deprecated
 	public boolean getValue(int x, int y)
 	{
 		if(!validPoint(x, y))
@@ -38,5 +39,17 @@ public class TileMap
 		y /= TILE;
 		boolean value = map[x][y];
 		return value;
+	}
+	
+	public boolean free(int x, int y)
+	{
+		return validPoint(x, y) && !map[x / TILE][y / TILE];
+	}
+	
+	public boolean free(int x, int y, int width, int height)
+	{
+		width -= 1;
+		height -= 1;
+		return free(x, y) && free(x + width, y) && free(x, y + height) && free(x + width, y + height);
 	}
 }
