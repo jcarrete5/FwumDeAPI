@@ -16,7 +16,7 @@ public class TileMap
 	
 	public boolean validPoint(int x, int y)
 	{
-		return x >= 0 && y >= 0 && x / TILE < WIDTH && y / TILE < HEIGHT;
+		return x >= 0 && y >= 0 && x / TILE < map.length && y / TILE < map[x / TILE].length;
 	}
 	
 	public boolean setValue(int x, int y, boolean newVal)
