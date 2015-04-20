@@ -131,7 +131,7 @@ public class Matrix implements Serializable, Cloneable
 		m.set(-m.get(0, 1), 0, 1);
 		m.set(-m.get(1, 0), 1, 0);
 		
-		m.times(det);
+		m = m.times(det);
 		return m;
 	}
 	
