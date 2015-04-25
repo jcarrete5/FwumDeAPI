@@ -22,12 +22,11 @@ public class TileMap
 	public boolean setValue(float x, float y, boolean newVal)
 	{
 		if(!validPoint(x, y))
-			throw new IllegalArgumentException("X and Y coordinates are invalid.");
+			return false;
 		x /= TILE;
 		y /= TILE;
-		boolean value = map[(int)x][(int)y];
 		map[(int)x][(int)y] = newVal;
-		return value;
+		return true;
 	}
 	
 	@Deprecated
