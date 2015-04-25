@@ -14,19 +14,19 @@ public class TileMap
 		HEIGHT = TILE * heightInTiles;
 	}
 	
-	public boolean validPoint(int x, int y)
+	public boolean validPoint(float x, float y)
 	{
-		return x >= 0 && y >= 0 && x / TILE < map.length && y / TILE < map[x / TILE].length;
+		return x >= 0 && y >= 0 && x / TILE < map.length && y / TILE < map[(int)x / TILE].length;
 	}
 	
-	public boolean setValue(int x, int y, boolean newVal)
+	public boolean setValue(float x, float y, boolean newVal)
 	{
 		if(!validPoint(x, y))
 			throw new IllegalArgumentException("X and Y coordinates are invalid.");
 		x /= TILE;
 		y /= TILE;
-		boolean value = map[x][y];
-		map[x][y] = newVal;
+		boolean value = map[(int)x][(int)y];
+		map[(int)x][(int)y] = newVal;
 		return value;
 	}
 	
@@ -41,21 +41,9 @@ public class TileMap
 		return value;
 	}
 	
-	public boolean free(int x, int y)
-	{
-		return validPoint(x, y) && !map[x / TILE][y / TILE];
-	}
-	
 	public boolean free(float x, float y)
 	{
-		return validPoint((int)x, (int)y) && !map[(int)x / TILE][(int)y / TILE];
-	}
-	
-	public boolean free(int x, int y, int width, int height)
-	{
-		width -= 1;
-		height -= 1;
-		return free(x, y) && free(x + width, y) && free(x, y + height) && free(x + width, y + height);
+		return validPoint(x, y) && !map[(int)x / TILE][(int)y / TILE];
 	}
 	
 	public boolean free(float x, float y, float width, float height)
