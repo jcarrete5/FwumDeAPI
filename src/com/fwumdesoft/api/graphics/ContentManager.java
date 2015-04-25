@@ -14,10 +14,11 @@ public abstract class ContentManager implements Disposable
 		content = new LinkedList<>();
 	}
 	
-	public void add(Object obj)
+	public <T> T add(T obj)
 	{
 		if(isDisposable(obj))
 			content.add(obj);
+		return obj;
 	}
 	
 	public abstract FTexture loadTexture(String path);
