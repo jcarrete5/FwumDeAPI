@@ -3,7 +3,7 @@ package com.fwumdesoft.api.graphics;
 import java.lang.reflect.Method;
 import java.util.LinkedList;
 
-import com.fwumdesoft.api.io.sound.AbstractSound;
+import com.fwumdesoft.api.sound.AbstractSound;
 
 public abstract class ContentManager implements Disposable
 {

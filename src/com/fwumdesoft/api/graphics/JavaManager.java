@@ -1,8 +1,8 @@
 package com.fwumdesoft.api.graphics;
 
 import com.fwumdesoft.api.io.Resource;
-import com.fwumdesoft.api.io.sound.AbstractSound;
-import com.fwumdesoft.api.io.sound.Sound;
+import com.fwumdesoft.api.sound.AbstractSound;
+import com.fwumdesoft.api.sound.Sound;
 
 public class JavaManager extends ContentManager
 {

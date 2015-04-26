@@ -1,8 +1,8 @@
 package com.fwumdesoft.api.graphics;
 
 import com.badlogic.gdx.Gdx;
-import com.fwumdesoft.api.io.sound.AbstractSound;
-import com.fwumdesoft.api.io.sound.GdxSound;
+import com.fwumdesoft.api.sound.AbstractSound;
+import com.fwumdesoft.api.sound.GdxSound;
 
 public class GdxManager extends ContentManager
 {

@@ -1,4 +1,4 @@
-package com.fwumdesoft.api.io.sound;
+package com.fwumdesoft.api.sound;
 
 
 public class GdxSound extends AbstractSound
