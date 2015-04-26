@@ -3,9 +3,15 @@ package com.fwumdesoft.api.graphics;
 import com.badlogic.gdx.Gdx;
 import com.fwumdesoft.api.sound.AbstractSound;
 import com.fwumdesoft.api.sound.GdxSound;
-
+/**
+ * A LibGDX implementation of ContentManager
+ * @author Ryan Goldstein
+ */
 public class GdxManager extends ContentManager
 {
+	/**
+	 * Creates an empty LibGDX manager
+	 */
 	public GdxManager()
 	{
 		super();

@@ -4,10 +4,18 @@ import com.fwumdesoft.api.io.Resource;
 import com.fwumdesoft.api.sound.AbstractSound;
 import com.fwumdesoft.api.sound.Sound;
 
+/**
+ * A Java2d content manager
+ * @author Ryan Goldstein
+ */
 public class JavaManager extends ContentManager
 {
 	private Class<?> relative;
 	
+	/**
+	 * Creates an empty Java2d content manager
+	 * @param relative The class to base all classpaths off of for loading
+	 */
 	protected JavaManager(Class<?> relative)
 	{
 		super();
@@ -22,6 +30,7 @@ public class JavaManager extends ContentManager
 		return tex;
 	}
 
+	@Override
 	public AbstractSound loadSound(String path)
 	{
 		try
