@@ -12,5 +12,5 @@ public @interface Unfinished
 {
 	public enum Priority {LOW, MEDIUM, HIGH}
 	
-	Priority priority();
+	Priority value();
 }
