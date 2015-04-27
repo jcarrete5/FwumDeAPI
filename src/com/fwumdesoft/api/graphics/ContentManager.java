@@ -1,93 +1,73 @@
 package com.fwumdesoft.api.graphics;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
+import java.lang.reflect.Method;
 import java.util.LinkedList;
 
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.utils.Disposable;
-import com.fwumdesoft.api.io.Resource;
-import com.fwumdesoft.api.io.sound.AbstractSound;
-import com.fwumdesoft.api.io.sound.GdxSound;
-
-public class ContentManager implements Disposable
+import com.fwumdesoft.api.sound.AbstractSound;
+/**
+ * Holds a set of disposable content, allowing for one-line cleanup <br>
+ * It can hold any class with a 'dispose' method <br>
+ * Implementing disposable is recommended but not required for any object added
+ * @author Ryan Goldstein
+ */
+public abstract class ContentManager implements Disposable
 {
-	private LinkedList<Disposable> content;
-	private Backend backend;
-	private Class<?> relative;
+	private LinkedList<Object> content;
 	
-	private ContentManager()
+	/**
+	 * Create an empty ContentManager
+	 */
+	protected ContentManager()
 	{
-		content = new LinkedList<Disposable>();
-		backend = Backend.Libgdx;
+		content = new LinkedList<>();
 	}
 	
-	private ContentManager(Class<?> relative)
+	/**
+	 * Add a new object
+	 * @param obj An object to add <br>
+	 * It <b>MUST</b> have a 'dispose' method to be added
+	 * @return The added object for convenience
+	 */
+	public <T> T add(T obj)
 	{
-		this();
-		this.relative = relative;
-		backend = Backend.Java2d;
+		if(isDisposable(obj))
+			content.add(obj);
+		else
+			throw new IllegalArgumentException("Any object passed to ContentManager.add must have a dispose method that takes no parameters.");
+		return obj;
 	}
 	
-	public static ContentManager newLibgdxManager()
+	/**
+	 * Load and add an FTexture
+	 * @param path The classspath to the texture
+	 * @return The loaded FTexture
+	 */
+	public abstract FTexture loadTexture(String path);
+	
+	/**
+	 * Load and add an AbstractSound
+	 * @param path The classpath to the sound
+	 * @return The loaded Sound
+	 */
+	public abstract AbstractSound loadSound(String path);
+	
+	
+	private boolean isDisposable(Object obj)
 	{
-		return new ContentManager();
+		Method[] methods = obj.getClass().getMethods();
+		for(Method m : methods)
+			if(m.getName().equals("dispose") && m.getParameterCount() == 0)
+				return true;
+		return false;
 	}
 	
-	public static ContentManager newJava2dManager(Class<?> relative)
-	{
-		return new ContentManager(relative);
-	}
-	
-	public void add(Disposable obj)
-	{
-		content.add(obj);
-	}
-	
-	public FTexture loadTexture(String path)
-	{
-		FTexture tex = null;
-		switch(backend)
-		{
-			case Libgdx:
-				tex = new FTexture(path);
-				break;
-			case Java2d:
-				tex = new FTexture(path, relative);
-				break;
-		}
-		add(tex);
-		return tex;
-	}
-	
-	public AbstractSound loadSound(String path)
-	{
-		AbstractSound sound = null;
-		switch(backend)
-		{
-			case Libgdx:
-				sound = new GdxSound(Gdx.audio.newSound(Gdx.files.classpath(path)));
-				break;
-			case Java2d:
-				try
-				{
-					sound = Resource.getSound(relative, path);
-				} catch (IOException | LineUnavailableException | UnsupportedAudioFileException | URISyntaxException e)
-				{
-					e.printStackTrace();
-				}
-				break;
-		}
-		add(sound);
-		return sound;
-	}
-	
+	/**
+	 * Dispose the content manager <br>
+	 * Calls the dispose method for all added objects
+	 */
 	public void dispose()
 	{
-		for(Disposable obj : content)
-			obj.dispose();
+		for(Object obj : content)
+			((Disposable)obj).dispose();
 	}
 }

@@ -5,7 +5,6 @@ import java.io.IOException;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.utils.Disposable;
 import com.fwumdesoft.api.io.Resource;
 
 public class FTexture implements Disposable

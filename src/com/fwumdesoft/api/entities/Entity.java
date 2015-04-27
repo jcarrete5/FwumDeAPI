@@ -9,25 +9,74 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Disposable;
 import com.fwumdesoft.api.math.geom.TileMap;
 
+/**
+ * A more advanced version of the LibGDX Actor class <br/>
+ * It uses single-method interfaces to allow for easy lambda integration. <br/>
+ * @author Ryan Goldstein
+ */
 public class Entity extends Actor implements Disposable
 {
+	/**
+	 * The default 'method' for drawing
+	 */
 	private static final ActionProperty<Batch> DEFAULT_DRAW = (entity, batch) ->
 	{
 		batch.draw(entity.texture, entity.getX(), entity.getY(), entity.getWidth(), entity.getHeight());
 	};
+	/**
+	 * Action taken when the Entity is disposed. <br>
+	 * Pass the Entity object itself as the parameter, and use the parameter as the reference. <br>
+	 * Usually the last action the object will take, so cleanup actions are ideal here.
+	 */
 	public Action destroy;
+	/**
+	 * The action taken to update the Entity every frame. <br>
+	 * Pass the Entity object itself as the parameter, and use the parameter as the reference. <br>
+	 * The Float property is the delta time- the number of milliseconds since the last update.
+	 * Update the Entity's state here. 
+	 */
 	public ActionProperty<Float> update;
+	/**
+	 * The way the Entity is drawn every frame. <br>
+	 * Pass the Entity object itself as the parameter, and use the parameter as the reference. <br>
+	 * The Batch property is the batch that will be used to draw the Entity.
+	 */
 	public ActionProperty<Batch> draw;
+	/**
+	 * The texture region that is drawn each frame.
+	 */
 	public TextureRegion texture;
+	/**
+	 * The velocity of the Entity <br>
+	 * You must use it yourself, it will not be automatically applied
+	 */
 	public float xSpeed, ySpeed;
-	public int jump, health, timeout;
+	public int jump;
+	/**
+	 * The amount of health the Entity has <br>
+	 * You must use it yourself, it will not be automatically applied
+	 */
+	public int health;
+	/**
+	 * The timeout of the Entity's actions <br>
+	 * You must use it yourself, it will not be automatically applied
+	 */
+	public int timeout;
 	
+	/**
+	 * Create a new Entity with an empty update function
+	 */
 	public Entity()
 	{
 		super();
 		draw = DEFAULT_DRAW;
 	}
 	
+	/**
+	 * Create a new Entity
+	 * @param update The update function for the Entity <br>
+	 * The entity to update is the first parameter and the milliseconds since the last update is the second.
+	 */
 	public Entity(ActionProperty<Float> update)
 	{
 		this();
@@ -51,32 +100,61 @@ public class Entity extends Actor implements Disposable
 		batch.setColor(previous);
 	}
 	
+	/**
+	 * Checks if a point is contained within the bounds of the Entity
+	 * @param x The x position
+	 * @param y The y position
+	 * @return If the point falls inside the Entity's bounding box
+	 */
 	public boolean contains(float x, float y)
 	{
 		return x >= getX() && y >= getY() && x < getX() + getWidth() && y < getY() + getHeight();
 	}
 	
+	/**
+	 * Checks if a point is contained within the bounds of the Entity
+	 * @param vector The position to check
+	 * @return If the point falls inside the Entity's bounding box
+	 */
 	public boolean contains(Vector2 vector)
 	{
 		return contains(vector.x, vector.y);
 	}
 	
+	/**
+	 * Checks to see if the Entity is overlapping another bounding box
+	 * @return If the Entity is overlapping the other box
+	 */
 	public boolean overlaps(float x, float y, float width, float height)
 	{
 		return getX() < x + width && getX() + getWidth() > x && 
 				getY() < y + height && getY() + getHeight() > y;
 	}
 	
+	/**
+	 * Checks to see if the Entity is overlapping another bounding box
+	 * @return If the Entity is overlapping the other box
+	 */
 	public boolean overlaps(Entity other)
 	{
 		return overlaps(other.getX(), other.getY(), other.getWidth(), other.getHeight());
 	}
 	
+	/**
+	 * Checks to see if the Entity is overlapping another bounding box
+	 * @return If the Entity is overlapping the other box
+	 */
 	public boolean overlaps(Rectangle box)
 	{
 		return overlaps(box.x, box.y, box.width, box.height);
 	}
 	
+	/**
+	 * Attempt to move if the map allows it
+	 * @param map The TileMap to check against
+	 * @param translateX The amount to attempt to move
+	 * @return If the move was successful
+	 */
 	public boolean contactX(TileMap map, float translateX)
 	{
 		boolean moved;
@@ -85,6 +163,12 @@ public class Entity extends Actor implements Disposable
 		return moved;
 	}
 	
+	/**
+	 * Attempt to move if the map allows it
+	 * @param map The TileMap to check against
+	 * @param translateY The amount to attempt to move
+	 * @return If the move was successful
+	 */
 	public boolean contactY(TileMap map, float translateY)
 	{
 		boolean moved;
@@ -93,7 +177,6 @@ public class Entity extends Actor implements Disposable
 		return moved;
 	}
 	
-	@Override
 	public void dispose()
 	{
 		if(destroy != null)
@@ -101,18 +184,51 @@ public class Entity extends Actor implements Disposable
 		remove();
 	}
 	
+	/**
+	 * Intended for use with Lambdas (Java 8 or higher)
+	 * Take an action using an Entity 
+	 * @author Ryan Goldstein
+	 */
 	public static interface Action
 	{
+		/**
+		 * Intended for use with Lambdas (Java 8 or higher)
+		 * Take an action using an Entity 
+		 * @param e The Entity to update
+		 */
 		abstract public void doAction(Entity e);
 	}
 	
+	/**
+	 * Intended for use with Lambdas (Java 8 or higher)
+	 * Take an action with a secondary property
+	 * @param T The type of the other property
+	 * @author Ryan Goldstein
+	 */
 	public static interface ActionProperty<T>
 	{
+		/**
+		 * Intended for use with Lambdas (Java 8 or higher)
+		 * Take an action with a secondary property
+		 * @param e The Entity to update
+		 * @param other The property to use
+		 */
 		abstract public void doAction(Entity e, T other);
 	}
 	
+	/**
+	 * Spawn an Entity with similar properties
+	 * It is good form to define the update and draw functions in the spawn method, as well as the name
+	 * @author Ryan Goldstein
+	 */
 	public static interface Spawner
 	{
+		/**
+		 * Create a new instance of the Entity
+		 * @param x The x position to spawn at
+		 * @param y The y position to spawn at
+		 * @return The spawned Entity
+		 */
 		abstract public Entity spawn(float x, float y);
 	}
 }

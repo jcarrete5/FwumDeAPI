@@ -34,7 +34,6 @@ public class Keyboard extends KeyAdapter
 	/**
 	 * Checks to see if a key is currently being held down
 	 * Will only work if there has been a Keyboard object added as a KeyListener
-	 * NOTE: FGame will automatically add a Keyboard listener
 	 * @param keyCode The key constant from KeyEvent
 	 * @return The key is being held down on the keyboard
 	 */

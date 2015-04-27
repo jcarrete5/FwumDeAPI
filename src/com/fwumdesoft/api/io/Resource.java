@@ -12,10 +12,12 @@ import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.util.LinkedList;
 import java.util.List;
+
 import javax.imageio.ImageIO;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
-import com.fwumdesoft.api.io.sound.Sound;
+
+import com.fwumdesoft.api.sound.Sound;
 
 /**
  * Contains helper methods for retrieving resources from jar files or files from a directory.

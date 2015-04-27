@@ -4,18 +4,13 @@ public abstract class Screen
 {
 	protected final ContentManager content;
 	
-	public Screen()
+	public Screen(ContentManager content)
 	{
-		content = ContentManager.newLibgdxManager();
-	}
-	
-	public Screen(Class<?> relative)
-	{
-		content = ContentManager.newJava2dManager(relative);
+		this.content = content;
 	}
 	
 	public abstract void create();
-	public abstract void render(Display display);
+	public abstract void render(JavaDisplay display);
 	public abstract void update(float milliseconds);
 	public void dispose()
 	{

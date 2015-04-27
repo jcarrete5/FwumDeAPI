@@ -3,8 +3,9 @@ package com.fwumdesoft.api.math;
 import java.util.Random;
 
 /**
- * FwumDeGames commonly used math functions that aren't in java.Math.
+ * fwumdesoft commonly used math functions that aren't in java.Math.
  * @author Jason Carrete
+ * @author Ryan Goldstein
  * @since Oct 18, 2014
  */
 public final class FMath
@@ -121,7 +122,12 @@ public final class FMath
 		return bitstring;
 	}
 	
-	
+	/**
+	 * Creates an integer based on the bitstring <br>
+	 *  <b>For example:</b> ([true, false, true] is equivalent to 0b101, 0b101 = 5
+	 * @param bitstring The bitstring to convert
+	 * @return An integer representation of the bitstring
+	 */
 	public static int toInt(boolean[] bitstring)
 	{
 		if(bitstring.length > 32)

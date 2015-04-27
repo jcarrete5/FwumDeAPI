@@ -1,4 +1,4 @@
-package com.fwumdesoft.api.io.sound;
+package com.fwumdesoft.api.sound;
 
 import java.io.File;
 import java.io.IOException;
