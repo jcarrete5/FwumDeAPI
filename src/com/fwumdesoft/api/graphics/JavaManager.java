@@ -46,5 +46,10 @@ public class JavaManager extends ContentManager
 		}
 		return null;
 	}
-
+	
+	public void dispose()
+	{
+		for(Object o : content)
+			((Disposable)o).dispose();
+	}
 }

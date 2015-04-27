@@ -31,4 +31,10 @@ public class GdxManager extends ContentManager
 		add(sound);
 		return sound;
 	}
+	
+	public void dispose()
+	{
+		for(Object o : content)
+			((com.badlogic.gdx.utils.Disposable)o).dispose();
+	}
 }
