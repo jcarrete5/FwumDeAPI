@@ -189,6 +189,7 @@ public class Entity extends Actor implements Disposable
 	 * Take an action using an Entity 
 	 * @author Ryan Goldstein
 	 */
+	@FunctionalInterface
 	public static interface Action
 	{
 		/**
@@ -205,6 +206,7 @@ public class Entity extends Actor implements Disposable
 	 * @param T The type of the other property
 	 * @author Ryan Goldstein
 	 */
+	@FunctionalInterface
 	public static interface ActionProperty<T>
 	{
 		/**
@@ -221,6 +223,7 @@ public class Entity extends Actor implements Disposable
 	 * It is good form to define the update and draw functions in the spawn method, as well as the name
 	 * @author Ryan Goldstein
 	 */
+	@FunctionalInterface
 	public static interface Spawner
 	{
 		/**
