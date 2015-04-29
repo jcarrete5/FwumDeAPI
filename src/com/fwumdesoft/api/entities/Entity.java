@@ -21,7 +21,8 @@ public class Entity extends Actor implements Disposable
 	 */
 	private static final ActionProperty<Batch> DEFAULT_DRAW = (entity, batch) ->
 	{
-		batch.draw(entity.texture, entity.getX(), entity.getY(), entity.getWidth(), entity.getHeight());
+		batch.draw(entity.texture, entity.getX(), entity.getY(), entity.getOriginX(), entity.getOriginY(), 
+				entity.getWidth(), entity.getHeight(), entity.getScaleX(), entity.getScaleY(), entity.getRotation());
 	};
 	/**
 	 * Action taken when the Entity is disposed. <br>
