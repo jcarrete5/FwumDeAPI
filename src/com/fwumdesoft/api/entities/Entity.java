@@ -183,7 +183,7 @@ public class Entity extends Actor implements Disposable
 	 */
 	public void faceForward()
 	{
-		setRotation(Math.toDegrees((float)Math.atan2(ySpeed, xSpeed)));
+		setRotation((float)Math.toDegrees(Math.atan2(ySpeed, xSpeed)));
 	}
 	
 	public void dispose()
