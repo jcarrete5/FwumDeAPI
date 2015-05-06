@@ -250,6 +250,11 @@ public class Entity extends Actor implements Disposable
 		speed.scl(scale);
 	}
 	
+	public void moveBySpeed()
+	{
+		moveBy(speed.x, speed.y);
+	}
+	
 	@Override
 	public void dispose()
 	{
