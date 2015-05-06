@@ -51,6 +51,7 @@ public class Entity extends Actor implements Disposable
 	 * The velocity of the Entity <br>
 	 * You must use it yourself, it will not be automatically applied
 	 */
+	@Deprecated
 	public float xSpeed, ySpeed;
 	public int jump;
 	/**
@@ -64,6 +65,9 @@ public class Entity extends Actor implements Disposable
 	 */
 	public int timeout;
 	
+	private final Vector2 speed;
+	private boolean lockForward;
+	
 	/**
 	 * Create a new Entity with an empty update function
 	 */
@@ -71,6 +75,8 @@ public class Entity extends Actor implements Disposable
 	{
 		super();
 		draw = DEFAULT_DRAW;
+		speed = new Vector2(0, 0);
+		lockForward = false;
 	}
 	
 	/**
@@ -180,12 +186,71 @@ public class Entity extends Actor implements Disposable
 	
 	/**
 	 * Rotates the Entity so that it faces the point <xSpeed, ySpeed> would translate it to
+	 * @param lock If the Entity should lock its rotation to its momentum
 	 */
-	public void faceForward()
+	public void faceForward(boolean lock)
 	{
-		setRotation((float)Math.toDegrees(Math.atan2(ySpeed, xSpeed)));
+		lockForward = lock;
 	}
 	
+	@Override
+	public void setRotation(float rotation)
+	{
+		super.setRotation(rotation);
+		if(lockForward)
+			speed.rotate(rotation);
+	}
+	
+	public void setSpeed(float x, float y)
+	{
+		speed.x = x;
+		speed.y = y;
+		updateFacing();
+	}
+	
+	public void setXSpeed(float x)
+	{
+		speed.x = x;
+		updateFacing();
+	}
+	
+	public void setYSpeed(float y)
+	{
+		speed.y = y;
+		updateFacing();
+	}
+	
+	public float getXSpeed()
+	{
+		return speed.x;
+	}
+	
+	public float getYSpeed()
+	{
+		return speed.y;
+	}
+	
+	public Vector2 getSpeed()
+	{
+		return speed;
+	}
+	
+	private void updateFacing()
+	{
+		if(lockForward)
+			setRotation((float)Math.toDegrees(Math.atan2(speed.y, speed.x)));
+	}
+	
+	/**
+	 * Scale the speed of the entity
+	 * @param scale The number to multiply the speed by
+	 */
+	public void accelerate(float scale)
+	{
+		speed.scl(scale);
+	}
+	
+	@Override
 	public void dispose()
 	{
 		if(destroy != null)
