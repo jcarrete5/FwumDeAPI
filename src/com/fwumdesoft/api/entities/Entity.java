@@ -315,10 +315,29 @@ public class Entity extends Actor implements Disposable
 	}
 	
 	/**
+	 * Increase or decrease the speed of the entity
+	 * @param speedAmt The amount to add to the speed
+	 */
+	public void accelerate(float speedAmt)
+	{
+		if(lockForward)
+		{
+			speed.x += Math.cos(Math.toRadians(getRotation())) * speedAmt;
+			speed.y += Math.sin(Math.toRadians(getRotation())) * speedAmt;
+		}
+		else
+		{
+			float rotation = (float) Math.atan2(speed.y, speed.x);
+			speed.x += Math.cos(rotation) * speedAmt;
+			speed.y += Math.sin(rotation) * speedAmt;
+		}
+	}
+	
+	/**
 	 * Scale the speed of the entity
 	 * @param scale The number to multiply the speed by
 	 */
-	public void accelerate(float scale)
+	public void accelerateScale(float scale)
 	{
 		speed.scl(scale);
 	}
