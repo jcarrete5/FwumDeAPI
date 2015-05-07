@@ -3,6 +3,7 @@ package com.fwumdesoft.api.entities;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -67,7 +68,8 @@ public class Entity extends Actor implements Disposable
 	
 	private final Vector2 speed;
 	private boolean lockForward;
-	
+	private final Polygon boundingBox;
+	private final Vector2 tmpV;
 	/**
 	 * Create a new Entity with an empty update function
 	 */
@@ -77,6 +79,9 @@ public class Entity extends Actor implements Disposable
 		draw = DEFAULT_DRAW;
 		speed = new Vector2(0, 0);
 		lockForward = false;
+		boundingBox = new Polygon();
+		boundingBox.setVertices(new float[]{0,0 , 0,0 , 0,0 , 0,0});
+		tmpV = new Vector2(0, 0);
 	}
 	
 	/**
@@ -108,14 +113,14 @@ public class Entity extends Actor implements Disposable
 	}
 	
 	/**
-	 * Checks if a point is contained within the bounds of the Entity
-	 * @param x The x position
-	 * @param y The y position
-	 * @return If the point falls inside the Entity's bounding box
+	 * Checks if a point is contained within the bounds of the Entity considering rotation
+	 * @param x
+	 * @param y
+	 * @return
 	 */
 	public boolean contains(float x, float y)
 	{
-		return x >= getX() && y >= getY() && x < getX() + getWidth() && y < getY() + getHeight();
+		return boundingBox.contains(x, y);
 	}
 	
 	/**
@@ -125,7 +130,46 @@ public class Entity extends Actor implements Disposable
 	 */
 	public boolean contains(Vector2 vector)
 	{
-		return contains(vector.x, vector.y);
+		return boundingBox.contains(vector.x, vector.y);
+	}
+	
+	@Override
+	public void setBounds(float x, float y, float width, float height)
+	{
+		boundingBox.setVertices(new float[] { x,y , x+width,y , x,y+height , x+width,y+height});
+		setWidth(width);
+		setHeight(height);
+		boundingBox.setPosition(x, y);
+	}
+	
+	@Override
+	public void moveBy(float x, float y)
+	{
+		boundingBox.translate(x, y);
+	}
+	
+	@Override
+	public void setX(float x)
+	{
+		boundingBox.setPosition(x, 0);
+	}
+	
+	@Override
+	public void setY(float y)
+	{
+		boundingBox.setPosition(0, y);
+	}
+	
+	@Override
+	public float getX()
+	{
+		return boundingBox.getX();
+	}
+	
+	@Override
+	public float getY()
+	{
+		return boundingBox.getY();
 	}
 	
 	/**
@@ -134,8 +178,16 @@ public class Entity extends Actor implements Disposable
 	 */
 	public boolean overlaps(float x, float y, float width, float height)
 	{
-		return getX() < x + width && getX() + getWidth() > x && 
-				getY() < y + height && getY() + getHeight() > y;
+		Rectangle rect = Rectangle.tmp;
+		rect.set(x, y, width, height);
+		boolean contains = contains(x, y) || contains(x + width, y) || 
+				contains(x, y + height) || contains(x + width, y + height);
+		contains |= rect.contains(getX(), getY());
+		tmpV.x = getX() + getWidth();
+		tmpV.y = getY() + getHeight();
+		tmpV.rotate(getRotation());
+		contains |= rect.contains(getX() + tmpV.x, getY()) || rect.contains(getX(), getY() + tmpV.y);
+		return  contains || rect.contains(getX() + tmpV.x, getY() + tmpV.y);
 	}
 	
 	/**
@@ -194,11 +246,32 @@ public class Entity extends Actor implements Disposable
 	}
 	
 	@Override
+	public void rotateBy(float degrees)
+	{
+		super.rotateBy(degrees);
+		boundingBox.rotate(degrees);
+		if(lockForward)
+			speed.rotate(degrees);
+	}
+	
+	public Rectangle boundingBox()
+	{
+		return boundingBox.getBoundingRectangle();
+	}
+	
+	@Override
 	public void setRotation(float rotation)
 	{
 		super.setRotation(rotation);
+		boundingBox.rotate(rotation);
 		if(lockForward)
 			speed.rotate(rotation);
+	}
+	
+	@Override
+	public float getRotation()
+	{
+		return boundingBox.getRotation();
 	}
 	
 	public void setSpeed(float x, float y)
@@ -248,6 +321,16 @@ public class Entity extends Actor implements Disposable
 	public void accelerate(float scale)
 	{
 		speed.scl(scale);
+	}
+	
+	/**
+	 * Increase the speed of the Entity
+	 * @param x The amount to increase
+	 * @param y The amount to increase
+	 */
+	public void accelerate(float x, float y)
+	{
+		speed.add(x, y);
 	}
 	
 	public void moveBySpeed()
