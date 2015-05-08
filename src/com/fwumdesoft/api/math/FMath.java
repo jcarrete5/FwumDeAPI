@@ -137,4 +137,29 @@ public final class FMath
 			result += bitstring[i] ? (int)Math.pow(2, i) : 0;
 		return result;
 	}
+	
+	/**
+	 * Creates an array ranging from 0 to length - 1 in a randomized order.
+	 * @param length Length of the array to generate.<br>
+	 * (1 larger than the highest possible number)
+	 * @return A random integer array.
+	 */
+	public static int[] uniqueRandomIntArray(int length)
+	{
+		int[] array = new int[length];
+		
+		//fill array
+		for(int i = 0; i < array.length; i++)
+			array[i] = i;
+		
+		for(int i = array.length - 1; i >= 0; i--)
+		{
+			int randInt = random(i + 1);
+			int tmp = array[i];
+			array[i] = array[randInt];
+			array[randInt] = tmp;
+		}
+		
+		return array;
+	}
 }
