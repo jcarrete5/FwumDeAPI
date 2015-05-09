@@ -54,7 +54,6 @@ public class Entity extends Actor implements Disposable
 	 */
 	@Deprecated
 	public float xSpeed, ySpeed;
-	public int jump;
 	/**
 	 * The amount of health the Entity has <br>
 	 * You must use it yourself, it will not be automatically applied
