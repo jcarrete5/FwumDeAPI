@@ -12,7 +12,7 @@ import com.fwumdesoft.api.sound.AbstractSound;
  */
 public abstract class ContentManager implements Disposable
 {
-	private LinkedList<Object> content;
+	protected LinkedList<Object> content;
 	
 	/**
 	 * Create an empty ContentManager
@@ -65,9 +65,5 @@ public abstract class ContentManager implements Disposable
 	 * Dispose the content manager <br>
 	 * Calls the dispose method for all added objects
 	 */
-	public void dispose()
-	{
-		for(Object obj : content)
-			((Disposable)obj).dispose();
-	}
+	public abstract void dispose();
 }
