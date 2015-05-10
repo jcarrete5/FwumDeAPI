@@ -412,6 +412,7 @@ public class Entity extends Actor implements Disposable
 	 * @author Ryan Goldstein
 	 */
 	@FunctionalInterface
+	@Deprecated
 	public static interface Spawner
 	{
 		/**
