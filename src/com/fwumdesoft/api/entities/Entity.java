@@ -160,6 +160,13 @@ public class Entity extends Actor implements Disposable
 	}
 	
 	@Override
+	public void setPosition(float x, float y)
+	{
+		setX(x);
+		setY(y);
+	}
+	
+	@Override
 	public float getX()
 	{
 		return boundingBox.getX();
@@ -170,6 +177,7 @@ public class Entity extends Actor implements Disposable
 	{
 		return boundingBox.getY();
 	}
+
 	
 	/**
 	 * Checks to see if the Entity is overlapping another bounding box
