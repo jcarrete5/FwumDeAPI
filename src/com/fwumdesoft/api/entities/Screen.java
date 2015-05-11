@@ -1,7 +1,9 @@
 package com.fwumdesoft.api.entities;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.fwumdesoft.api.graphics.ContentManager;
 import com.fwumdesoft.api.graphics.GdxManager;
 
@@ -12,9 +14,9 @@ public abstract class Screen extends Stage
 	private boolean finished;
 	
 	
-	public Screen()
+	public Screen(float width, float height)
 	{
-		super();
+		super(new FitViewport(width, height, new OrthographicCamera()));
 		content = new GdxManager();
 		finished = false;
 	}
