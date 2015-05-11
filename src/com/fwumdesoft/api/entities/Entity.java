@@ -150,13 +150,13 @@ public class Entity extends Actor implements Disposable
 	@Override
 	public void setX(float x)
 	{
-		boundingBox.setPosition(x, 0);
+		boundingBox.setPosition(x, boundingBox.getY());
 	}
 	
 	@Override
 	public void setY(float y)
 	{
-		boundingBox.setPosition(0, y);
+		boundingBox.setPosition(boundingBox.getX(), y);
 	}
 	
 	@Override
