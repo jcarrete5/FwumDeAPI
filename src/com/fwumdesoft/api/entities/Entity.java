@@ -135,10 +135,10 @@ public class Entity extends Actor implements Disposable
 	@Override
 	public void setBounds(float x, float y, float width, float height)
 	{
-		boundingBox.setVertices(new float[] { x,y , x+width,y , x,y+height , x+width,y+height});
+		boundingBox.setVertices(new float[] { 0,0 , width,0 , 0,height , width,height});
 		setWidth(width);
 		setHeight(height);
-		boundingBox.setPosition(x, y);
+		setPosition(x, y);
 	}
 	
 	@Override
