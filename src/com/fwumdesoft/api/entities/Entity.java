@@ -272,7 +272,7 @@ public class Entity extends Actor implements Disposable
 		super.setRotation(rotation);
 		boundingBox.setRotation(rotation);
 		if(lockForward)
-			speed.setRotation(rotation);
+			speed.rotate(rotation - getRotation());
 	}
 	
 	@Override
