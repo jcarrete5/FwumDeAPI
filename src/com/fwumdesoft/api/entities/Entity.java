@@ -270,15 +270,15 @@ public class Entity extends Actor implements Disposable
 	public void setRotation(float rotation)
 	{
 		super.setRotation(rotation);
-		boundingBox.rotate(rotation);
+		boundingBox.setRotation(rotation);
 		if(lockForward)
-			speed.rotate(rotation);
+			speed.rotate(rotation - getRotation());
 	}
 	
 	@Override
 	public float getRotation()
 	{
-		return boundingBox.getRotation();
+		return 360 - (boundingBox.getRotation() % 360);
 	}
 	
 	public void setSpeed(float x, float y)
