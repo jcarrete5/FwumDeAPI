@@ -79,8 +79,8 @@ public class BufferQueue<T>
 	 */
 	public boolean setBufferSize(int newSize)
 	{
-		boolean result = false;
-		if(result = newSize >= size())
+		boolean result = newSize >= size();
+		if(result)
 			bufferSize = newSize;
 		return result;
 	}
