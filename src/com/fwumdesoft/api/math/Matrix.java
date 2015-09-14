@@ -156,7 +156,7 @@ public class Matrix implements Serializable, Cloneable
 	 * @param other Matrix to be multiplied by this Matrix.
 	 * @return A new Matrix that is this Matrix multiplied by the specified Matrix.
 	 */
-	public Matrix times(Matrix other)
+	public Matrix times(Matrix other) 
 	{
 		if(numCols() != other.numRows())
 		{
