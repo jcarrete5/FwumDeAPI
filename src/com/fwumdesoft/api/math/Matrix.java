@@ -258,7 +258,7 @@ public class Matrix implements Serializable, Cloneable
 				m.set(get(i, j), i, j);
 		return m;
 	}
-	
+
 	/**
 	 * Exception used when a Matrix dimension is illegal.
 	 * @author Jason Carrete
@@ -271,7 +271,7 @@ public class Matrix implements Serializable, Cloneable
 		{
 			super();
 		}
-		
+
 		public IllegalMatrixDimensionException(String message)
 		{
 			super(message);
@@ -281,7 +281,7 @@ public class Matrix implements Serializable, Cloneable
 		{
 	        super(message, cause);
 	    }
-		
+
 		public IllegalMatrixDimensionException(Throwable cause)
 		{
 	        super(cause);

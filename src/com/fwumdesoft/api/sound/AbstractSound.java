@@ -1,19 +1,16 @@
 package com.fwumdesoft.api.sound;
 
 import java.io.IOException;
-
 import javax.sound.midi.MidiUnavailableException;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
-
-import com.badlogic.gdx.utils.Disposable;
 
 /**
  * All classes in this package extend AbstractSound.java
  * @author Jason Carrete
  * @since Oct 9, 2014
  */
-public abstract class AbstractSound implements Disposable
+public abstract class AbstractSound
 {
 	public static final int LOOP_CONTINUOUSLY = Clip.LOOP_CONTINUOUSLY;
 	
