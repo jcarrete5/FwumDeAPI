@@ -8,13 +8,11 @@ import java.util.LinkedList;
  * any subsequent "pushes" to the queue will remove the first element.
  * @author Jason Carrete
  */
-public class BufferQueue<T>
-{
+public class BufferQueue<T> {
 	private LinkedList<T> queue;
 	private int bufferSize;
 	
-	public BufferQueue(int bufferSize)
-	{
+	public BufferQueue(int bufferSize) {
 		queue = new LinkedList<T>();
 		this.bufferSize = bufferSize;
 	}
@@ -23,8 +21,7 @@ public class BufferQueue<T>
 	 * Adds a new elements to the end of the queue.
 	 * @return The element that was removed if the queue was already full, otherwise <tt>null</tt>;
 	 */
-	public T push(T e)
-	{
+	public T push(T e) {
 		T result = null;
 		if(queue.size() == bufferSize)
 			result = queue.pop();
@@ -35,40 +32,35 @@ public class BufferQueue<T>
 	/**
 	 * @see java.util.LinkedList#pop()
 	 */
-	public T pop()
-	{
+	public T pop() {
 		return queue.pop();
 	}
 	
 	/**
 	 * @see java.util.LinkedList#peekFirst()
 	 */
-	public T peekFirst()
-	{
+	public T peekFirst() {
 		return queue.peekFirst();
 	}
 	
 	/**
 	 * @see java.util.LinkedList#peekLast()
 	 */
-	public T peekLast()
-	{
+	public T peekLast() {
 		return queue.peekLast();
 	}
 	
 	/**
 	 * @see java.util.LinkedList#clear()
 	 */
-	public void clear()
-	{
+	public void clear() {
 		queue.clear();
 	}
 	
 	/**
 	 * @return The size of the queue.
 	 */
-	public int size()
-	{
+	public int size() {
 		return queue.size();
 	}
 	
@@ -77,8 +69,7 @@ public class BufferQueue<T>
 	 * @param newSize New size of the buffer.
 	 * @return <tt>true</tt> if the size changed, otherwise <tt>false</tt>.
 	 */
-	public boolean setBufferSize(int newSize)
-	{
+	public boolean setBufferSize(int newSize) {
 		boolean result = newSize >= size();
 		if(result)
 			bufferSize = newSize;
@@ -90,8 +81,7 @@ public class BufferQueue<T>
 	 * @param newBufferSize new buffer size.
 	 * @return A list of removed elements.
 	 */
-	public LinkedList<T> trim(int newBufferSize)
-	{
+	public LinkedList<T> trim(int newBufferSize) {
 		LinkedList<T> removed = new LinkedList<>();
 		for(int i = 0; i < bufferSize - newBufferSize && bufferSize - newBufferSize >= 0; i++)
 			removed.push(queue.pop());
@@ -102,8 +92,7 @@ public class BufferQueue<T>
 	/**
 	 * @return The size of the buffer.
 	 */
-	public int bufferSize()
-	{
+	public int bufferSize() {
 		return bufferSize();
 	}
 }

@@ -10,14 +10,12 @@ import java.util.HashMap;
  * Holds the data for the mouse
  * @author Ryan Goldstein
  */
-public class Mouse extends MouseAdapter implements MouseMotionListener
-{
+public class Mouse extends MouseAdapter implements MouseMotionListener {
 	private static final HashMap<Integer, Boolean> buttons;
 	private static final Point position;
 	private static final Mouse instance;
 	
-	static
-	{
+	static {
 		buttons = new HashMap<Integer, Boolean>();
 		position = new Point();
 		instance = new Mouse();
@@ -25,8 +23,7 @@ public class Mouse extends MouseAdapter implements MouseMotionListener
 	
 	private Mouse() {}
 	
-	public static Mouse getInstance()
-	{
+	public static Mouse getInstance() {
 		return instance;
 	}
 	
@@ -35,8 +32,7 @@ public class Mouse extends MouseAdapter implements MouseMotionListener
 	 * The position is relative to the component the instance was added to.
 	 * @return The (x, y) position of the mouse cursor
 	 */
-	public static Point getPosition()
-	{
+	public static Point getPosition() {
 		return position;
 	}
 	
@@ -45,27 +41,23 @@ public class Mouse extends MouseAdapter implements MouseMotionListener
 	 * @param button The key code from MouseEvent
 	 * @return If the button is currently being held
 	 */
-	public static boolean pressed(int button)
-	{
+	public static boolean pressed(int button) {
 		return buttons.containsKey(button) && buttons.get(button);
 	}
 	
 	@Override
-	public void mouseMoved(MouseEvent e)
-	{
+	public void mouseMoved(MouseEvent e) {
 		position.x = e.getX();
 		position.y = e.getY();
 	}
-
+	
 	@Override
-	public void mousePressed(MouseEvent e)
-	{
+	public void mousePressed(MouseEvent e) {
 		buttons.put(e.getButton(), true);
 	}
-
+	
 	@Override
-	public void mouseReleased(MouseEvent e)
-	{
+	public void mouseReleased(MouseEvent e) {
 		buttons.put(e.getButton(), false);
 	}
 }

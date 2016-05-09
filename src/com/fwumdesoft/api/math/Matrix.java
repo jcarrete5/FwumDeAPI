@@ -6,8 +6,7 @@ import java.io.Serializable;
  * Represents a Matrix.
  * @author Jason Carrete
  */
-public class Matrix implements Serializable, Cloneable
-{
+public class Matrix implements Serializable, Cloneable {
 	private static final long serialVersionUID = 1L;
 	
 	/**
@@ -19,16 +18,14 @@ public class Matrix implements Serializable, Cloneable
 	 * Instantiates a new Matrix object based on the specified array.
 	 * @param array Matrix values.
 	 */
-	public Matrix(double[][] array)
-	{
+	public Matrix(double[][] array) {
 		matrix = array;
 	}
 	
 	/**
 	 * Instantiates a new Matrix and fills it with zeroes.
 	 */
-	public Matrix(int rows, int cols)
-	{
+	public Matrix(int rows, int cols) {
 		matrix = new double[rows][cols];
 		for(int r = 0; r < rows; r++)
 			for(int c = 0; c < cols; c++)
@@ -41,11 +38,10 @@ public class Matrix implements Serializable, Cloneable
 	 * @param cols Number of columns.
 	 * @param vals Values the Matrix should be made from.
 	 */
-	public Matrix(int rows, int cols, double... vals)
-	{
+	public Matrix(int rows, int cols, double... vals) {
 		if(vals.length != rows * cols)
 			throw new IllegalMatrixDimensionException("Number of values must equal rows * cols");
-		
+			
 		matrix = new double[rows][cols];
 		
 		int i = 0;
@@ -59,25 +55,22 @@ public class Matrix implements Serializable, Cloneable
 	 * @param size The number of rows and columns of the identity Matrix.
 	 * @return An identity Matrix with the specified size.
 	 */
-	public static Matrix getIdentity(int size)
-	{
+	public static Matrix getIdentity(int size) {
 		if(size < 1)
 			throw new IllegalMatrixDimensionException("Cannot instantiate a matrix with dimensions less than 1");
-		
+			
 		double[][] m = new double[size][size];
 		for(int i = 0; i < size; i++)
 			m[i][i] = 1.0;
-		
+			
 		return new Matrix(m);
 	}
 	
-	public double get(int row, int col)
-	{
+	public double get(int row, int col) {
 		return matrix[row][col];
 	}
 	
-	public double set(double d, int row, int col)
-	{
+	public double set(double d, int row, int col) {
 		double oldVal = matrix[row][col];
 		matrix[row][col] = d;
 		return oldVal;
@@ -86,16 +79,14 @@ public class Matrix implements Serializable, Cloneable
 	/**
 	 * @return The number of rows in this Matrix.
 	 */
-	public int numRows()
-	{
+	public int numRows() {
 		return matrix.length;
 	}
 	
 	/**
 	 * @return The number of columns in this Matrix.
 	 */
-	public int numCols()
-	{
+	public int numCols() {
 		return matrix[0].length;
 	}
 	
@@ -105,8 +96,7 @@ public class Matrix implements Serializable, Cloneable
 	 * <b>Note:</b> This method mutates this object.
 	 * @return This Matrix after its inverse has been calculated.
 	 */
-	public Matrix inverse()
-	{
+	public Matrix inverse() {
 		return this;
 	}
 	
@@ -114,11 +104,10 @@ public class Matrix implements Serializable, Cloneable
 	 * Inverses a 2x2 matrix only.
 	 * @return A new Matrix after inverting this Matrix.
 	 */
-	public Matrix inverse2()
-	{
+	public Matrix inverse2() {
 		if(numRows() != 2 || numCols() != 2)
 			throw new IllegalMatrixDimensionException("numRows() and numCols() must be 2");
-		
+			
 		Matrix m = clone();
 		
 		//[a b]
@@ -140,14 +129,13 @@ public class Matrix implements Serializable, Cloneable
 	 * @param scalar The number that multiplies each number in this Matrix.
 	 * @return A new Matrix after being multiplied by the scalar.
 	 */
-	public Matrix times(double scalar)
-	{
+	public Matrix times(double scalar) {
 		Matrix m = clone();
 		
 		for(int i = 0; i < m.numRows(); i++)
 			for(int j = 0; j < m.numCols(); j++)
 				m.matrix[i][j] *= scalar;
-		
+				
 		return m;
 	}
 	
@@ -156,20 +144,16 @@ public class Matrix implements Serializable, Cloneable
 	 * @param other Matrix to be multiplied by this Matrix.
 	 * @return A new Matrix that is this Matrix multiplied by the specified Matrix.
 	 */
-	public Matrix times(Matrix other) 
-	{
-		if(numCols() != other.numRows())
-		{
-			throw new IllegalMatrixDimensionException("Cannot mulitply matricies with invalid dimensions: " +
-				numCols() + " != " + other.numRows());
-		}
-		
+	public Matrix times(Matrix other) {
+		if(numCols() != other.numRows()) { throw new IllegalMatrixDimensionException(
+				"Cannot mulitply matricies with invalid dimensions: " + numCols() + " != " + other.numRows()); }
+				
 		double[][] m = new double[numRows()][other.numCols()];
 		for(int i = 0; i < numRows(); i++)
 			for(int j = 0; j < other.numCols(); j++)
 				for(int k = 0; k < other.numRows(); k++)
 					m[i][j] += this.matrix[i][k] * other.matrix[k][j];
-		
+					
 		return new Matrix(m);
 	}
 	
@@ -178,16 +162,15 @@ public class Matrix implements Serializable, Cloneable
 	 * @param other Matrix to be added to this Matrix.
 	 * @return A new Matrix that is this Matrix plus the specified Matrix.
 	 */
-	public Matrix plus(Matrix other)
-	{
+	public Matrix plus(Matrix other) {
 		if(numRows() != other.numRows() || numCols() != other.numCols())
 			throw new IllegalMatrixDimensionException("Cannot add matricies of different dimensions.");
-		
+			
 		double[][] m = new double[numRows()][numCols()];
 		for(int i = 0; i < numRows(); i++)
 			for(int j = 0; j < numCols(); j++)
 				m[i][j] = matrix[i][j] + other.matrix[i][j];
-		
+				
 		return new Matrix(m);
 	}
 	
@@ -196,28 +179,24 @@ public class Matrix implements Serializable, Cloneable
 	 * @param other Matrix to be subtracted from this Matrix.
 	 * @return A new Matrix that is this Matrix minus the specified Matrix.
 	 */
-	public Matrix minus(Matrix other)
-	{
+	public Matrix minus(Matrix other) {
 		if(numRows() != other.numRows() || numCols() != other.numCols())
 			throw new IllegalMatrixDimensionException("Cannot add matricies of different dimensions.");
-		
+			
 		double[][] m = new double[numRows()][numCols()];
 		for(int i = 0; i < numRows(); i++)
 			for(int j = 0; j < numCols(); j++)
 				m[i][j] = matrix[i][j] - other.matrix[i][j];
-		
+				
 		return new Matrix(m);
 	}
 	
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		String s = "[";
 		
-		for(int r = 0; r < numRows(); r++)
-		{
-			for(int c = 0; c < numCols(); c++)
-			{
+		for(int r = 0; r < numRows(); r++) {
+			for(int c = 0; c < numCols(); c++) {
 				s += Double.toString(matrix[r][c]) + "\t";
 			}
 			s = s.substring(0, s.length() - 1) + "]\n[";
@@ -227,22 +206,18 @@ public class Matrix implements Serializable, Cloneable
 	}
 	
 	@Override
-	public boolean equals(Object o)
-	{
-		if(o instanceof Matrix)
-		{
+	public boolean equals(Object o) {
+		if(o instanceof Matrix) {
 			Matrix m = (Matrix)o;
-			if(this.numRows() == m.numRows() && this.numCols() == m.numCols())
-			{
+			if(this.numRows() == m.numRows() && this.numCols() == m.numCols()) {
 				for(int i = 0; i < numRows(); i++)
 					for(int j = 0; j < numCols(); j++)
 						if(this.matrix[i][j] != m.matrix[i][j])
 							return false; //return false when if any number doesn't match.
-				
+							
 				//assume for loop was completed successfully
 				return true;
-			}
-			else
+			} else
 				return false;
 		}
 		
@@ -250,41 +225,35 @@ public class Matrix implements Serializable, Cloneable
 	}
 	
 	@Override
-	public Matrix clone()
-	{
+	public Matrix clone() {
 		Matrix m = new Matrix(numRows(), numCols());
 		for(int i = 0; i < numRows(); i++)
 			for(int j = 0; j < numCols(); j++)
 				m.set(get(i, j), i, j);
 		return m;
 	}
-
+	
 	/**
 	 * Exception used when a Matrix dimension is illegal.
 	 * @author Jason Carrete
 	 */
-	static class IllegalMatrixDimensionException extends IllegalArgumentException
-	{
+	static class IllegalMatrixDimensionException extends IllegalArgumentException {
 		private static final long serialVersionUID = 1L;
 		
-		public IllegalMatrixDimensionException()
-		{
+		public IllegalMatrixDimensionException() {
 			super();
 		}
-
-		public IllegalMatrixDimensionException(String message)
-		{
+		
+		public IllegalMatrixDimensionException(String message) {
 			super(message);
 		}
 		
-		public IllegalMatrixDimensionException(String message, Throwable cause)
-		{
-	        super(message, cause);
-	    }
-
-		public IllegalMatrixDimensionException(Throwable cause)
-		{
-	        super(cause);
-	    }
+		public IllegalMatrixDimensionException(String message, Throwable cause) {
+			super(message, cause);
+		}
+		
+		public IllegalMatrixDimensionException(Throwable cause) {
+			super(cause);
+		}
 	}
 }

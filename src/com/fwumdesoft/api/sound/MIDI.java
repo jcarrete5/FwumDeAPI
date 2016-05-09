@@ -16,37 +16,31 @@ import javax.sound.sampled.LineUnavailableException;
  * @author Ryan Goldstein
  * @author Jason Carrete
  */
-public class MIDI extends AbstractSound
-{
+public class MIDI extends AbstractSound {
 	private Sequencer seq;
 	private InputStream in;
 	
-	public MIDI(File file) throws MidiUnavailableException, IOException, InvalidMidiDataException
-	{
+	public MIDI(File file) throws MidiUnavailableException, IOException, InvalidMidiDataException {
 		seq = MidiSystem.getSequencer();
 		in = new BufferedInputStream(new FileInputStream(file));
 		seq.setSequence(in);
 	}
 	
-	public MIDI(String path) throws MidiUnavailableException, IOException, InvalidMidiDataException
-	{
+	public MIDI(String path) throws MidiUnavailableException, IOException, InvalidMidiDataException {
 		this(new File(path));
 	}
 	
 	@Override
-	public void open() throws LineUnavailableException, IOException, MidiUnavailableException
-	{
+	public void open() throws LineUnavailableException, IOException, MidiUnavailableException {
 		seq.open();
 	}
 	
 	@Override
-	public void play() throws LineUnavailableException, IOException, MidiUnavailableException
-	{
+	public void play() throws LineUnavailableException, IOException, MidiUnavailableException {
 		if(!seq.isOpen())
 			open();
-		
-		if(seq.isRunning())
-		{
+			
+		if(seq.isRunning()) {
 			seq.setLoopCount(0);
 			seq.start();
 			active(1);
@@ -54,13 +48,11 @@ public class MIDI extends AbstractSound
 	}
 	
 	@Override
-	public void loop(int count) throws LineUnavailableException, IOException, MidiUnavailableException
-	{
+	public void loop(int count) throws LineUnavailableException, IOException, MidiUnavailableException {
 		if(!seq.isOpen())
 			open();
-		
-		if(!seq.isRunning())
-		{
+			
+		if(!seq.isRunning()) {
 			seq.setLoopCount(count);
 			seq.start();
 			active(count);
@@ -68,20 +60,17 @@ public class MIDI extends AbstractSound
 	}
 	
 	@Override
-	public void pause()
-	{
+	public void pause() {
 		if(seq.isRunning())
 			activeThread.interrupt();
 	}
 	
-	public void setMicrosecondPosition(long us)
-	{
+	public void setMicrosecondPosition(long us) {
 		seq.setMicrosecondPosition(us);
 	}
 	
 	@Override
-	public void close() throws IOException
-	{
+	public void close() throws IOException {
 		activeThread.interrupt();
 		seq.close();
 		in.close();
@@ -90,13 +79,10 @@ public class MIDI extends AbstractSound
 		System.gc();
 	}
 	
-	public void dispose()
-	{
-		try
-		{
+	public void dispose() {
+		try {
 			close();
-		} catch (IOException e)
-		{
+		} catch(IOException e) {
 			e.printStackTrace();
 		}
 	}
@@ -105,25 +91,18 @@ public class MIDI extends AbstractSound
 	 * Runs the activeThread which guarantees that the sound will be playable.<br>
 	 * The thread will loop <tt>TIMES</tt> times.
 	 */
-	private void active(final int TIMES)
-	{
-		Runnable active = () ->
-		{
+	private void active(final int TIMES) {
+		Runnable active = () -> {
 			//calculates how many more ms it will take before the sound ends
 			long ms = (seq.getMicrosecondLength() - seq.getMicrosecondPosition()) / 1000;
 			if(TIMES != AbstractSound.LOOP_CONTINUOUSLY)
 				ms *= TIMES;
-			
-			try
-			{
-				do
-				{
+				
+			try {
+				do {
 					Thread.sleep(ms);
-				}
-				while(TIMES == AbstractSound.LOOP_CONTINUOUSLY);
-			}
-			catch(InterruptedException e)
-			{
+				} while(TIMES == AbstractSound.LOOP_CONTINUOUSLY);
+			} catch(InterruptedException e) {
 				seq.stop();
 			}
 		};

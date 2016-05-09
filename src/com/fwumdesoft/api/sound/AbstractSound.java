@@ -10,8 +10,7 @@ import javax.sound.sampled.LineUnavailableException;
  * @author Jason Carrete
  * @since Oct 9, 2014
  */
-public abstract class AbstractSound
-{
+public abstract class AbstractSound {
 	public static final int LOOP_CONTINUOUSLY = Clip.LOOP_CONTINUOUSLY;
 	
 	protected Thread activeThread;
@@ -37,7 +36,6 @@ public abstract class AbstractSound
 	 * Pauses the sound from playing. Has no effect if the sound has already been paused.
 	 */
 	public abstract void pause();
-	
 	
 	/**
 	 * Stops the <tt>activeThread</tt> and flushes the AudioBuffer of the sound file.<br>

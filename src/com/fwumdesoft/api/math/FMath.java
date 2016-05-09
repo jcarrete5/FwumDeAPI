@@ -8,8 +8,7 @@ import java.util.Random;
  * @author Ryan Goldstein
  * @since Oct 18, 2014
  */
-public final class FMath
-{
+public final class FMath {
 	private static final Random RAND = new Random();
 	
 	/**
@@ -21,13 +20,12 @@ public final class FMath
 	 * Computes the factorial of <tt>a</tt>.
 	 * @return The number after its factorial has been computed.
 	 */
-	public static long fact(long a)
-	{
+	public static long fact(long a) {
 		if(a < 0)
 			throw new ArithmeticException("Cannot factorial a number less than 0");
 		if(a == 0)
 			return 1;
-		
+			
 		long b = a;
 		for(long i = a - 1; i > 1; i--)
 			b *= i;
@@ -39,8 +37,7 @@ public final class FMath
 	 * @param x The integer value
 	 * @return 1 or -1
 	 */
-	public static int getSign(double x)
-	{
+	public static int getSign(double x) {
 		return (int)(Math.abs(x) / x);
 	}
 	
@@ -50,11 +47,9 @@ public final class FMath
 	 * @param b Integer 2.
 	 * @return A number that is the gcd of \"a\" and \"b\".
 	 */
-	public static int gcd(int a, int b)
-	{
+	public static int gcd(int a, int b) {
 		//follow Euclidean algorithm
-		while(b != 0)
-		{
+		while(b != 0) {
 			int t = b;
 			b = a % b;
 			a = t;
@@ -68,8 +63,7 @@ public final class FMath
 	 * @param offset One above the maximum value that can be generated.
 	 * @return An integer between 0 and <tt>offset</tt> (exclusive).
 	 */
-	public static int random(int offset)
-	{
+	public static int random(int offset) {
 		return RAND.nextInt(offset);
 	}
 	
@@ -78,12 +72,11 @@ public final class FMath
 	 * @param n The number that is to be processed.
 	 * @return The largest Integer Factor of the specified integer.
 	 */
-	public static int lif(int n)
-	{
+	public static int lif(int n) {
 		int divisor = 2;
 		while(n % divisor != 0)
 			divisor++;
-		
+			
 		return n / divisor;
 	}
 	
@@ -92,30 +85,26 @@ public final class FMath
 	 * @param n The number whose digits should be added together.
 	 * @return The sum of all digits in the specified number.
 	 */
-	public static int sumDigits(int n)
-	{
+	public static int sumDigits(int n) {
 		int sum = 0;
-		while(n != 0)
-		{
+		while(n != 0) {
 			sum += n % 10;
 			n /= 10;
 		}
 		
 		return sum;
 	}
+	
 	/**
 	 * Returns a bitstring with powers of 2 descending
 	 * @param number An integer to convert
 	 * @return A bitstring
 	 */
-	public static boolean[] toBitstring(int number)
-	{
+	public static boolean[] toBitstring(int number) {
 		boolean[] bitstring = new boolean[(int)(Math.log10(number) / Math.log10(2))];
-		for(int i = bitstring.length - 1; i >= 0; i--)
-		{
+		for(int i = bitstring.length - 1; i >= 0; i--) {
 			int power = (int)Math.pow(2, i);
-			if(bitstring[i] = number >= power)
-			{
+			if(bitstring[i] = number >= power) {
 				number -= power;
 			}
 		}
@@ -128,8 +117,7 @@ public final class FMath
 	 * @param bitstring The bitstring to convert
 	 * @return An integer representation of the bitstring
 	 */
-	public static int toInt(boolean[] bitstring)
-	{
+	public static int toInt(boolean[] bitstring) {
 		if(bitstring.length > 32)
 			throw new IllegalArgumentException("Bitstring length must be less than 32 bits.");
 		int result = 0;
@@ -144,16 +132,14 @@ public final class FMath
 	 * (1 larger than the highest possible number)
 	 * @return A random integer array.
 	 */
-	public static int[] uniqueRandomIntArray(int length)
-	{
+	public static int[] uniqueRandomIntArray(int length) {
 		int[] array = new int[length];
 		
 		//fill array
 		for(int i = 0; i < array.length; i++)
 			array[i] = i;
-		
-		for(int i = array.length - 1; i >= 0; i--)
-		{
+			
+		for(int i = array.length - 1; i >= 0; i--) {
 			int randInt = random(i + 1);
 			int tmp = array[i];
 			array[i] = array[randInt];

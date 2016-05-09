@@ -1,6 +1,5 @@
 package com.fwumdesoft.api.graphics;
 
-public enum Backend
-{
+public enum Backend {
 	Libgdx, Java2d;
 }

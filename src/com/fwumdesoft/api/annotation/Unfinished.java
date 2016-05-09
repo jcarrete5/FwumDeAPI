@@ -8,9 +8,10 @@ import java.lang.annotation.Documented;
  * @author Jason Carrete
  */
 @Documented
-public @interface Unfinished
-{
-	public enum Priority {LOW, MEDIUM, HIGH}
+public @interface Unfinished {
+	public enum Priority {
+		LOW, MEDIUM, HIGH
+	}
 	
 	Priority value();
 }

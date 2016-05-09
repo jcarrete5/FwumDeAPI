@@ -12,11 +12,9 @@ import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.util.LinkedList;
 import java.util.List;
-
 import javax.imageio.ImageIO;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
-
 import com.fwumdesoft.api.sound.Sound;
 
 /**
@@ -25,8 +23,7 @@ import com.fwumdesoft.api.sound.Sound;
  * @author Ryan Goldstein
  * @since Oct 7, 2014
  */
-public final class Resource
-{
+public final class Resource {
 	/**
 	 * Can't be instantiated
 	 */
@@ -39,13 +36,11 @@ public final class Resource
 	 * @return A BufferedImage that represents a sprite sheet.
 	 * @throws IOException
 	 */
-	public static BufferedImage getImageAsResource(Class<?> c, String imgPath) throws IOException
-	{
+	public static BufferedImage getImageAsResource(Class<?> c, String imgPath) throws IOException {
 		return ImageIO.read(c.getResource(imgPath));
 	}
 	
-	public static BufferedImage getImage(String imgPath) throws IOException
-	{
+	public static BufferedImage getImage(String imgPath) throws IOException {
 		return ImageIO.read(new File(imgPath));
 	}
 	
@@ -55,8 +50,7 @@ public final class Resource
 	 * @param path The name of the File to be found.
 	 * @return A File in the jarfile.
 	 */
-	public static File getFile(Class<?> c, String path) throws URISyntaxException
-	{
+	public static File getFile(Class<?> c, String path) throws URISyntaxException {
 		return new File(c.getResource(path).toURI());
 	}
 	
@@ -66,8 +60,7 @@ public final class Resource
 	 * @param path The path to the file relative to the class
 	 * @return The input stream created from the file
 	 */
-	public static InputStream getStream(Class<?> c, String path) 
-	{
+	public static InputStream getStream(Class<?> c, String path) {
 		return c.getResourceAsStream(path);
 	}
 	
@@ -77,8 +70,8 @@ public final class Resource
 	 * @param path The path relative to the class to the file
 	 * @return The sound object represented by the file
 	 */
-	public static Sound getSound(Class<?> c, String path) throws IOException, LineUnavailableException, UnsupportedAudioFileException, URISyntaxException
-	{
+	public static Sound getSound(Class<?> c, String path)
+			throws IOException, LineUnavailableException, UnsupportedAudioFileException, URISyntaxException {
 		return new Sound(getFile(c, path));
 	}
 	
@@ -87,20 +80,18 @@ public final class Resource
 	 * @param image The original image
 	 * @return An image with the same content but a compatible format with the display
 	 */
-	public static BufferedImage toCompatibleImage(BufferedImage image)
-	{
+	public static BufferedImage toCompatibleImage(BufferedImage image) {
 		GraphicsConfiguration gfx_config = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration();
-		if (image.getColorModel().equals(gfx_config.getColorModel()))
+		if(image.getColorModel().equals(gfx_config.getColorModel()))
 			return image;
 		BufferedImage new_image = gfx_config.createCompatibleImage(image.getWidth(), image.getHeight(), image.getTransparency());
-		Graphics2D g2d = (Graphics2D) new_image.getGraphics();
+		Graphics2D g2d = (Graphics2D)new_image.getGraphics();
 		g2d.drawImage(image, 0, 0, null);
 		g2d.dispose();
-		return new_image; 
+		return new_image;
 	}
 	
-	public static List<String> readAllLines(File file) throws IOException
-	{
+	public static List<String> readAllLines(File file) throws IOException {
 		BufferedReader reader = new BufferedReader(new FileReader(file));
 		String line;
 		List<String> lines = new LinkedList<>();
@@ -110,8 +101,7 @@ public final class Resource
 		return lines;
 	}
 	
-	public static String readAllText(File file) throws IOException
-	{
+	public static String readAllText(File file) throws IOException {
 		BufferedReader reader = new BufferedReader(new FileReader(file));
 		String line;
 		String text = "";
